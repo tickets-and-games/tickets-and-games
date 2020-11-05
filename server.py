@@ -22,5 +22,6 @@ db.app = app
 
 import users
 import transaction
+import login
 
 db.session.commit()
