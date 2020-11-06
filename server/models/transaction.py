@@ -19,6 +19,3 @@ class Transaction(db.Model):
 class Activity_Type(Enum):
     TRANSFER = "transfer"
     COINFILP = "coinfilp"
-
-
-db.create_all()

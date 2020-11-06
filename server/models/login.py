@@ -8,6 +8,3 @@ class Login(db.Model):
     def __init__(self, username, password):
         self.username = username
         self.password = password
-
-
-db.create_all()

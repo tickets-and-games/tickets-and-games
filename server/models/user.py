@@ -3,7 +3,7 @@ from enum import Enum
 from server import db
 
 
-class Users(db.Model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     oauth_id = db.Column(db.String(64))
     name = db.Column(db.String(64))
@@ -19,6 +19,3 @@ class Users(db.Model):
 class Login_Type(Enum):
     GOOGLE = "google"
     PASSWORD = "password"
-
-
-db.create_all()

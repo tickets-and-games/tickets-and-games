@@ -13,15 +13,10 @@ socketio.init_app(app, cors_allowed_origins="*")
 
 dotenv_path = join(dirname(__file__), "key.env")
 load_dotenv(dotenv_path)
-DATABASE_URL = os.environ["DATABASE_URL"]
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite://database.db")
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = flask_sqlalchemy.SQLAlchemy(app)
-db.init_app(app)
-db.app = app
 
-import users
-import transaction
-import login
-
-db.session.commit()
+import server.models
