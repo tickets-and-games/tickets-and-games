@@ -10,6 +10,9 @@ package-lock.json
 
 # testing
 /coverage
+.coverage
+htmlcov/
+tests/__pycache__/
 
 # production
 /build
