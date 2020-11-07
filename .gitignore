@@ -10,6 +10,8 @@ package-lock.json
 
 # testing
 /coverage
+.coverage
+htmlcov/
 
 # production
 /build
