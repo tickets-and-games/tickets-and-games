@@ -11,8 +11,7 @@ app = flask.Flask(__name__)
 socketio = flask_socketio.SocketIO(app)
 socketio.init_app(app, cors_allowed_origins="*")
 
-dotenv_path = join(dirname(__file__), "key.env")
-load_dotenv(dotenv_path)
+load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite://database.db")
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
