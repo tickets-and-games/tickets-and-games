@@ -1,5 +1,6 @@
-key.env
+*.env
 __pycache__/
+.pylintrc
 
 # dependencies
 /node_modules
