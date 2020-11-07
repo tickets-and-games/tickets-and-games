@@ -10,11 +10,6 @@ class User(db.Model):
     username = db.Column(db.String(64))
     registration_datetime = db.Column(db.DateTime, default=datetime.datetime.utcnow())
 
-    def __init__(self, oauth_id, name, username):
-        self.oauth_id = oauth_id
-        self.name = name
-        self.username = username
-
 
 class Login_Type(Enum):
     GOOGLE = "google"
