@@ -7,15 +7,19 @@ function Leaderboard() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch('/leaderboard').then((res) => res.json()).then((data) => {
-      console.log(data.transactions);
-      setUsers(data.transactions);
-    });
+    fetch('/leaderboard')
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.transactions);
+        setUsers(data.transactions);
+      });
   }, []);
   return (
     <div className="Leaderboard">
       <ol>
-        {users.map((user) => <li>{user}</li>)}
+        {users.map((user) => (
+          <li>{user}</li>
+        ))}
       </ol>
     </div>
   );
