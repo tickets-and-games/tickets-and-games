@@ -1,6 +1,5 @@
 *.env
 __pycache__/
-.pylintrc
 
 # dependencies
 package-lock.json

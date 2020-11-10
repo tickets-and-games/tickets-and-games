@@ -11,6 +11,6 @@ class Transaction(db.Model):
     datetime = db.Column(db.DateTime, default=datetime.datetime.utcnow())
 
 
-class Activity_Type(Enum):
+class ActivityType(Enum):
     TRANSFER = "transfer"
     COINFILP = "coinfilp"

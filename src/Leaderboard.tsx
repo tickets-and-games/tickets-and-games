@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import OrderedList from '../OrderedList';
-// import ListItem from '../ListItem';
-// import mdx from './OrderedList.mdx';
 
 function Leaderboard() {
   const [users, setUsers] = useState([]);
@@ -10,7 +7,6 @@ function Leaderboard() {
     fetch('/leaderboard')
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.transactions);
         setUsers(data.transactions);
       });
   }, []);
