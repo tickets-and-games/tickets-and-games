@@ -1,9 +1,4 @@
-import os
-import sys
-import flask
-import flask_sqlalchemy
-import flask_socketio
-from server import app, db
+from server import db
 
 
 from server.models.transaction import Transaction, ActivityType
