@@ -25,4 +25,4 @@ def get_profile_view(username):
             "total_tickets": total_tickets
         }
     except NoResultFound:
-        return {"error": 500}
+        return {"error": "Result not found"}, 404
