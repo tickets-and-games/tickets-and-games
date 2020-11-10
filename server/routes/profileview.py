@@ -1,6 +1,6 @@
 from sqlalchemy.sql import func
+from sqlalchemy.orm.exc import NoResultFound
 from server import app, db
-
 from server.models.user import User
 from server.models.transaction import Transaction
 
@@ -24,5 +24,5 @@ def get_profile_view(username):
             "registration_datetime": user_profile.registration_datetime,
             "total_tickets": total_tickets
         }
-    except:
+    except NoResultFound:
         return {"error": 500}
