@@ -16,9 +16,9 @@ def get_profile_view(username):
         .filter(Transaction.user_id == user_id)
         .scalar()
     )
-    print(total_tickets)
     return {
         "name": user_profile.name,
         "username": user_profile.username,
         "registration_datetime": user_profile.registration_datetime,
+        "total_tickets": total_tickets
     }
