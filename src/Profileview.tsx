@@ -6,7 +6,7 @@ function Profileview() {
   const [rtime, setRtime] = useState('');
   const [tickets, setTickets] = useState('');
   useEffect(() => {
-    // console.log(window.location.href); // TODO: parse to get user id
+    // TODO: parse to get user id
     const username = 'ak2253'; // TODO: get username from line 5
     const url = 'api/profileview/'.concat(username);
     fetch(url)
@@ -20,10 +20,22 @@ function Profileview() {
   }, []);
   return (
     <div className="Profile">
-      <div className="profile-name">{name}</div>
-      <div className="profile-username">{user}</div>
-      <div className="profile-data">{rtime}</div>
-      <div className="profile-total-tickets">{tickets}</div>
+      <div className="profile-name">
+        Name:&nbsp;
+        {name}
+      </div>
+      <div className="profile-username">
+        Username:&nbsp;
+        { user}
+      </div>
+      <div className="profile-data">
+        User Since:&nbsp;
+        { rtime}
+      </div>
+      <div className="profile-total-tickets">
+        Total Tickets:&nbsp;
+        { tickets}
+      </div>
     </div>
   );
 }
