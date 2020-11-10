@@ -11,6 +11,6 @@ class User(db.Model):
     registration_datetime = db.Column(db.DateTime, default=datetime.datetime.utcnow())
 
 
-class Login_Type(Enum):
+class LoginType(Enum):
     GOOGLE = "google"
     PASSWORD = "password"
