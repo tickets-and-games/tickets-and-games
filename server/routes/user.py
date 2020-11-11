@@ -12,10 +12,13 @@ def get_token_info(token):
     ).json()
 
 
+def query_user(email):
+    user = User.query.filter_by(email=email).one()
+    return user
+
+
 @app.route("/api/login/oauth", methods=["POST"])
 def oauth_login():
-
-    print(request.data)
     try:
         data = json.loads(request.data)
         oauth_token = data["token"]
@@ -28,11 +31,11 @@ def oauth_login():
         email = token_info["email"]
         name = token_info["name"]
 
-        # TODO: Add check if user exists already
-
-        user = User(oauth_id=sub, name=name, email=email)
-        db.session.add(user)
-        db.session.commit()
+        if query_user(email) is None:
+            # User doesn't exist and we should create a new user
+            user = User(oauth_id=sub, name=name, email=email)
+            db.session.add(user)
+            db.session.commit()
 
         return {"success": True}
 
