@@ -4,7 +4,7 @@ from server.models.transaction import Transaction
 from server.models.user import User
 
 
-@app.route("/leaderboard")
+@app.route("/api/leaderboard")
 def get_leader_board():
     all_transactions = (
         db.session.query(User.name, db.func.sum(Transaction.ticket_amount))

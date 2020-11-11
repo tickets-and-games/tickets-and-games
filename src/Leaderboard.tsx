@@ -7,7 +7,7 @@ function Leaderboard() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch('/leaderboard')
+    fetch('/api/leaderboard')
       .then((res) => res.json())
       .then((data) => {
         console.log(data.transactions);
