@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Tickethistory from './Tickethistory';
 
 function Profileview() {
   const [name, setName] = useState('');
@@ -6,8 +7,8 @@ function Profileview() {
   const [rtime, setRtime] = useState('');
   const [tickets, setTickets] = useState('');
   useEffect(() => {
-    // TODO: parse to get user id
-    const username = 'ak2253'; // TODO: get username from line 5
+    // TODO: parse to get url
+    const username = 'ak2253'; // TODO: get username from line 10
     const url = 'api/profileview/'.concat(username);
     fetch(url)
       .then((res) => res.json())
@@ -36,6 +37,7 @@ function Profileview() {
         Total Tickets:&nbsp;
         { tickets}
       </div>
+      <Tickethistory />
     </div>
   );
 }
