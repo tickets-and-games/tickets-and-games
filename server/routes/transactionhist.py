@@ -1,18 +1,13 @@
 from sqlalchemy.orm.exc import NoResultFound
 from server import app, db
-from server.models.user import User
 from server.models.transaction import Transaction
-
+from server.routes.profileview import get_user_profile
 
 @app.route("/api/tickethistory/<username>")
 def get_transaction_history(username):
-    # TODO: check if username from session and username argument match
+    # check if username from session and username argument match
     try:
-        user_profile = (
-            db.session.query(User)
-            .filter(User.username == username)
-            .one()
-        )
+        user_profile = get_user_profile(username)
         user_id = user_profile.id
         ticket_history = (
             db.session.query(Transaction)
