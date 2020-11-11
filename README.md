@@ -3,7 +3,8 @@
 
 To use this repository, please follow the following steps:
 
-Google OAuth Signup-
+# Google OAuth Signup
+
 1) Sign up https://console.developers.google.com/
 2) Click create project
 3) Click new project
@@ -17,12 +18,40 @@ Google OAuth Signup-
 11) For the application name secify something similar to the project name, click save
 12) Back to credentials, create credentials, OAuth Client ID, click web application 
 
-Installation-
-1) Run npm install
 
-Heroku Signup-
+1) Run python -m flask db upgrade
+2) Run python app.py
+3) On a new terminal run npm run start
+
+## Installation 
+
+1) git clone https://github.com/CS490-section03-group0/project3
+2) npm install
+3) Install heroku by running npm install -g heroku
+4) npm install react-google-login
+
+## Heroku Signup and Create
+
 1) Sign up for heroku at heroku.com
-2) Install heroku by running npm install -g heroku
-3) Enter heroku login -i
+2) on the terminal enter heroku login -i
 4) heroku create
-5) git push heroku main
+5) Navigate to your newly-created heroku site
+6) Click configure Add-ons
+7) Search Heroku Postgres and add it
+8) Click on Heroku Postgres 
+9) Click settings 
+10) View Credentials
+11) Copy the URI link
+12) navigate to the .env file
+13) Paste the URI link 
+
+## Running the Program
+
+1) Run python -m flask db upgrade
+2) Run python app.py
+3) On a new terminal run npm run start
+
+## Deploying to Heroku
+
+1) git push heroku master
+2) Navigate to the link and view your site
