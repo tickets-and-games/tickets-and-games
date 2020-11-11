@@ -23,21 +23,23 @@ function Tickethistory() {
       });
   }, []);
   return (
-    <table>
-      <tr>
-        <th> </th>
-        <th>Date</th>
-        <th>Activity</th>
-        <th>Amount</th>
-      </tr>
-      {tHistory.map((row, index) => (
-        <tr key={row.id}>
-          <td>{index + 1}</td>
-          <td>{row.datetime}</td>
-          <td>{row.activity}</td>
-          <td>{row.amount}</td>
+    <table className="transaction-history-table">
+      <tbody className="table-body">
+        <tr>
+          <th> </th>
+          <th>Date</th>
+          <th>Activity</th>
+          <th>Amount</th>
         </tr>
-      ))}
+        {tHistory.map((row, index) => (
+          <tr key={row.id}>
+            <td>{index + 1}</td>
+            <td>{row.datetime}</td>
+            <td>{row.activity}</td>
+            <td>{row.amount}</td>
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 }
