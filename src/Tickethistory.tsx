@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 type Transaction = {
+  id: number
   datetime: Date,
   activity: String,
   amount: number
@@ -30,7 +31,7 @@ function Tickethistory() {
         <th>Amount</th>
       </tr>
       {tHistory.map((row, index) => (
-        <tr>
+        <tr key={row.id}>
           <td>{index + 1}</td>
           <td>{row.datetime}</td>
           <td>{row.activity}</td>

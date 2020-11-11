@@ -11,6 +11,7 @@ from tests.profileview_test import mocked_bad_query, mocked_user_filter
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
 KEY_TICKET_TRANSACTION = "ticketTransaction"
+KEY_ID = "id"
 KEY_DATETIME = "datetime"
 KEY_ACTIVITY = "activity"
 KEY_AMOUNT = "amount"
@@ -44,6 +45,7 @@ class ProfileViewTest(unittest.TestCase):
             KEY_EXPECTED: {
                 KEY_TICKET_TRANSACTION: [
                     {
+                        KEY_ID: 1,
                         KEY_DATETIME: "Tue, 10 Nov 2020 18:19:43 GMT",
                         KEY_ACTIVITY: "COINFILP",
                         KEY_AMOUNT: 50

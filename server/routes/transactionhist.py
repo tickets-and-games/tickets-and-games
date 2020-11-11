@@ -18,6 +18,7 @@ def get_transaction_history(username):
         for row in ticket_history:
             ticket_rows.append(
                 {
+                    "id": row.id,
                     "datetime": row.datetime,
                     "activity": row.activity,
                     "amount": row.ticket_amount
