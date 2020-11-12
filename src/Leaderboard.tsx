@@ -10,12 +10,15 @@ function Leaderboard() {
     fetch('/api/leaderboard')
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.transactions);
+        console.log(data);
         setUsers(data.transactions);
       });
   }, []);
   return (
     <div className="Leaderboard">
+      <h2>Leaderboard of Users</h2>
+      <br />
+      <b><p>Name - Ticket Count</p></b>
       <ol>
         {users.map((user) => (
           <li>{user}</li>
