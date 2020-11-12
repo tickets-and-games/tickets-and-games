@@ -23,13 +23,13 @@ class SqlEnumTest(unittest.TestCase):
 
     def test_success_login_type(self):
         for test_case in self.success_test_params_user:
-            result = table.user.Login_Type(test_case[KEY_INPUT]).name
+            result = table.user.LoginType(test_case[KEY_INPUT]).name
             expected = test_case[KEY_EXPECTED]
             self.assertEqual(expected, result)
 
     def test_success_activity_type(self):
         for test_case in self.success_test_params_transaction:
-            result = table.transaction.Activity_Type(test_case[KEY_INPUT]).name
+            result = table.transaction.ActivityType(test_case[KEY_INPUT]).name
             expected = test_case[KEY_EXPECTED]
             self.assertEqual(expected, result)
 

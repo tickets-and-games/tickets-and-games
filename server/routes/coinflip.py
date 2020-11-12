@@ -8,8 +8,7 @@ from server.models.transaction import Transaction
 
 @app.route("/api/coinflip", methods=["POST", "GET"])
 def coinflip():
-    print("HERROOOOOOO")
-    print(request.data)
+
     try:
         data = json.loads(request.data)
         if int(data["bet"]) > 0:

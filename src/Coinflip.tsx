@@ -42,16 +42,22 @@ function Coinflip() {
   return (
     <div className="Coinflip">
       <h2>Coin Flip Game</h2>
+      <br />
       <p>Enter an amount you would like to wager. </p>
       <p>If you win, you double your tickets. If you lose, you lose all your tickets you bet.</p>
       <img src="https://image.tutpad.com/tut/0/53/11_MONEDA.gif" alt="coinflip" className="coinflipgif" style={{ height: '200px', width: '400px' }} />
       <br />
       <p>Place a Bet in Number of Tickets:</p>
+      <br />
       <input type="text" onChange={onChange} />
       <br />
+      <br />
       <p>Choose heads or tails:</p>
-      <Button type="button" onClick={onHeads}>Heads</Button>
+      <br />
+      <Button type="button" style={{ right: '10px' }} onClick={onHeads}>Heads</Button>
       <Button type="button" onClick={onTails}>Tails</Button>
+      <br />
+      <br />
       <p>{win}</p>
     </div>
   );

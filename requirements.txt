@@ -4,4 +4,8 @@ Flask-Migrate
 Flask-SocketIO
 Flask-SQLAlchemy
 psycopg2
+pylint
+pylint-flask
+pylint-flask-sqlalchemy
 python-dotenv
+requests
