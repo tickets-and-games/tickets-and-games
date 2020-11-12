@@ -8,3 +8,4 @@ pylint
 pylint-flask
 pylint-flask-sqlalchemy
 python-dotenv
+requests
