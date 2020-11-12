@@ -1,13 +1,32 @@
 import React from 'react';
+import {
+  BrowserRouter as Router, Switch, Route,
+} from 'react-router-dom';
+
+import { Content } from 'carbon-components-react';
+
 import './App.css';
+import AppHeader from './AppHeader';
 import Leaderboard from './Leaderboard';
-// import Coinflip from './Coinflip';
+import Profileview from './Profileview';
 
 function App() {
   return (
-    <div className="App">
-      <Leaderboard />
-    </div>
+    <Router>
+      <div className="App">
+        <AppHeader />
+        <Content>
+          <Switch>
+            <Route path="/leaderboard">
+              <Leaderboard />
+            </Route>
+            <Route path="/profile">
+              <Profileview />
+            </Route>
+          </Switch>
+        </Content>
+      </div>
+    </Router>
   );
 }
 

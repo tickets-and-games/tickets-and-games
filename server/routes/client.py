@@ -1,5 +1,5 @@
 import flask
-from server import app, db
+from server import app
 
 
 @app.route("/", defaults={"filename": "index.html"})
