@@ -26,7 +26,7 @@ function AppHeader() {
         <HeaderMenuItem element={Link} to="/leaderboard">
           Leaderboard
         </HeaderMenuItem>
-        <HeaderMenuItem element={Link} to='/coinflip'>
+        <HeaderMenuItem element={Link} to="/coinflip">
           Coinflip Game
         </HeaderMenuItem>
       </HeaderNavigation>

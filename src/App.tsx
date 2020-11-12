@@ -5,7 +5,7 @@ import {
 
 import { Content } from 'carbon-components-react';
 
-import './app.scss';
+// import './app.scss';
 import AppHeader from './AppHeader';
 import Leaderboard from './Leaderboard';
 import Profileview from './Profileview';
