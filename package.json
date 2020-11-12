@@ -3,11 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-    "@carbon/icons-react": "^10.3.0",
-=======
-    "@carbon/type": "^10.17.0",
->>>>>>> main
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -15,10 +10,10 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.8",
-    "carbon-components": "^10.3.0",
-    "carbon-components-react": "^7.3.0",
+    "carbon-components": "^10.23.2",
+    "carbon-components-react": "^7.23.2",
     "carbon-icons": "^7.0.7",
-    "node-sass": "^4.14.1",
+    "node-sass": "^4.12.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
