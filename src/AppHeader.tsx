@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  useHistory,
+  Link,
 } from 'react-router-dom';
 import {
   Header,
@@ -10,22 +10,23 @@ import {
 } from 'carbon-components-react';
 
 function AppHeader() {
-  const history = useHistory();
-
   return (
     <Header aria-label="Tickets and Games">
       <HeaderName prefix="">Tickets and Games</HeaderName>
       <HeaderNavigation aria-label="Tickets and Games">
-        <HeaderMenuItem onClick={() => history.push('/')}>
+        {/* @ts-ignore component type not declared well */}
+        <HeaderMenuItem element={Link} to="/">
           Home
         </HeaderMenuItem>
-        <HeaderMenuItem onClick={() => history.push('/profile')}>
+        {/* @ts-ignore */}
+        <HeaderMenuItem element={Link} to="/profile">
           Profile
         </HeaderMenuItem>
-        <HeaderMenuItem onClick={() => history.push('/leaderboard')}>
+        {/* @ts-ignore */}
+        <HeaderMenuItem element={Link} to="/leaderboard">
           Leaderboard
         </HeaderMenuItem>
-        <HeaderMenuItem onClick={() => history.push('/coinflip')}>
+        <HeaderMenuItem element={Link} to='/coinflip'>
           Coinflip Game
         </HeaderMenuItem>
       </HeaderNavigation>
