@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Tickethistory from './Tickethistory';
+import TicketHistory from './TicketHistory';
 
 function Profileview() {
   const [name, setName] = useState('');
@@ -37,7 +37,7 @@ function Profileview() {
         Total Tickets:&nbsp;
         { tickets}
       </div>
-      <Tickethistory />
+      <TicketHistory />
     </div>
   );
 }

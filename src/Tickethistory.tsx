@@ -10,7 +10,7 @@ type TransactionList = {
   ticketTransaction: Array<Transaction>
 };
 
-function Tickethistory() {
+function TicketHistory() {
   const [tHistory, setTHistory] = useState<Array<Transaction>>([]);
   useEffect(() => {
     // TODO: parse to get url
@@ -44,4 +44,4 @@ function Tickethistory() {
   );
 }
 
-export default Tickethistory;
+export default TicketHistory;

@@ -1,3 +1,3 @@
 import tests.model_enum_test
 import tests.profileview_test
-import tests.transactionhist_test
+import tests.transaction_history_test

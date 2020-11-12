@@ -5,7 +5,7 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from server.routes.transactionhist import get_transaction_history
+from server.routes.transaction_history import get_transaction_history
 from tests.profileview_test import mocked_bad_query, mocked_user_filter
 
 KEY_INPUT = "input"
