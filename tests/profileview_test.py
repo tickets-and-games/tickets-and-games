@@ -51,7 +51,7 @@ class MockedUserData():
 
 class ProfileViewTest(unittest.TestCase):
     def setUp(self):
-        self.success_test_params = [
+        self.success_test_params_proview = [
         {
             KEY_INPUT: "ak2253",
             KEY_EXPECTED: {
@@ -62,14 +62,14 @@ class ProfileViewTest(unittest.TestCase):
             }
         },
         {
-            KEY_INPUT: "bad input",
+            KEY_INPUT: "bad bad input",
             KEY_EXPECTED: ({'error': 'Result not found'}, 404)
         }]
 
     def test_success_profile_view(self):
-        for test_case in self.success_test_params:
+        for test_case in self.success_test_params_proview:
             expected = test_case[KEY_EXPECTED]
-            if test_case[KEY_INPUT] == "bad input":
+            if test_case[KEY_INPUT] == "bad bad input":
                 with mock.patch("server.db.session.query", mocked_bad_query):
                     result = get_profile_view(test_case[KEY_INPUT])
                 self.assertEqual(expected, result)
