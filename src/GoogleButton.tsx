@@ -6,7 +6,7 @@ function googleLogin(googleUser: any) {
     method: 'POST',
     headers: new Headers({ 'content-type': 'application/json' }),
     mode: 'no-cors',
-    body: JSON.stringify({ tokenId: googleUser?.tokenId }),
+    body: JSON.stringify({ token: googleUser?.token }),
   });
 }
 
