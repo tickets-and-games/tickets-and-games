@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Coinflip.css';
-// import OrderedList from '../OrderedList';
-// import ListItem from '../ListItem';
-// import mdx from './OrderedList.mdx';
+import { Button } from 'carbon-components-react';
 
 function Coinflip() {
   // const [users, setUsers] = useState([]);
@@ -52,8 +50,8 @@ function Coinflip() {
       <input type="text" onChange={onChange} />
       <br />
       <p>Choose heads or tails:</p>
-      <button type="button" onClick={onHeads}>Heads</button>
-      <button type="button" onClick={onTails}>Tails</button>
+      <Button type="button" onClick={onHeads}>Heads</Button>
+      <Button type="button" onClick={onTails}>Tails</Button>
       <p>{win}</p>
     </div>
   );
