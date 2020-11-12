@@ -8,7 +8,7 @@ function Profileview() {
   const [tickets, setTickets] = useState('');
   useEffect(() => {
     // TODO: parse to get url
-    const username = 'ak2253'; // TODO: get username from line 10
+    const username = '1'; // TODO: get username from line 10
     const url = 'api/profileview/'.concat(username);
     fetch(url)
       .then((res) => res.json())

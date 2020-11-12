@@ -14,7 +14,7 @@ function TicketHistory() {
   const [tHistory, setTHistory] = useState<Array<Transaction>>([]);
   useEffect(() => {
     // TODO: parse to get url
-    const username = 'ak2253'; // TODO: get username from line 15
+    const username = '1'; // TODO: get username from line 15
     const url = 'api/tickethistory/'.concat(username);
     fetch(url)
       .then((res) => res.json())

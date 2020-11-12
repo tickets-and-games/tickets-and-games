@@ -1,31 +1,35 @@
+import flask
 from sqlalchemy.orm.exc import NoResultFound
 from server import app, db
 from server.models.transaction import Transaction
-from server.routes.profileview import get_user_profile
 
-@app.route("/api/tickethistory/<username>")
-def get_transaction_history(username):
-    # check if username from session and username argument match
-    try:
-        user_profile = get_user_profile(username)
-        user_id = user_profile.id
-        ticket_history = (
-            db.session.query(Transaction)
-            .filter(Transaction.user_id == user_id)
-            .all()
-        )
-        ticket_rows = []
-        for row in ticket_history:
-            ticket_rows.append(
-                {
-                    "id": row.id,
-                    "datetime": row.datetime,
-                    "activity": row.activity,
-                    "amount": row.ticket_amount
+@app.route("/api/tickethistory/<user_id>")
+def get_transaction_history(user_id):
+    flask.session['user_id'] = '1' # delete in future (off for unittest) (on for webpage)
+    if 'user_id' in flask.session:
+        if user_id == flask.session['user_id']:
+            try:
+                ticket_history = (
+                    db.session.query(Transaction)
+                    .filter(Transaction.user_id == user_id)
+                    .all()
+                )
+                ticket_rows = []
+                for row in ticket_history:
+                    ticket_rows.append(
+                        {
+                            "id": row.id,
+                            "datetime": row.datetime,
+                            "activity": row.activity,
+                            "amount": row.ticket_amount
+                        }
+                    )
+                return {
+                    "ticketTransaction": ticket_rows
                 }
-            )
-        return {
-            "ticketTransaction": ticket_rows
-        }
-    except NoResultFound:
-        return {"error": "Result not found"}, 404
+            except NoResultFound:
+                return {"error": "Result not found"}, 404
+        else:
+            return {"result": "Not right user"}
+    else:
+        return {"error": "client not suppose to be here"}, 404
