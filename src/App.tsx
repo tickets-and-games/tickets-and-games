@@ -5,7 +5,7 @@ import {
 
 import { Content } from 'carbon-components-react';
 
-import './App.css';
+import './app.scss';
 import AppHeader from './AppHeader';
 import Leaderboard from './Leaderboard';
 import Profileview from './Profileview';
@@ -17,6 +17,9 @@ function App() {
         <AppHeader />
         <Content>
           <Switch>
+            <Route path="/">
+              <Leaderboard />
+            </Route>
             <Route path="/leaderboard">
               <Leaderboard />
             </Route>
