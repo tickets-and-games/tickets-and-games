@@ -10,3 +10,4 @@ pylint-flask-sqlalchemy
 python-dotenv
 requests
 alchemy_mock
+Flask-Session

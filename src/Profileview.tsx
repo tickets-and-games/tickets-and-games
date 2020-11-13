@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import TicketHistory from './TicketHistory';
 
 function Profileview() {
@@ -6,18 +7,22 @@ function Profileview() {
   const [user, setUser] = useState('');
   const [rtime, setRtime] = useState('');
   const [tickets, setTickets] = useState('');
+  const routerUrl = useLocation();
+
   useEffect(() => {
-    // TODO: parse to get url
-    const username = 'ak2253'; // TODO: get username from line 10
-    const url = 'api/profileview/'.concat(username);
-    fetch(url)
+    const currentUrl = routerUrl.pathname;
+    const index = currentUrl.lastIndexOf('/');
+    const userId = currentUrl.substr(index + 1);
+    const requestUrl = 'api/profileview/'.concat(userId);
+    fetch(requestUrl)
       .then((res) => res.json())
       .then((data) => {
         setName(data.name);
         setUser(data.username);
         setRtime(data.registration_datetime);
         setTickets(data.total_tickets);
-      });
+      })
+      .catch((error) => (<div className="Profile">{error}</div>));
   }, []);
   return (
     <div className="Profile">
