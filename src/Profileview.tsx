@@ -12,7 +12,7 @@ function Profileview() {
   const [rtime, setRtime] = useState('');
   const [tickets, setTickets] = useState('');
   const { userId } = useParams<Params>();
-  const requestUrl = '/api/profileview/'.concat(userId);
+  const requestUrl = userId ? '/api/profileview/'.concat(userId) : '/api/profileview';
 
   useEffect(() => {
     fetch(requestUrl)
@@ -25,6 +25,7 @@ function Profileview() {
       })
       .catch((error) => (<div className="Profile">{error}</div>));
   }, []);
+
   return (
     <div className="Profile">
       <div className="profile-name">

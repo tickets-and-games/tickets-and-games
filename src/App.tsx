@@ -9,6 +9,7 @@ import './App.css';
 import AppHeader from './AppHeader';
 import Leaderboard from './Leaderboard';
 import Profileview from './Profileview';
+import Login from './Login';
 
 function App() {
   return (
@@ -20,8 +21,11 @@ function App() {
             <Route path="/leaderboard">
               <Leaderboard />
             </Route>
-            <Route path="/profile/:userId" defaultParams={{ userId: '' }}>
+            <Route path="/profile/:userId?" defaultParams={{ userId: '' }}>
               <Profileview />
+            </Route>
+            <Route path="/login">
+              <Login />
             </Route>
           </Switch>
         </Content>

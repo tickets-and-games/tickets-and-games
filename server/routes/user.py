@@ -1,5 +1,5 @@
 import json
-from flask import request
+from flask import request, session
 import requests
 
 from server import app, db
@@ -13,7 +13,7 @@ def get_token_info(token):
 
 
 def query_user(email):
-    user = User.query.filter_by(email=email).one()
+    user = User.query.filter_by(email=email).first()
     return user
 
 
@@ -31,13 +31,18 @@ def oauth_login():
         email = token_info["email"]
         name = token_info["name"]
 
+        user = query_user(email)
         if query_user(email) is None:
             # User doesn't exist and we should create a new user
             user = User(oauth_id=sub, name=name, email=email)
             db.session.add(user)
             db.session.commit()
 
-        return {"success": True}
+        session["user_id"] = user.id
+
+        print(session)
+
+        return {"success": True, "user_id": session["user_id"]}
 
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400

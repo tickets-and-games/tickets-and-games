@@ -17,10 +17,12 @@ KEY_DATETIME = "datetime"
 KEY_ACTIVITY = "activity"
 KEY_AMOUNT = "amount"
 
+
 def mocked_iterable():
     mocked_iter = mock.Mock()
     mocked_iter.all.return_value = iter([MockedTransData()])
     return mocked_iter
+
 
 def mocked_transaction_query(table):
     if str(table) == "<class 'server.models.transaction.Transaction'>":
@@ -29,77 +31,89 @@ def mocked_transaction_query(table):
         return mocked_query_all
     return "The given table was not Transaction."
 
-class MockedTransData():
+
+class MockedTransData:
     id = 1
     datetime = "Tue, 10 Nov 2020 18:19:43 GMT"
     activity = "COINFILP"
     ticket_amount = 50
 
+
 class ProfileViewTest(unittest.TestCase):
     def setUp(self):
-        server.app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "DEFAULT_KEY")
+        server.app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "DEFAULT_KEY")
         self.app = server.app.test_client()
         self.success_test_params_transhist = [
-        {
-            KEY_INPUT: "1",
-            KEY_EXPECTED: {
-                KEY_TICKET_TRANSACTION: [
-                    {
-                        KEY_ID: 1,
-                        KEY_DATETIME: "Tue, 10 Nov 2020 18:19:43 GMT",
-                        KEY_ACTIVITY: "COINFILP",
-                        KEY_AMOUNT: 50
-                    }
-            ]}
-        },
-        {
-            KEY_INPUT: "7", # number has no transaction
-            KEY_EXPECTED: {'ticketTransaction': []}
-        },
-        {
-            KEY_INPUT: "13", # number not exist
-            KEY_EXPECTED: {'ticketTransaction': []}
-        },
-        {
-            KEY_INPUT: "Intruder input",
-            KEY_EXPECTED: ({'error': 'client not suppose to be here'})
-        }]
+            {
+                KEY_INPUT: "1",
+                KEY_EXPECTED: {
+                    KEY_TICKET_TRANSACTION: [
+                        {
+                            KEY_ID: 1,
+                            KEY_DATETIME: "Tue, 10 Nov 2020 18:19:43 GMT",
+                            KEY_ACTIVITY: "COINFILP",
+                            KEY_AMOUNT: 50,
+                        }
+                    ]
+                },
+            },
+            {
+                KEY_INPUT: "7",  # number has no transaction
+                KEY_EXPECTED: {"ticketTransaction": []},
+            },
+            {
+                KEY_INPUT: "13",  # number not exist
+                KEY_EXPECTED: {"ticketTransaction": []},
+            },
+            {
+                KEY_INPUT: "Intruder input",
+                KEY_EXPECTED: ({"error": "client not suppose to be here"}),
+            },
+        ]
+
     def test_success_transaction_history(self):
         for test_case in self.success_test_params_transhist:
             expected = test_case[KEY_EXPECTED]
             if test_case[KEY_INPUT] == "Intruder input":
                 with self.app as client:
                     with client.session_transaction() as client_session:
-                        client_session['not user_id'] = "1"
-                    res = client.get('/profile/api/tickethistory/'+test_case[KEY_INPUT])
-                    result = json.loads(res.data.decode('utf-8'))
-                    self.assertEqual(expected,result)
+                        client_session["not user_id"] = "1"
+                    res = client.get("/api/tickethistory/" + test_case[KEY_INPUT])
+                    result = json.loads(res.data.decode("utf-8"))
+                    self.assertEqual(expected, result)
             elif test_case[KEY_INPUT] == "13":
                 with self.app as client:
                     with client.session_transaction() as client_session:
-                        client_session['user_id'] = "not 13"
+                        client_session["user_id"] = "not 13"
                     with mock.patch("server.db.session.query", mocked_bad_query):
-                        res = client.get('/profile/api/tickethistory/'+test_case[KEY_INPUT])
-                        result = json.loads(res.data.decode('utf-8'))
+                        res = client.get("/api/tickethistory/" + test_case[KEY_INPUT])
+                        result = json.loads(res.data.decode("utf-8"))
                         self.assertEqual(expected, result)
             elif test_case[KEY_INPUT] == "7":
                 with self.app as client:
                     with client.session_transaction() as client_session:
-                        client_session['user_id'] = "7"
+                        client_session["user_id"] = "7"
                     with mock.patch("server.db.session.query", mocked_bad_query):
-                        res = client.get('/profile/api/tickethistory/'+test_case[KEY_INPUT])
-                        result = json.loads(res.data.decode('utf-8'))
+                        res = client.get(
+                            "/api/tickethistory/" + test_case[KEY_INPUT]
+                        )
+                        result = json.loads(res.data.decode("utf-8"))
                         self.assertEqual(expected, result)
             else:
                 with self.app as client:
                     with client.session_transaction() as client_session:
-                        client_session['user_id'] = "1"
-                    with mock.patch("server.db.session.query", mocked_transaction_query):
-                        res = client.get('/profile/api/tickethistory/'+test_case[KEY_INPUT])
-                        result = json.loads(res.data.decode('utf-8'))
+                        client_session["user_id"] = "1"
+                    with mock.patch(
+                        "server.db.session.query", mocked_transaction_query
+                    ):
+                        res = client.get(
+                            "/api/tickethistory/" + test_case[KEY_INPUT]
+                        )
+                        result = json.loads(res.data.decode("utf-8"))
                         self.assertDictEqual(expected, result)
             with self.app.session_transaction() as client_session:
                 client_session.clear()
+
 
 if __name__ == "__main__":
     unittest.main()
