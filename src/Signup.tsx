@@ -20,7 +20,7 @@ function Signup() {
       || tpassword1 === '' || tpassword2 === '') setEMessage('Please fill in all fields.');
     else if (tpassword1 !== tpassword2) setEMessage('Passwords do not match. Please try again.');
     else {
-      fetch('/api/login/password', {
+      fetch('/api/signup/password', {
         method: 'POST',
         headers: new Headers({ 'content-type': 'application/json' }),
         mode: 'no-cors',
