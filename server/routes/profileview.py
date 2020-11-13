@@ -1,6 +1,5 @@
 from sqlalchemy.sql import func
 from sqlalchemy.orm.exc import NoResultFound
-from flask import session
 from server import app, db
 from server.models.user import User
 from server.models.transaction import Transaction

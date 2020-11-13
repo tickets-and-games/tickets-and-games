@@ -56,7 +56,7 @@ class ProfileViewTest(unittest.TestCase):
         },
         {
             KEY_INPUT: "13", # number not exist
-            KEY_EXPECTED: {'result': 'Not right user'}
+            KEY_EXPECTED: {'ticketTransaction': []}
         },
         {
             KEY_INPUT: "Intruder input",

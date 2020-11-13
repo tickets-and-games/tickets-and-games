@@ -1,13 +1,13 @@
-import flask
+from flask import session
 from sqlalchemy.orm.exc import NoResultFound
 from server import app, db
 from server.models.transaction import Transaction
 
 @app.route("/profile/api/tickethistory/<user_id>")
 def get_transaction_history(user_id):
-    flask.session['user_id'] = '1' # delete in future (off for unittest) (on for webpage)
-    if 'user_id' in flask.session:
-        if user_id == flask.session['user_id']:
+    session['user_id'] = '1' # delete in future (off for unittest) (on for webpage)
+    if 'user_id' in session:
+        if user_id == session['user_id']:
             try:
                 ticket_history = (
                     db.session.query(Transaction)
@@ -30,6 +30,9 @@ def get_transaction_history(user_id):
             except NoResultFound:
                 return {"error": "Result not found"}, 404
         else:
-            return {"result": "Not right user"}
+            invalid_history = []
+            return {
+                "ticketTransaction": invalid_history
+            }
     else:
         return {"error": "client not suppose to be here"}, 404
