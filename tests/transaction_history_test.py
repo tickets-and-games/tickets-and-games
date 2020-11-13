@@ -37,7 +37,7 @@ class MockedTransData():
 
 class ProfileViewTest(unittest.TestCase):
     def setUp(self):
-        server.app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+        server.app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "DEFAULT_KEY")
         self.app = server.app.test_client()
         self.success_test_params_transhist = [
         {
