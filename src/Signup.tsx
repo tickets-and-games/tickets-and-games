@@ -30,7 +30,13 @@ function Signup() {
           email: temail,
           password: tpassword1,
         }),
-      });
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.user_id);
+          // reroute to homepage
+        })
+        .catch((error) => setEMessage(error.error));
     }
   }
   function handleParams(event) {
