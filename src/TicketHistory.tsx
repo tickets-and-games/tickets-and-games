@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 type Transaction = {
   id: number
@@ -7,26 +7,37 @@ type Transaction = {
   activity: String,
   amount: number
 };
+
 type TransactionList = {
   ticketTransaction: Array<Transaction>
 };
 
+type Params = {
+  userId: string;
+};
+
 function TicketHistory() {
   const [tHistory, setTHistory] = useState<Array<Transaction>>([]);
-  const routerUrl = useLocation();
+  const { userId } = useParams<Params>();
+  const requestUrl = userId ? '/api/tickethistory/'.concat(userId) : '/api/tickethistory';
+
   useEffect(() => {
-    const currentUrl = routerUrl.pathname;
-    const index = currentUrl.lastIndexOf('/');
-    const userId = currentUrl.substr(index + 1);
-    const requestUrl = 'api/tickethistory/'.concat(userId);
     fetch(requestUrl)
-      .then((res) => res.json())
-      .then((data:TransactionList) => {
-        setTHistory(data.ticketTransaction);
-      }).catch(() => (
+      .then((res) => {
+        if (res.status === 200) {
+          res.json().then((data: TransactionList) => {
+            setTHistory(data.ticketTransaction);
+          });
+        } else {
+          setTHistory([]);
+        }
+      })
+      .catch(() => (
+        // TODO: Show error message to user
         setTHistory([])
       ));
   }, []);
+
   if (tHistory.length !== 0) {
     return (
       <table className="transaction-history-table">
@@ -50,9 +61,7 @@ function TicketHistory() {
     );
   }
   return (
-    <table className="transaction-history-table">
-      <tbody className="table-body" />
-    </table>
+    <div>No transaction history</div>
   );
 }
 
