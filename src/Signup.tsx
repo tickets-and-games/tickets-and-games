@@ -8,65 +8,80 @@ function Signup() {
     password1: '',
     password2: '',
   });
+  const [eMessage, setEMessage] = useState('');
   function SigningUp() {
-    fetch('/api/login/password', {
-      method: 'POST',
-      headers: new Headers({ 'content-type': 'application/json' }),
-      mode: 'no-cors',
-      // Do stuff
-    });
+    const tname = params.name.trim();
+    const tusername = params.username.trim();
+    const temail = params.email.trim();
+    const tpassword1 = params.password1.trim();
+    const tpassword2 = params.password2.trim();
+
+    if (tname === '' || tusername === '' || temail === ''
+      || tpassword1 === '' || tpassword2 === '') setEMessage('Please fill in all fields.');
+    else if (tpassword1 !== tpassword2) setEMessage('Passwords do not match. Please try again.');
+    else {
+      fetch('/api/login/password', {
+        method: 'POST',
+        headers: new Headers({ 'content-type': 'application/json' }),
+        mode: 'no-cors',
+        // Do stuff
+      });
+    }
   }
   function handleParams(event) {
-    const { value } = event.target.value;
+    const { value: NewValue } = event.target;
     setParams({
       ...params,
-      [event.target.name]: value,
+      [event.target.name]: NewValue,
     });
   }
   return (
-    <form className="signup-form" onSubmit={SigningUp}>
-      <div className="form-label">Name</div>
-      <input
-        type="text"
-        name="name"
-        className="signup-name"
-        value={params.name}
-        onChange={handleParams}
-      />
-      <div className="form-label">Username</div>
-      <input
-        type="text"
-        name="username"
-        className="signup-username"
-        value={params.username}
-        onChange={handleParams}
-      />
-      <div className="form-label">Email</div>
-      <input
-        type="text"
-        name="email"
-        className="signup-email"
-        value={params.email}
-        onChange={handleParams}
-      />
-      <div className="form-label">Password</div>
-      <input
-        type="text"
-        name="passsword1"
-        className="signup-password"
-        value={params.password1}
-        onChange={handleParams}
-      />
-      <div className="form-label">Enter Password Again</div>
-      <input
-        type="text"
-        name="password2"
-        className="signup-password"
-        value={params.password2}
-        onChange={handleParams}
-      />
-      <input type="submit" value="Submit" />
-    </form>
+    <div className="sign-form-box">
+      <form className="signup-form">
+        <div className="form-label">Name</div>
+        <input
+          type="text"
+          name="name"
+          className="signup-name"
+          defaultValue={params.name}
+          onChange={handleParams}
+        />
+        <div className="form-label">Username</div>
+        <input
+          type="text"
+          name="username"
+          className="signup-username"
+          defaultValue={params.username}
+          onChange={handleParams}
+        />
+        <div className="form-label">Email</div>
+        <input
+          type="text"
+          name="email"
+          className="signup-email"
+          defaultValue={params.email}
+          onChange={handleParams}
+        />
+        <div className="form-label">Password</div>
+        <input
+          type="text"
+          name="password1"
+          className="signup-password"
+          defaultValue={params.password1}
+          onChange={handleParams}
+        />
+        <div className="form-label">Enter Password Again</div>
+        <input
+          type="text"
+          name="password2"
+          className="signup-password"
+          defaultValue={params.password2}
+          onChange={handleParams}
+        />
+      </form>
+      <button type="button" value="Submit" onClick={SigningUp}>Submit</button>
+      <div className="signup-error-box">{eMessage}</div>
+    </div>
   );
 }
 
