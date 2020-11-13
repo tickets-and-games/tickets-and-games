@@ -7,7 +7,6 @@ from server import app, db
 
 from server.models.transaction import Transaction
 
-
 @app.route("/api/coinflip", methods=["POST", "GET"])
 def coinflip():
 
@@ -29,7 +28,6 @@ def coinflip():
 
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
-
 
 def set_side():
     guess = randint(0, 1)
