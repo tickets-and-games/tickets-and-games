@@ -13,7 +13,7 @@ socketio.init_app(app, cors_allowed_origins="*")
 
 load_dotenv()
 app.secret_key = os.getenv("SECRET_KEY", "DEFAULT_KEY")
-app.config['SESSION_TYPE'] = 'filesystem'
+app.config["SESSION_TYPE"] = "filesystem"
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite://database.db")
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
