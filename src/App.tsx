@@ -20,7 +20,7 @@ function App() {
             <Route path="/leaderboard">
               <Leaderboard />
             </Route>
-            <Route path="/profile/:userId">
+            <Route path="/profile/:userId" defaultParams={{ userId: '' }}>
               <Profileview />
             </Route>
           </Switch>

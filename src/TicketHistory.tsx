@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 type Transaction = {
   id: number
@@ -7,18 +7,21 @@ type Transaction = {
   activity: String,
   amount: number
 };
+
 type TransactionList = {
   ticketTransaction: Array<Transaction>
 };
 
+type Params = {
+  userId: string;
+};
+
 function TicketHistory() {
   const [tHistory, setTHistory] = useState<Array<Transaction>>([]);
-  const routerUrl = useLocation();
+  const { userId } = useParams<Params>();
+  const requestUrl = 'api/profileview/'.concat(userId);
+
   useEffect(() => {
-    const currentUrl = routerUrl.pathname;
-    const index = currentUrl.lastIndexOf('/');
-    const userId = currentUrl.substr(index + 1);
-    const requestUrl = 'api/tickethistory/'.concat(userId);
     fetch(requestUrl)
       .then((res) => res.json())
       .then((data:TransactionList) => {
@@ -27,6 +30,7 @@ function TicketHistory() {
         setTHistory([])
       ));
   }, []);
+
   if (tHistory.length !== 0) {
     return (
       <table className="transaction-history-table">
