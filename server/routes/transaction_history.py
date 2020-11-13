@@ -5,7 +5,7 @@ from server.models.transaction import Transaction
 
 @app.route("/profile/api/tickethistory/<user_id>")
 def get_transaction_history(user_id):
-    session['user_id'] = '1' # delete in future (off for unittest) (on for webpage)
+    # session['user_id'] = '1' # delete in future (off for unittest) (on for webpage)
     if 'user_id' in session:
         if user_id == session['user_id']:
             try:
