@@ -23,10 +23,17 @@ function TicketHistory() {
 
   useEffect(() => {
     fetch(requestUrl)
-      .then((res) => res.json())
-      .then((data:TransactionList) => {
-        setTHistory(data.ticketTransaction);
-      }).catch(() => (
+      .then((res) => {
+        if (res.status === 200) {
+          res.json().then((data: TransactionList) => {
+            setTHistory(data.ticketTransaction);
+          });
+        } else {
+          setTHistory([]);
+        }
+      })
+      .catch(() => (
+        // TODO: Show error message to user
         setTHistory([])
       ));
   }, []);
