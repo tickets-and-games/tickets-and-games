@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import TicketHistory from './TicketHistory';
+
+type Params = {
+  userId: string;
+};
 
 function Profileview() {
   const [name, setName] = useState('');
   const [user, setUser] = useState('');
   const [rtime, setRtime] = useState('');
   const [tickets, setTickets] = useState('');
-  const routerUrl = useLocation();
+  const { userId } = useParams<Params>();
+  const requestUrl = userId ? '/api/profileview/'.concat(userId) : '/api/profileview';
 
   useEffect(() => {
-    const currentUrl = routerUrl.pathname;
-    const index = currentUrl.lastIndexOf('/');
-    const userId = currentUrl.substr(index + 1);
-    const requestUrl = 'api/profileview/'.concat(userId);
     fetch(requestUrl)
       .then((res) => res.json())
       .then((data) => {
@@ -24,6 +25,7 @@ function Profileview() {
       })
       .catch((error) => (<div className="Profile">{error}</div>));
   }, []);
+
   return (
     <div className="Profile">
       <div className="profile-name">
