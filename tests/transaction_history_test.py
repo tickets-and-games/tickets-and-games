@@ -6,7 +6,6 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from server import app
 import server
 from tests.profileview_test import mocked_bad_query
 
@@ -38,7 +37,7 @@ class MockedTransData():
 
 class ProfileViewTest(unittest.TestCase):
     def setUp(self):
-        app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+        server.app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
         self.app = server.app.test_client()
         self.success_test_params_transhist = [
         {
@@ -69,14 +68,14 @@ class ProfileViewTest(unittest.TestCase):
         for test_case in self.success_test_params_transhist:
             expected = test_case[KEY_EXPECTED]
             if test_case[KEY_INPUT] == "Intruder input":
-                with app.test_client() as client:
+                with self.app as client:
                     with client.session_transaction() as client_session:
                         client_session['not user_id'] = "1"
                     res = client.get('/profile/api/tickethistory/'+test_case[KEY_INPUT])
                     result = json.loads(res.data.decode('utf-8'))
                     self.assertEqual(expected,result)
             elif test_case[KEY_INPUT] == "13":
-                with app.test_client() as client:
+                with self.app as client:
                     with client.session_transaction() as client_session:
                         client_session['user_id'] = "not 13"
                     with mock.patch("server.db.session.query", mocked_bad_query):
@@ -84,7 +83,7 @@ class ProfileViewTest(unittest.TestCase):
                         result = json.loads(res.data.decode('utf-8'))
                         self.assertEqual(expected, result)
             elif test_case[KEY_INPUT] == "7":
-                with app.test_client() as client:
+                with self.app as client:
                     with client.session_transaction() as client_session:
                         client_session['user_id'] = "7"
                     with mock.patch("server.db.session.query", mocked_bad_query):
@@ -92,15 +91,15 @@ class ProfileViewTest(unittest.TestCase):
                         result = json.loads(res.data.decode('utf-8'))
                         self.assertEqual(expected, result)
             else:
-                with app.test_client() as client:
+                with self.app as client:
                     with client.session_transaction() as client_session:
                         client_session['user_id'] = "1"
                     with mock.patch("server.db.session.query", mocked_transaction_query):
                         res = client.get('/profile/api/tickethistory/'+test_case[KEY_INPUT])
                         result = json.loads(res.data.decode('utf-8'))
                         self.assertDictEqual(expected, result)
-
-
+            with self.app.session_transaction() as client_session:
+                client_session.clear()
 
 if __name__ == "__main__":
     unittest.main()
