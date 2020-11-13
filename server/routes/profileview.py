@@ -4,15 +4,14 @@ from server import app, db
 from server.models.user import User
 from server.models.transaction import Transaction
 
+
 def get_user_profile(user_id):
-    user_profile = (
-        db.session.query(User)
-        .filter(User.id == user_id)
-        .one()
-    )
+    user_profile = db.session.query(User).filter(User.id == user_id).one()
     return user_profile
 
-@app.route("/profile/api/profileview/<user_id>")
+
+@app.route("/api/profileview/", defaults={"user_id": None})
+@app.route("/api/profileview/<user_id>")
 def get_profile_view(user_id):
     try:
         user_profile = get_user_profile(user_id)
@@ -25,7 +24,7 @@ def get_profile_view(user_id):
             "name": user_profile.name,
             "username": user_profile.username,
             "registration_datetime": user_profile.registration_datetime,
-            "total_tickets": total_tickets
+            "total_tickets": total_tickets,
         }
     except NoResultFound:
         return {"error": "Result not found"}, 404
