@@ -9,6 +9,7 @@ function Coinflip() {
   const [win, setWin] = useState('');
   // const [result, setResult] = useState('');
   const [side, setSide] = useState('');
+  const [err, setError] = useState('');
 
   const onChange = (event) => {
     setBet(event.target.value);
@@ -33,7 +34,7 @@ function Coinflip() {
         setWin(dataResponse.result);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        setError(error);
       });
   }, [side]);
 
@@ -59,6 +60,7 @@ function Coinflip() {
       <br />
       <br />
       <p>{win}</p>
+      <p>{err}</p>
     </div>
   );
 }

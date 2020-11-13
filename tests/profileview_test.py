@@ -53,7 +53,7 @@ class ProfileViewTest(unittest.TestCase):
     def setUp(self):
         self.success_test_params_proview = [
         {
-            KEY_INPUT: "ak2253",
+            KEY_INPUT: "1",
             KEY_EXPECTED: {
                 KEY_NAME: "allen",
                 KEY_USERNAME: "ak2253",
