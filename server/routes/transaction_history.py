@@ -28,7 +28,8 @@ def get_transaction_history(user_id):
                     "ticketTransaction": ticket_rows
                 }
             except NoResultFound:
-                return {"error": "Result not found"}, 404
+                no_history = []
+                return {"ticketTransaction": no_history}
         else:
             invalid_history = []
             return {

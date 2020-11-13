@@ -54,7 +54,7 @@ class ProfileViewTest(unittest.TestCase):
         },
         {
             KEY_INPUT: "7", # number has no transaction
-            KEY_EXPECTED: {"error": "Result not found"}
+            KEY_EXPECTED: {'ticketTransaction': []}
         },
         {
             KEY_INPUT: "13", # number not exist
