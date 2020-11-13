@@ -9,3 +9,4 @@ pylint-flask
 pylint-flask-sqlalchemy
 python-dotenv
 requests
+Flask-Session
