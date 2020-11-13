@@ -40,8 +40,6 @@ def oauth_login():
 
         session["user_id"] = user.id
 
-        print(session)
-
         return {"success": True, "user_id": session["user_id"]}
 
     except json.decoder.JSONDecodeError:
