@@ -26,6 +26,10 @@ function AppHeader() {
         <HeaderMenuItem element={Link} to="/leaderboard">
           Leaderboard
         </HeaderMenuItem>
+        {/* @ts-ignore */}
+        <HeaderMenuItem element={Link} to="/coinflip">
+          Coinflip
+        </HeaderMenuItem>
       </HeaderNavigation>
     </Header>
   );
