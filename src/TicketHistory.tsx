@@ -23,7 +23,9 @@ function TicketHistory() {
       .then((res) => res.json())
       .then((data:TransactionList) => {
         setTHistory(data.ticketTransaction);
-      });
+      }).catch(() => (
+        setTHistory([])
+      ));
   }, []);
   if (tHistory.length !== 0) {
     return (
