@@ -24,7 +24,12 @@ function Signup() {
         method: 'POST',
         headers: new Headers({ 'content-type': 'application/json' }),
         mode: 'no-cors',
-        // Do stuff
+        body: JSON.stringify({
+          name: tname,
+          username: tusername,
+          email: temail,
+          password: tpassword1,
+        }),
       });
     }
   }
