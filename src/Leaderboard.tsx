@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { List, ListItem } from '@material-ui/core';
+import { OrderedList, ListItem } from 'carbon-components-react';
 
 function Leaderboard() {
   const [users, setUsers] = useState([]);
@@ -17,11 +17,11 @@ function Leaderboard() {
       <br />
       <b><p>Name - Ticket Count</p></b>
       <br />
-      <List>
+      <OrderedList>
         {users.map((user) => (
           <ListItem>{user}</ListItem>
         ))}
-      </List>
+      </OrderedList>
     </div>
   );
 }

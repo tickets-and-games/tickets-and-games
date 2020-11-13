@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Coinflip.css';
-import { Button } from 'carbon-components-react';
+import { Button } from '@material-ui/core';
 
 function Coinflip() {
   // const [users, setUsers] = useState([]);
@@ -52,8 +52,8 @@ function Coinflip() {
       <br />
       <p>Choose heads or tails:</p>
       <br />
-      <Button type="button" style={{ right: '10px' }} onClick={onHeads}>Heads</Button>
-      <Button type="button" onClick={onTails}>Tails</Button>
+      <Button variant="contained" type="button" style={{ right: '10px' }} onClick={onHeads}>Heads</Button>
+      <Button variant="contained" type="button" onClick={onTails}>Tails</Button>
       <br />
       <br />
       <p>{win}</p>

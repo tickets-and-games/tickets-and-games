@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
 
-import { Content } from 'carbon-components-react';
+import { Box } from '@material-ui/core';
 
 import './App.css';
 import AppHeader from './AppHeader';
@@ -16,7 +16,7 @@ function App() {
     <Router>
       <div className="App">
         <AppHeader />
-        <Content>
+        <Box>
           <Switch>
             <Route path="/leaderboard">
               <Leaderboard />
@@ -28,7 +28,7 @@ function App() {
               <Coinflip />
             </Route>
           </Switch>
-        </Content>
+        </Box>
       </div>
     </Router>
   );

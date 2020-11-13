@@ -3,35 +3,47 @@ import {
   Link,
 } from 'react-router-dom';
 import {
-  Header,
-  HeaderName,
-  HeaderNavigation,
-  HeaderMenuItem,
-} from 'carbon-components-react';
+  Toolbar,
+  AppBar,
+  Button,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+    textAlign: 'left',
+  },
+  button: {
+    textAlign: 'left',
+  },
+}));
 
 function AppHeader() {
+  const classes = useStyles();
   return (
-    <Header aria-label="Tickets and Games">
-      <HeaderName prefix="">Tickets and Games</HeaderName>
-      <HeaderNavigation aria-label="Tickets and Games">
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" className={classes.title}>
+          Tickets & Games
+        </Typography>
         {/* @ts-ignore component type not declared well */}
-        <HeaderMenuItem element={Link} to="/">
-          Home
-        </HeaderMenuItem>
+        <Button className={classes.button} color="inherit" element={Link} to="/">Home</Button>
         {/* @ts-ignore */}
-        <HeaderMenuItem element={Link} to="/profile">
-          Profile
-        </HeaderMenuItem>
+        <Button className={classes.button} color="inherit" element={Link} to="/profile">Profile</Button>
         {/* @ts-ignore */}
-        <HeaderMenuItem element={Link} to="/leaderboard">
-          Leaderboard
-        </HeaderMenuItem>
+        <Button className={classes.button} color="inherit" element={Link} to="/leaderboard">Leaderboard</Button>
         {/* @ts-ignore */}
-        <HeaderMenuItem element={Link} to="/coinflip">
-          Coinflip
-        </HeaderMenuItem>
-      </HeaderNavigation>
-    </Header>
+        <Button className={classes.button} color="inherit" element={Link} to="/coinflip">Coinflip</Button>
+      </Toolbar>
+    </AppBar>
   );
 }
 
