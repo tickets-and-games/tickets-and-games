@@ -54,9 +54,7 @@ function TicketHistory() {
     );
   }
   return (
-    <table className="transaction-history-table">
-      <tbody className="table-body" />
-    </table>
+    <div>No transaction history</div>
   );
 }
 
