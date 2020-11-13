@@ -1,3 +1,5 @@
+# pylint: disable=consider-using-enumerate
+# pylint: disable=invalid-name
 from sqlalchemy.sql import func
 from server import app, db
 
@@ -15,12 +17,12 @@ def get_leader_board():
         .all()
     )
     for i in range(len(all_transactions)):
-        all_transactions[i] = str(all_transactions[i])  
+        all_transactions[i] = str(all_transactions[i])
         all_transactions[i] = all_transactions[i].replace("(", "")
         all_transactions[i] = all_transactions[i].replace(")", "")
         all_transactions[i] = all_transactions[i].replace("'", "")
         all_transactions[i] = all_transactions[i].replace(",", "")
         all_transactions[i] = all_transactions[i].replace(" ", " - ")
-    
-    returnMessage = {"transactions": all_transactions} 
+
+    returnMessage = {"transactions": all_transactions}
     return returnMessage
