@@ -1,6 +1,5 @@
 # pylint: disable=consider-using-enumerate
 # pylint: disable=invalid-name
-# pylint: disable=duplicate-code
 from sqlalchemy.sql import func
 from server import app, db
 
