@@ -7,6 +7,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from server import app
+import server
 from tests.profileview_test import mocked_bad_query
 
 KEY_INPUT = "input"
@@ -37,6 +38,8 @@ class MockedTransData():
 
 class ProfileViewTest(unittest.TestCase):
     def setUp(self):
+        app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+        self.app = server.app.test_client()
         self.success_test_params_transhist = [
         {
             KEY_INPUT: "1",
