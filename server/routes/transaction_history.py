@@ -3,7 +3,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from server import app, db
 from server.models.transaction import Transaction
 
-@app.route("/api/tickethistory/<user_id>")
+@app.route("/profile/api/tickethistory/<user_id>")
 def get_transaction_history(user_id):
     flask.session['user_id'] = '1' # delete in future (off for unittest) (on for webpage)
     if 'user_id' in flask.session:

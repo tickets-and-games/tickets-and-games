@@ -20,7 +20,7 @@ function App() {
             <Route path="/leaderboard">
               <Leaderboard />
             </Route>
-            <Route path="/profile">
+            <Route path="/profile/:userId">
               <Profileview />
             </Route>
           </Switch>

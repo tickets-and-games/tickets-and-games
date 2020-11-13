@@ -13,7 +13,7 @@ def get_user_profile(user_id):
     )
     return user_profile
 
-@app.route("/api/profileview/<user_id>")
+@app.route("/profile/api/profileview/<user_id>")
 def get_profile_view(user_id):
     try:
         user_profile = get_user_profile(user_id)

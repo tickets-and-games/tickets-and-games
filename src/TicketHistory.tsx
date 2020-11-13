@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 type Transaction = {
   id: number
@@ -12,11 +13,13 @@ type TransactionList = {
 
 function TicketHistory() {
   const [tHistory, setTHistory] = useState<Array<Transaction>>([]);
+  const routerUrl = useLocation();
   useEffect(() => {
-    // TODO: parse to get url
-    const username = '1'; // TODO: get username from line 15
-    const url = 'api/tickethistory/'.concat(username);
-    fetch(url)
+    const currentUrl = routerUrl.pathname;
+    const index = currentUrl.lastIndexOf('/');
+    const userId = currentUrl.substr(index + 1);
+    const requestUrl = 'api/tickethistory/'.concat(userId);
+    fetch(requestUrl)
       .then((res) => res.json())
       .then((data:TransactionList) => {
         setTHistory(data.ticketTransaction);
