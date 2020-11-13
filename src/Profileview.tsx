@@ -21,7 +21,8 @@ function Profileview() {
         setUser(data.username);
         setRtime(data.registration_datetime);
         setTickets(data.total_tickets);
-      });
+      })
+      .catch((error) => (<div className="Profile">{error}</div>));
   }, []);
   return (
     <div className="Profile">
