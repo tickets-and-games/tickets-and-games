@@ -1,6 +1,6 @@
 # Project3
 
-
+Heroku Link: https://tickets-and-games.herokuapp.com/
 To use this repository, please follow the following steps:
 
 # Google OAuth Signup
@@ -55,3 +55,7 @@ To use this repository, please follow the following steps:
 
 1) git push heroku master
 2) Navigate to the link and view your site
+
+## Work Breakdown for Milestone 1 
+
+Samir Peshori - Responsible for creating front/backend & unit tests for following portions of the milestone: Leaderboard & Coinflip Game 
