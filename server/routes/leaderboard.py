@@ -24,12 +24,6 @@ def get_leader_board():
         all_transactions[i] = all_transactions[i].replace("'", "")
         all_transactions[i] = all_transactions[i].replace(",", "")
         all_transactions[i] = all_transactions[i].replace(" ", " - ")
-<<<<<<< HEAD
-    
-    returnMessage = {"transactions": all_transactions}
-    print(type(returnMessage)) 
-=======
 
     returnMessage = {"transactions": all_transactions}
->>>>>>> db612bd2d4afe3cb7bfd8231f4c35b238ced848c
     return returnMessage
