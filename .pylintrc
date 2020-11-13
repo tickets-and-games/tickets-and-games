@@ -3,6 +3,7 @@
 disable=cyclic-import,
         missing-docstring,
         wrong-import-position,
-        too-few-public-methods
-
+        too-few-public-methods,
+        duplicate-code
+        
 generated-members=db.session.*

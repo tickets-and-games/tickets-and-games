@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { OrderedList, ListItem } from 'carbon-components-react';
 
 function Leaderboard() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch('/leaderboard')
+    fetch('/api/leaderboard')
       .then((res) => res.json())
       .then((data) => {
         setUsers(data.transactions);
@@ -12,11 +13,15 @@ function Leaderboard() {
   }, []);
   return (
     <div className="Leaderboard">
-      <ol>
+      <h2>Leaderboard of Users</h2>
+      <br />
+      <b><p>Name - Ticket Count</p></b>
+      <br />
+      <OrderedList>
         {users.map((user) => (
-          <li>{user}</li>
+          <ListItem>{user}</ListItem>
         ))}
-      </ol>
+      </OrderedList>
     </div>
   );
 }
