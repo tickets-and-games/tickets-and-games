@@ -15,7 +15,6 @@ def get_user_profile(user_id):
 @app.route("/api/profileview/", defaults={"user_id": None})
 @app.route("/api/profileview/<user_id>")
 def get_profile_view(user_id):
-    print(session)
     if user_id is None and "user_id" in session:
         user_id = session["user_id"]
 
