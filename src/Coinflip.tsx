@@ -34,7 +34,7 @@ function Coinflip() {
         setWin(dataResponse.result);
       })
       .catch((error) => {
-        setError("Bad request");
+        setError(error);
       });
   }, [side]);
 
