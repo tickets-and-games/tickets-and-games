@@ -27,7 +27,7 @@ function TicketHistory() {
         setTHistory([])
       ));
   }, []);
-  if (tHistory.length !== 0) {
+  if (tHistory !== undefined && tHistory.length !== 0) {
     return (
       <table className="transaction-history-table">
         <tbody className="table-body">
