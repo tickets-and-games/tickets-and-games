@@ -16,6 +16,7 @@ def get_leader_board():
         .order_by(func.sum(Transaction.ticket_amount).desc())
         .all()
     )
+
     for i in range(len(all_transactions)):
         all_transactions[i] = str(all_transactions[i])
         all_transactions[i] = all_transactions[i].replace("(", "")
