@@ -58,5 +58,5 @@ To use this repository, please follow the following steps:
 
 ## Work Breakdown for Milestone 1 
 
-Samir Peshori - Responsible for creating front/backend & unit tests for following portions of the milestone: Leaderboard & Coinflip Game 
+Samir Peshori - Responsible for creating front/backend & unit tests for following portions of the milestone: Leaderboard & Coinflip Game, and added Material UI
 Mohammad Khan - Google OAuth, Cirle Ci, Heroku, README
