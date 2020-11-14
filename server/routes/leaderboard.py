@@ -9,11 +9,13 @@ from server.models.user import User
 
 @app.route("/api/leaderboard")
 def get_leader_board():
-    all_transactions = (
-        db.session.query(User.name, func.sum(Transaction.ticket_amount))
+    rows = (
+        db.session.query(
+            User.id, User.name, func.coalesce(func.sum(Transaction.ticket_amount), 0)
+        )
         .outerjoin(Transaction, User.id == Transaction.user_id)
-        .group_by(User.name)
-        .order_by(func.sum(Transaction.ticket_amount).desc())
+        .group_by(User.id)
+        .order_by(func.coalesce(func.sum(Transaction.ticket_amount), 0).desc())
         .all()
     )
 
