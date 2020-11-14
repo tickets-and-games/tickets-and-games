@@ -1,40 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Coinflip.css';
 import { Button } from 'carbon-components-react';
 
 function Coinflip() {
-  // const [users, setUsers] = useState([]);
   const [bet, setBet] = useState(0);
-  // const [tickets, setTickets] = useState(0);
-  const [win, setWin] = useState('');
-  // const [result, setResult] = useState('');
-  const [side, setSide] = useState('');
-  // const [err, setError] = useState('');
+  const [message, setMessage] = useState('');
 
   const onChange = (event) => {
     setBet(event.target.value);
   };
 
-  function onHeads() {
-    setSide('Heads');
-  }
-
-  function onTails() {
-    setSide('Tails');
-  }
-
-  useEffect(() => {
+  const play = (side: 'Tails' | 'Heads') => {
     const data = { side, bet };
     fetch('/api/coinflip', {
       method: 'POST',
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
-      .then((dataResponse) => {
-        setWin(dataResponse.result);
+      .then((response) => {
+        if (response.status === 200) {
+          response.json()
+            .then((dataResponse) => {
+              const { amount, won } = dataResponse;
+              const winText = won ? 'won' : 'lost';
+              setMessage(`You ${winText} ${amount} tickets`);
+            });
+        } else {
+          response.json().then((error) => {
+            setMessage(`An error occured: ${error.error}`);
+          });
+        }
+      })
+      .catch((error) => {
+        setMessage(`An error occured: ${error}`);
       });
-  }, [side]);
+  };
 
+  function onHeads() {
+    play('Heads');
+  }
+
+  function onTails() {
+    play('Tails');
+  }
   // send over data with the head/tail, bet amount
 
   return (
@@ -56,7 +63,7 @@ function Coinflip() {
       <Button type="button" onClick={onTails}>Tails</Button>
       <br />
       <br />
-      <p>{win}</p>
+      <p>{message}</p>
     </div>
   );
 }
