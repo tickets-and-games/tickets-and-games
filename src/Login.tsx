@@ -71,6 +71,7 @@ export default function Login() {
               className="login-username"
               defaultValue={login.username}
               onChange={handleLogin}
+              autoComplete="off"
             />
             <div className="form-label">Password</div>
             <input
@@ -79,6 +80,7 @@ export default function Login() {
               className="login-password"
               defaultValue={login.password}
               onChange={handleLogin}
+              autoComplete="off"
             />
           </form>
         </div>

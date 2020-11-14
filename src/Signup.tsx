@@ -64,6 +64,7 @@ function Signup() {
           className="signup-name"
           defaultValue={params.name}
           onChange={handleParams}
+          autoComplete="off"
         />
         <div className="form-label">Username</div>
         <input
@@ -72,6 +73,7 @@ function Signup() {
           className="signup-username"
           defaultValue={params.username}
           onChange={handleParams}
+          autoComplete="off"
         />
         <div className="form-label">Email</div>
         <input
@@ -80,6 +82,7 @@ function Signup() {
           className="signup-email"
           defaultValue={params.email}
           onChange={handleParams}
+          autoComplete="off"
         />
         <div className="form-label">Password</div>
         <input
@@ -88,6 +91,7 @@ function Signup() {
           className="signup-password"
           defaultValue={params.password1}
           onChange={handleParams}
+          autoComplete="off"
         />
         <div className="form-label">Enter Password Again</div>
         <input
@@ -96,6 +100,7 @@ function Signup() {
           className="signup-password"
           defaultValue={params.password2}
           onChange={handleParams}
+          autoComplete="off"
         />
       </form>
       <button type="button" value="Submit" onClick={SigningUp}>Submit</button>
