@@ -16,6 +16,8 @@ import {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    bottom: '50px',
+    backgroundColor: '#000000',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -33,7 +35,7 @@ function AppHeader() {
   const classes = useStyles();
   return (
     <Router>
-      <AppBar position="static">
+      <AppBar className={classes.root} position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Tickets & Games
@@ -44,6 +46,8 @@ function AppHeader() {
           </Typography>
         </Toolbar>
       </AppBar>
+      <br />
+      <br />
     </Router>
   );
 }
