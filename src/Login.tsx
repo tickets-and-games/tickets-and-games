@@ -14,7 +14,7 @@ export default function Login(props: Props) {
     username: '',
     password: '',
   });
-    
+
   function GoToSignUp() {
     history.push('./signup');
   }
@@ -68,7 +68,7 @@ export default function Login(props: Props) {
     });
     history.push('/profile');
   }
-                            
+
   return (
     <div className="LoginBox">
       <div className="Login">
