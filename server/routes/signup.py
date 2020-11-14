@@ -39,10 +39,10 @@ def password_signup():
         login = Login(username=username, password=password)
         db.session.add(user)
         db.session.add(login)
-        db.session.commit()
+        # db.session.commit()
         user_id = query_id(username)
         session["user_id"] = user_id
-        
+
         return {"success": True, "user_id": session["user_id"]}
 
     except json.decoder.JSONDecodeError:

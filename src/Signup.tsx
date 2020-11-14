@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Signup() {
+  const history = useHistory();
   const [params, setParams] = useState({
     name: '',
     username: '',
@@ -34,7 +36,7 @@ function Signup() {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            // reroute to /
+            history.push('/');
           } else setEMessage(data.error);
         })
         .catch((error) => {
