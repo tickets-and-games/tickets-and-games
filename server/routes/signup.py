@@ -4,7 +4,7 @@ from flask import request, session
 from server import app, db
 from server.models.user import User
 from server.models.login import Login
-
+from server.modules.hash import hash_pass
 
 def check_username(username):
     return User.query.filter_by(username=username).scalar() is not None
@@ -33,7 +33,7 @@ def password_signup():
             }
 
         user = User(oauth_id="password", name=name, email=email)
-        login = Login(username=username, password=password)
+        login = Login(username=username, password=hash_pass(password))
         db.session.add(user)
         db.session.add(login)
         db.session.commit()
