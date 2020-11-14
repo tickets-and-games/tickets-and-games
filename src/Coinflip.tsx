@@ -16,11 +16,19 @@ function Coinflip() {
       method: 'POST',
       body: JSON.stringify(data),
     })
-      .then((response) => response.json())
-      .then((dataResponse) => {
-        const { amount, won } = dataResponse;
-        const winText = won ? 'won' : 'lost';
-        setMessage(`You ${winText} ${amount} tickets`);
+      .then((response) => {
+        if (response.status === 200) {
+          response.json()
+            .then((dataResponse) => {
+              const { amount, won } = dataResponse;
+              const winText = won ? 'won' : 'lost';
+              setMessage(`You ${winText} ${amount} tickets`);
+            });
+        } else {
+          response.json().then((error) => {
+            setMessage(`An error occured: ${error.error}`);
+          });
+        }
       })
       .catch((error) => {
         setMessage(`An error occured: ${error}`);

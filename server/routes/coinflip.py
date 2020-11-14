@@ -3,6 +3,7 @@
 import json
 from random import randint
 from flask import request, session
+from sqlalchemy.sql import func
 from server import app, db
 
 from server.models.transaction import Transaction
@@ -18,6 +19,16 @@ def coinflip():
         amount = int(data["bet"])
         side = data["side"]
         did_win = side == get_side()
+
+        ticket_balance = (
+            db.session.query(func.coalesce(func.sum(Transaction.ticket_amount), 0))
+            .filter(Transaction.user_id == user_id)
+            .scalar()
+        )
+
+        if ticket_balance < amount:
+            return {"error": "Insufficient balance"}, 400
+
         if amount > 0:
             if did_win:
                 tickets_won = amount
