@@ -25,8 +25,9 @@ export default function Login() {
     const tusername = login.username.trim();
     const tpassword = login.password.trim();
 
-    if (tusername === '' || tpassword === '') setLoginMessage('Please fill in both fields.');
-    else {
+    if (tusername === '' || tpassword === '') {
+      setLoginMessage('Please fill in both fields.');
+    } else {
       fetch('/api/login/password', {
         method: 'POST',
         headers: new Headers({ 'content-type': 'application/json' }),

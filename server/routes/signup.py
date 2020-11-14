@@ -4,7 +4,7 @@ from flask import request, session
 from server import app, db
 from server.models.user import User
 from server.models.login import Login
-from server.modules.hash import hash_pass
+from server.utils.hash import hash_pass
 
 def check_username(username):
     return User.query.filter_by(username=username).scalar() is not None

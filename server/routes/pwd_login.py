@@ -4,7 +4,7 @@ from flask import request, session
 from server import app, db
 from server.models.user import User
 from server.models.login import Login
-from server.modules.hash import hash_login
+from server.utils.hash import hash_login
 
 def find_username(username):
     return Login.query.filter_by(username=username).saclar()
@@ -23,7 +23,7 @@ def password_login():
         data = json.loads(request.data)
         username = data['username']
         password = data['password']
-        if(find_username is None or hash_login(get_pwd(username),password) is False):
+        if(find_username is None or hash_login(get_pwd(username), password) is False):
             return {
                 "success": False,
                 "message": "Username does not exist or password is invalid."
