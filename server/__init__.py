@@ -22,3 +22,4 @@ db = flask_sqlalchemy.SQLAlchemy(app)
 
 import server.models
 import server.routes
+import server.utils
