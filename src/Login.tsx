@@ -2,25 +2,23 @@ import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useHistory } from 'react-router-dom';
 
-function googleLogin(googleUser: any) {
-  fetch('/api/login/oauth', {
-    method: 'POST',
-    headers: new Headers({ 'content-type': 'application/json' }),
-    mode: 'no-cors',
-    body: JSON.stringify({ token: googleUser?.tokenId }),
-  });
+interface Props {
+  setLoggedIn: (isLoggedIn: boolean) => void;
 }
 
-export default function Login() {
+export default function Login(props: Props) {
+  const { setLoggedIn } = props;
   const history = useHistory();
   const [loginMessage, setLoginMessage] = useState('');
   const [login, setLogin] = useState({
     username: '',
     password: '',
   });
+
   function GoToSignUp() {
     history.push('./signup');
   }
+
   function PerformLogin() {
     const tusername = login.username.trim();
     const tpassword = login.password.trim();
@@ -59,6 +57,18 @@ export default function Login() {
       [event.target.name]: NewValue,
     });
   }
+
+  function googleLogin(googleUser: any) {
+    setLoggedIn(true);
+    fetch('/api/login/oauth', {
+      method: 'POST',
+      headers: new Headers({ 'content-type': 'application/json' }),
+      mode: 'no-cors',
+      body: JSON.stringify({ token: googleUser?.tokenId }),
+    });
+    history.push('/profile');
+  }
+
   return (
     <div className="LoginBox">
       <div className="Login">
