@@ -46,13 +46,9 @@ class MockedTransData:
 
 class OauthLoginTest(unittest.TestCase):
     def setUp(self):
-        SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
-        self.db_backup = server.db
-        server.db = flask_sqlalchemy.SQLAlchemy(app)
-        server.db.init_app(app)
-        server.db.drop_all()
-        server.db.create_all()
-        server.db.commit()
+        db.drop_all()
+        db.create_all()
+        db.session.commit()
 
         self.client = app.test_client()
         self.success_test_params_user = [
@@ -71,13 +67,6 @@ class OauthLoginTest(unittest.TestCase):
             },
         ]
 
-    def tearDown(self):
-        server.db.create_all()
-        server.db.commit()
-        server.db = self.db_backup
-        DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///database.db")
-        app.config["DATABASE_URL"] = DATABASE_URL
-
     def test_success_transaction_history(self):
         for test_case in self.success_test_params_user:
             with self.client as client:
@@ -88,12 +77,7 @@ class OauthLoginTest(unittest.TestCase):
                         response = client.post(
                             "/api/login/oauth", data=test_case[KEY_INPUT]
                         )
-                        print(response)
-                        print(response.json)
                         self.assertIn("success", response.json)
-                    # response = client.post(
-                    #     "/api/login/oauth", data=test_case[KEY_INPUT]
-                    # )
 
     def test_fail_oauth_login(self):
         for test_case in self.fail_test_params_user:
