@@ -18,7 +18,9 @@ export default function Login() {
     username: '',
     password: '',
   });
-
+  function GoToSignUp() {
+    history.push('./signup');
+  }
   function PerformLogin() {
     const tusername = login.username.trim();
     const tpassword = login.password.trim();
@@ -38,7 +40,7 @@ export default function Login() {
         .then((data) => {
           if (data.success) {
             history.push('/');
-          } else setLoginMessage(data.error);
+          } else setLoginMessage(data.message);
         })
         .catch((error) => {
           <div className="login-error-box">
@@ -80,6 +82,7 @@ export default function Login() {
           </form>
         </div>
         <button type="button" value="Login" onClick={PerformLogin}>Login</button>
+        <button type="button" value="Signup" onClick={GoToSignUp}>Sign Up</button>
         <div>{loginMessage}</div>
         <br />
         <hr />

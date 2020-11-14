@@ -37,7 +37,7 @@ function Signup() {
         .then((data) => {
           if (data.success) {
             history.push('/');
-          } else setEMessage(data.error);
+          } else setEMessage(data.message);
         })
         .catch((error) => {
           <div className="signup-error-box">

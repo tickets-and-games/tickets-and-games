@@ -29,10 +29,10 @@ def password_signup():
         if check_username(username):
             return {
                 "success": False,
-                "error": "Username has already been taken please try another username"
+                "message": "Username has already been taken please try another username"
             }
 
-        user = User(oauth_id="password", name=name, email=email)
+        user = User(oauth_id="password", name=name, username=username, email=email)
         login = Login(username=username, password=hash_pass(password))
         db.session.add(user)
         db.session.add(login)
