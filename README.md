@@ -60,7 +60,7 @@
 
 * Samir Peshori 
   * Responsible for creating front/backend & unit tests for Leaderboard & Coinflip Game
-  * Added Material UI
+  * Added Material UI to components to style
 * Mohammad Khan 
   * Google OAuth
   * Cirle Ci, Heroku, README
