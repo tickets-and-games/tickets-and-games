@@ -33,10 +33,16 @@ function Signup() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data.user_id);
-          // reroute to homepage
+          if (data.success) {
+            // reroute to /
+          } else setEMessage(data.error);
         })
-        .catch((error) => setEMessage(error.error));
+        .catch((error) => {
+          <div className="signup-error-box">
+            Malformed message was recieved:
+            {error}
+          </div>;
+        });
     }
   }
   function handleParams(event) {
