@@ -25,9 +25,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     textAlign: 'left',
+    right: '50px',
   },
   button: {
     textAlign: 'left',
+    margin: 'auto',
   },
 }));
 
