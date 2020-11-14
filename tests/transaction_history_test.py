@@ -78,7 +78,7 @@ class ProfileViewTest(unittest.TestCase):
                 with self.app as client:
                     with client.session_transaction() as client_session:
                         client_session["not user_id"] = "1"
-                    res = client.get("/api/tickethistory/" + test_case[KEY_INPUT])
+                    res = client.get("/api/ticket/history/" + test_case[KEY_INPUT])
                     result = json.loads(res.data.decode("utf-8"))
                     self.assertEqual(expected, result)
             elif test_case[KEY_INPUT] == "13":
@@ -86,7 +86,7 @@ class ProfileViewTest(unittest.TestCase):
                     with client.session_transaction() as client_session:
                         client_session["user_id"] = "not 13"
                     with mock.patch("server.db.session.query", mocked_bad_query):
-                        res = client.get("/api/tickethistory/" + test_case[KEY_INPUT])
+                        res = client.get("/api/ticket/history/" + test_case[KEY_INPUT])
                         result = json.loads(res.data.decode("utf-8"))
                         self.assertEqual(expected, result)
             elif test_case[KEY_INPUT] == "7":
@@ -94,9 +94,7 @@ class ProfileViewTest(unittest.TestCase):
                     with client.session_transaction() as client_session:
                         client_session["user_id"] = "7"
                     with mock.patch("server.db.session.query", mocked_bad_query):
-                        res = client.get(
-                            "/api/tickethistory/" + test_case[KEY_INPUT]
-                        )
+                        res = client.get("/api/ticket/history/" + test_case[KEY_INPUT])
                         result = json.loads(res.data.decode("utf-8"))
                         self.assertEqual(expected, result)
             else:
@@ -106,9 +104,7 @@ class ProfileViewTest(unittest.TestCase):
                     with mock.patch(
                         "server.db.session.query", mocked_transaction_query
                     ):
-                        res = client.get(
-                            "/api/tickethistory/" + test_case[KEY_INPUT]
-                        )
+                        res = client.get("/api/ticket/history/" + test_case[KEY_INPUT])
                         result = json.loads(res.data.decode("utf-8"))
                         self.assertDictEqual(expected, result)
             with self.app.session_transaction() as client_session:
