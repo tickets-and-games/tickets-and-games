@@ -19,7 +19,7 @@ type Params = {
 function TicketHistory() {
   const [tHistory, setTHistory] = useState<Array<Transaction>>([]);
   const { userId } = useParams<Params>();
-  const requestUrl = userId ? '/api/tickethistory/'.concat(userId) : '/api/tickethistory';
+  const requestUrl = userId ? '/api/ticket/history'.concat(userId) : '/api/ticket/history';
 
   useEffect(() => {
     fetch(requestUrl)

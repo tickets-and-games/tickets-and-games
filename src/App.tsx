@@ -11,6 +11,7 @@ import Leaderboard from './Leaderboard';
 import Profileview from './Profileview';
 import Login from './Login';
 import Coinflip from './Coinflip';
+import Signup from './Signup';
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
             </Route>
             <Route path="/coinflip">
               <Coinflip />
+            </Route>
+            <Route path="/signup">
+              <Signup />
             </Route>
           </Switch>
         </Box>
