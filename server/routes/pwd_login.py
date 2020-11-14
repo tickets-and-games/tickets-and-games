@@ -26,7 +26,7 @@ def password_login():
         if(find_username is None or hash_login(get_pwd(username),password) is False):
             return {
                 "success": False,
-                "message": "Username does not exist or password is invalid." 
+                "message": "Username does not exist or password is invalid."
             }
         print(hash_login(get_pwd(username),password))
         session["user_id"] = get_id(username)
