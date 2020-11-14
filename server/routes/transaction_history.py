@@ -12,29 +12,25 @@ def get_transaction_history(user_id):
         user_id = session["user_id"]
 
     if "user_id" in session:
-        if user_id == session["user_id"]:
-            try:
-                ticket_history = (
-                    db.session.query(Transaction)
-                    .filter(Transaction.user_id == user_id)
-                    .all()
+        try:
+            ticket_history = (
+                db.session.query(Transaction)
+                .filter(Transaction.user_id == user_id)
+                .all()
+            )
+            ticket_rows = []
+            for row in ticket_history:
+                ticket_rows.append(
+                    {
+                        "id": row.id,
+                        "datetime": row.datetime,
+                        "activity": row.activity,
+                        "amount": row.ticket_amount,
+                    }
                 )
-                ticket_rows = []
-                for row in ticket_history:
-                    ticket_rows.append(
-                        {
-                            "id": row.id,
-                            "datetime": row.datetime,
-                            "activity": row.activity,
-                            "amount": row.ticket_amount,
-                        }
-                    )
-                return {"ticketTransaction": ticket_rows}
-            except NoResultFound:
-                no_history = []
-                return {"ticketTransaction": no_history}
-        else:
-            invalid_history = []
-            return {"ticketTransaction": invalid_history}
+            return {"ticketTransaction": ticket_rows}
+        except NoResultFound:
+            no_history = []
+            return {"ticketTransaction": no_history}
     else:
         return {"error": "client not suppose to be here"}, 404
