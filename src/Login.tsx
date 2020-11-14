@@ -1,5 +1,6 @@
 import React from 'react';
 import { GoogleLogin } from 'react-google-login';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   setLoggedIn: (isLoggedIn: boolean) => void;
@@ -7,6 +8,7 @@ interface Props {
 
 export default function Login(props: Props) {
   const { setLoggedIn } = props;
+  const history = useHistory();
 
   function googleLogin(googleUser: any) {
     setLoggedIn(true);
@@ -16,6 +18,7 @@ export default function Login(props: Props) {
       mode: 'no-cors',
       body: JSON.stringify({ token: googleUser?.tokenId }),
     });
+    history.push('/profile');
   }
 
   return (
