@@ -1,7 +1,10 @@
 import React from 'react';
 import {
-  Link,
+  Link as RouterLink,
 } from 'react-router-dom';
+import {
+  MemoryRouter as Router,
+} from 'react-router';
 import {
   Toolbar,
   AppBar,
@@ -29,21 +32,19 @@ const useStyles = makeStyles((theme) => ({
 function AppHeader() {
   const classes = useStyles();
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-          Tickets & Games
-        </Typography>
-        {/* @ts-ignore component type not declared well */}
-        <Button className={classes.button} color="inherit" element={Link} to="/">Home</Button>
-        {/* @ts-ignore */}
-        <Button className={classes.button} color="inherit" element={Link} to="/profile">Profile</Button>
-        {/* @ts-ignore */}
-        <Button className={classes.button} color="inherit" element={Link} to="/leaderboard">Leaderboard</Button>
-        {/* @ts-ignore */}
-        <Button className={classes.button} color="inherit" element={Link} to="/coinflip">Coinflip</Button>
-      </Toolbar>
-    </AppBar>
+    <Router>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            Tickets & Games
+            <Button className={classes.button} color="inherit" component={RouterLink} to="/">Home</Button>
+            <Button className={classes.button} color="inherit" component={RouterLink} to="/profile">Profile</Button>
+            <Button className={classes.button} color="inherit" component={RouterLink} to="/leaderboard">Leaderboard</Button>
+            <Button className={classes.button} color="inherit" component={RouterLink} to="/coinflip">Coinflip</Button>
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </Router>
   );
 }
 
