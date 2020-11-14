@@ -16,13 +16,14 @@ def get_leader_board():
         .order_by(func.sum(Transaction.ticket_amount).desc())
         .all()
     )
-    for i in range(len(all_transactions)):
-        all_transactions[i] = str(all_transactions[i])
-        all_transactions[i] = all_transactions[i].replace("(", "")
-        all_transactions[i] = all_transactions[i].replace(")", "")
-        all_transactions[i] = all_transactions[i].replace("'", "")
-        all_transactions[i] = all_transactions[i].replace(",", "")
-        all_transactions[i] = all_transactions[i].replace(" ", " - ")
 
-    returnMessage = {"transactions": all_transactions}
+    transactions = []
+    for row in rows:
+        user_id, name, balance = row
+        transaction = {"id": user_id, "name": name, "balance": balance}
+
+        transactions.append(transaction)
+
+    returnMessage = {"transactions": transactions}
+
     return returnMessage
