@@ -12,9 +12,6 @@ def check_username(username):
 def check_email(email):
     return User.query.filter_by(email=email).scalar() is not None
 
-def query_id(username):
-    return User.query.filter(username==username).first().id
-
 @app.route("/api/signup/password", methods=["POST"])
 def password_signup():
     try:
@@ -39,9 +36,8 @@ def password_signup():
         login = Login(username=username, password=password)
         db.session.add(user)
         db.session.add(login)
-        # db.session.commit()
-        user_id = query_id(username)
-        session["user_id"] = user_id
+        db.session.commit()
+        session["user_id"] = user.id
 
         return {"success": True, "user_id": session["user_id"]}
 
