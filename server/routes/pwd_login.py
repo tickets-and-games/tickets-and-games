@@ -7,7 +7,7 @@ from server.models.login import Login
 from server.utils.hash import hash_login
 
 def find_username(username):
-    return Login.query.filter_by(username=username).saclar()
+    return Login.query.filter_by(username=username).scalar()
 
 def get_pwd(username):
     query = db.session.query(Login).filter(Login.username == username).one()
