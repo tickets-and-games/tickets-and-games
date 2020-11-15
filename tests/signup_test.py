@@ -7,7 +7,6 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import server
-import server.routes.signup as signup
 
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
@@ -18,35 +17,94 @@ KEY_USERNAME = "username"
 KEY_EMAIL = "email"
 KEY_PASSWORD = "password"
 
-def mocked_query_filter():
-    mocked_filter = mock.Mock()
-    mocked_filter.filter_by().return_value = []
-    return mocked_filter
-
 class SignUpTest(unittest.TestCase):
     def setUp(self):
         server.app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "DEFAULT_KEY")
         self.app = server.app.test_client()
-        self.success_test_params_pwd_signup = [
+        self.success_test_params_error = [
         {
             KEY_INPUT: "same email",
             KEY_EXPECTED: {
                 KEY_SUCCESS: False,
                 KEY_MESSAGE: "Another account seems to be using the same email."
             }
+        },
+        {
+            KEY_INPUT: "same username",
+            KEY_EXPECTED: {
+                KEY_SUCCESS: False,
+                KEY_MESSAGE: "Username has already been taken please try another username"
+            }
         }]
-    def test_signup_same_email(self):
-        for test_case in self.success_test_params_pwd_signup:
+        self.success_test_data_error = [
+        {
+            KEY_EXPECTED: {"error": "Malformed request"}
+        }]
+        self.success_test_params = [
+        {
+            KEY_EXPECTED: {
+                "success": True,
+                "user_id": None
+            }
+        }]
+    def test_signup_same_user(self):
+        for test_case in self.success_test_params_error:
+            with mock.patch('flask_sqlalchemy._QueryProperty.__get__') as mocked_query:
+                if test_case[KEY_INPUT] == 'same email':
+                    mocked_query\
+                    .return_value.filter_by\
+                    .return_value.scalar\
+                    .return_value = []
+                else:
+                    mocked_double_query = [mock.Mock(), mock.Mock()]
+                    mocked_double_query[0]\
+                    .filter_by\
+                    .return_value.scalar\
+                    .return_value = None
+                    mocked_double_query[1]\
+                    .filter_by\
+                    .return_value.scalar\
+                    .return_value = []
+                    mocked_query.side_effect = mocked_double_query
+                res = self.app.post('/api/signup/password', data=json.dumps({
+                    KEY_NAME: 'allen',
+                    KEY_USERNAME: 'username',
+                    KEY_EMAIL: 'email',
+                    KEY_PASSWORD: 'password'
+                }))
+                expected = test_case[KEY_EXPECTED]
+                result = json.loads(res.data.decode("utf-8"))
+                self.assertDictEqual(expected, result)
+
+    def test_signup_bad_input(self):
+        for test_case in self.success_test_data_error:
+            res = self.app.post('/api/signup/password', data="bad input")
             expected = test_case[KEY_EXPECTED]
-            with mock.patch("server.models.user.User.query", mocked_query_filter):
-                if test_case[KEY_INPUT] == "same email":
-                    res = self.app.post('/api/signup/password', data=json.dumps({
-                        KEY_NAME: 'allen',
-                        KEY_USERNAME: 'ak2253',
-                        KEY_EMAIL: 'same email',
-                        KEY_PASSWORD: 'password'
-                    }))
+            result = json.loads(res.data.decode("utf-8"))
+            self.assertEqual(expected, result)
+    def test_signup_success_input(self):
+        for test_case in self.success_test_params:
+            with self.app as client:
+                with client.session_transaction() as client_session:
+                    client_session["user_id"] = 1
+                with mock.patch('flask_sqlalchemy._QueryProperty.__get__') as mocked_query:
+                    mocked_query\
+                    .return_value.filter_by\
+                    .return_value.scalar\
+                    .return_value = None
+                    with mock.patch('server.db.session.add', ):
+                        with mock.patch('server.db.session.commit',):
+                            res = client.post('/api/signup/password', data=json.dumps({
+                                KEY_NAME: 'name',
+                                KEY_USERNAME: 'username',
+                                KEY_EMAIL: 'email',
+                                KEY_PASSWORD: 'password'
+                            }))
+                    expected = test_case[KEY_EXPECTED]
                     result = json.loads(res.data.decode("utf-8"))
                     self.assertDictEqual(expected, result)
+            with self.app.session_transaction() as client_session:
+                client_session.clear()
+
 if __name__ == "__main__":
     unittest.main()
