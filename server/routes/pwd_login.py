@@ -23,12 +23,11 @@ def password_login():
         data = json.loads(request.data)
         username = data['username']
         password = data['password']
-        if(find_username is None or hash_login(get_pwd(username), password) is False):
+        if(find_username(username) is None or hash_login(get_pwd(username), password) is False):
             return {
                 "success": False,
                 "message": "Username does not exist or password is invalid."
             }
-        print(hash_login(get_pwd(username),password))
         session["user_id"] = get_id(username)
 
         return {"success": True, "user_id": session["user_id"]}
