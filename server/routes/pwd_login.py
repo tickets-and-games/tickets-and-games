@@ -7,7 +7,7 @@ from server.models.login import Login
 from server.utils.hash import hash_login
 
 def find_username(username):
-    return Login.query.filter_by(username=username).saclar()
+    return Login.query.filter_by(username=username).scalar()
 
 def get_pwd(username):
     query = db.session.query(Login).filter(Login.username == username).one()
@@ -23,12 +23,11 @@ def password_login():
         data = json.loads(request.data)
         username = data['username']
         password = data['password']
-        if(find_username is None or hash_login(get_pwd(username), password) is False):
+        if(find_username(username) is None or hash_login(get_pwd(username), password) is False):
             return {
                 "success": False,
                 "message": "Username does not exist or password is invalid."
             }
-        print(hash_login(get_pwd(username),password))
         session["user_id"] = get_id(username)
 
         return {"success": True, "user_id": session["user_id"]}
