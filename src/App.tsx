@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
 
-import { Box } from '@material-ui/core';
+import { Content } from 'carbon-components-react';
 
 import './App.css';
 import AppHeader from './AppHeader';
@@ -12,6 +12,7 @@ import Profileview from './Profileview';
 import Login from './Login';
 import Coinflip from './Coinflip';
 import Signup from './Signup';
+import AboutUs from './AboutUs';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -20,7 +21,7 @@ function App() {
     <Router>
       <div className="App">
         <AppHeader loggedIn={loggedIn} />
-        <Box>
+        <Content>
           <Switch>
             <Route path="/leaderboard">
               <Leaderboard />
@@ -37,8 +38,11 @@ function App() {
             <Route path="/signup">
               <Signup />
             </Route>
+            <Route path="/aboutus">
+              <AboutUs />
+            </Route>
           </Switch>
-        </Box>
+        </Content>
       </div>
     </Router>
   );
