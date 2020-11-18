@@ -1,7 +1,7 @@
 from flask import session, Blueprint
 from sqlalchemy.orm.exc import NoResultFound
 from server import db
-from server.models.transaction import Transaction
+from server.models import Transaction
 
 
 ticket_bp = Blueprint("ticket_bp", __name__)

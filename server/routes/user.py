@@ -4,12 +4,9 @@ import requests
 from flask import request, session, Blueprint
 
 from server import db
-from server.models.user import User
-from server.models.login import Login
-from server.models.transaction import Transaction
+from server.models import Login, Transaction, User
 
-from server.utils.hash import hash_pass
-from server.utils.hash import hash_login
+from server.utils.hash import hash_pass, hash_login
 
 
 user_bp = Blueprint(

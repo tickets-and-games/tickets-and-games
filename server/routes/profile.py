@@ -3,8 +3,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from flask import session, Blueprint
 
 from server import db
-from server.models.user import User
-from server.models.transaction import Transaction
+from server.models import Transaction, User
 
 profile_bp = Blueprint("profile_bp", __name__)
 
