@@ -60,7 +60,7 @@ function AppHeader(props: Props) {
         <Typography variant="h6" className={classes.title}>
           Tickets & Games
           <Button className={classes.button} color="inherit" component={RouterLink} to="/">Home</Button>
-          <Button className={classes.button} color="inherit" component={RouterLink} to="/aboutus">About us</Button>
+          <Button className={classes.button} color="inherit" component={RouterLink} to="/about">About us</Button>
           <Button className={classes.button} color="inherit" component={RouterLink} to="/login">Login</Button>
         </Typography>
       </Toolbar>
@@ -69,3 +69,4 @@ function AppHeader(props: Props) {
 }
 
 export default AppHeader;
+
