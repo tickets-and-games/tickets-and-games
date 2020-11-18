@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
@@ -14,10 +14,12 @@ import Coinflip from './Coinflip';
 import Signup from './Signup';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+
   return (
     <Router>
       <div className="App">
-        <AppHeader />
+        <AppHeader loggedIn={loggedIn} />
         <Box>
           <Switch>
             <Route path="/leaderboard">
@@ -27,7 +29,7 @@ function App() {
               <Profileview />
             </Route>
             <Route path="/login">
-              <Login />
+              <Login setLoggedIn={setLoggedIn} />
             </Route>
             <Route path="/coinflip">
               <Coinflip />

@@ -4,6 +4,7 @@ import requests
 
 from server import app, db
 from server.models.user import User
+from server.models.transaction import Transaction
 
 
 def get_token_info(token):
@@ -36,6 +37,11 @@ def oauth_login():
             # User doesn't exist and we should create a new user
             user = User(oauth_id=sub, name=name, email=email)
             db.session.add(user)
+            db.session.commit()
+            transaction = Transaction(
+                user_id=user.id, ticket_amount=1000, activity="Sign up bonus"
+            )
+            db.session.add(transaction)
             db.session.commit()
 
         session["user_id"] = user.id

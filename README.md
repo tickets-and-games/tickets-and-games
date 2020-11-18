@@ -1,6 +1,6 @@
 # Project3
 
-* Heroku Link: https://tickets-and-games.herokuapp.com/
+* Heroku Link: http://tickets-and-games.herokuapp.com/
 * To use this repository, please follow the following steps:
 
 # Google OAuth Signup
@@ -58,10 +58,20 @@
 
 ## Work Breakdown for Milestone 1 
 
-* Samir Peshori - Responsible for creating front/backend & unit tests for following portions of the milestone: Leaderboard & Coinflip Game, and added Material UI
-* Mohammad Khan - Google OAuth, Cirle Ci, Heroku, README
+* Samir Peshori 
+  * Responsible for creating front/backend & unit tests for Leaderboard & Coinflip Game
+  * Added Material UI to components to style
+* Mohammad Khan 
+  * Google OAuth
+  * Cirle Ci, Heroku, README
 * David Kim
   * Set up the python and react project and maintained it
   * Set up the server sided OAuth to let users log in
   * Fixed various issues as they came up (Bug with leaderboard, default state of profile view, etc)
-
+* Allen Kung
+  * Set up tables for postgresql database
+  * Profile view, transaction history
+  * Sign up, login through username/password, hash and salt passwords
+  * Unfinished work:
+    - Testing sign up
+    - Testing login through username/password

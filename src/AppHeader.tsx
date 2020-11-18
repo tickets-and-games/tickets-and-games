@@ -31,17 +31,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AppHeader() {
+interface Props {
+  loggedIn: boolean;
+}
+
+function AppHeader(props: Props) {
+  const { loggedIn } = props;
   const classes = useStyles();
+
+  if (loggedIn) {
+    return (
+      <AppBar className={classes.root} position="static">
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            Tickets & Games
+            <Button className={classes.button} color="inherit" component={RouterLink} to="/">Home</Button>
+            <Button className={classes.button} color="inherit" component={RouterLink} to="/profile">Profile</Button>
+            <Button className={classes.button} color="inherit" component={RouterLink} to="/leaderboard">Leaderboard</Button>
+            <Button className={classes.button} color="inherit" component={RouterLink} to="/coinflip">Coinflip</Button>
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    );
+  }
   return (
     <AppBar className={classes.root} position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           Tickets & Games
           <Button className={classes.button} color="inherit" component={RouterLink} to="/">Home</Button>
-          <Button className={classes.button} color="inherit" component={RouterLink} to="/profile">Profile</Button>
-          <Button className={classes.button} color="inherit" component={RouterLink} to="/leaderboard">Leaderboard</Button>
-          <Button className={classes.button} color="inherit" component={RouterLink} to="/coinflip">Coinflip</Button>
+          <Button className={classes.button} color="inherit" component={RouterLink} to="/login">Login</Button>
         </Typography>
       </Toolbar>
     </AppBar>
