@@ -1,5 +1,4 @@
-from flask import Blueprint, send_from_directory
-from config import Config
+from flask import Blueprint, current_app, send_from_directory
 
 from server.routes.user import user_bp
 from server.routes.coinflip import coinflip_bp
@@ -17,9 +16,10 @@ main_bp = Blueprint(
 @main_bp.route("/", defaults={"filename": "index.html"})
 @main_bp.route("/<path:filename>")
 def get_client(filename):
-    return send_from_directory(Config.TEMPLATE_FOLDER, filename)
+    print(current_app.template_folder)
+    return send_from_directory(current_app.template_folder, filename)
 
 
 @main_bp.errorhandler(404)
 def page_not_found(_e):
-    return send_from_directory(Config.TEMPLATE_FOLDER, "index.html")
+    return send_from_directory(current_app.template_folder, "index.html")

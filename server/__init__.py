@@ -14,7 +14,12 @@ migrate = Migrate()
 
 
 def create_app(config):
-    app = Flask(__name__, instance_relative_config=False)
+    app = Flask(
+        __name__,
+        instance_relative_config=False,
+        static_folder=config.STATIC_FOLDER,
+        template_folder=config.TEMPLATE_FOLDER,
+    )
     app.config.from_object(config)
 
     db.init_app(app)
