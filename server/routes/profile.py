@@ -1,10 +1,11 @@
 from sqlalchemy.sql import func
 from sqlalchemy.orm.exc import NoResultFound
-from flask import session
+from flask import session, Blueprint
 
-from server import app, db
-from server.models.user import User
-from server.models.transaction import Transaction
+from server import db
+from server.models import Transaction, User
+
+profile_bp = Blueprint("profile_bp", __name__)
 
 
 def get_user_profile(user_id):
@@ -12,8 +13,8 @@ def get_user_profile(user_id):
     return user_profile
 
 
-@app.route("/api/profile/", defaults={"user_id": None})
-@app.route("/api/profile/<user_id>")
+@profile_bp.route("/api/profile/", defaults={"user_id": None})
+@profile_bp.route("/api/profile/<user_id>")
 def get_profile_view(user_id):
     if user_id is None and "user_id" in session:
         user_id = session["user_id"]

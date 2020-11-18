@@ -1,13 +1,15 @@
 # pylint: disable=consider-using-enumerate
 # pylint: disable=invalid-name
+from flask import Blueprint
 from sqlalchemy.sql import func
-from server import app, db
+from server import db
 
-from server.models.transaction import Transaction
-from server.models.user import User
+from server.models import Transaction, User
+
+leaderboard_bp = Blueprint("leaderboard_bp", __name__)
 
 
-@app.route("/api/leaderboard")
+@leaderboard_bp.route("/api/leaderboard")
 def get_leader_board():
     rows = (
         db.session.query(

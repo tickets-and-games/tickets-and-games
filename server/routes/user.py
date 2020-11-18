@@ -1,10 +1,18 @@
 import json
-from flask import request, session
 import requests
 
-from server import app, db
-from server.models.user import User
-from server.models.transaction import Transaction
+from flask import request, session, Blueprint
+
+from server import db
+from server.models import Login, Transaction, User
+
+from server.utils.hash import hash_pass, hash_login
+
+
+user_bp = Blueprint(
+    "user_bp",
+    __name__,
+)
 
 
 def get_token_info(token):
@@ -18,7 +26,7 @@ def query_user(email):
     return user
 
 
-@app.route("/api/login/oauth", methods=["POST"])
+@user_bp.route("/api/login/oauth", methods=["POST"])
 def oauth_login():
     try:
         data = json.loads(request.data)
@@ -45,6 +53,80 @@ def oauth_login():
             db.session.commit()
 
         session["user_id"] = user.id
+
+        return {"success": True, "user_id": session["user_id"]}
+
+    except json.decoder.JSONDecodeError:
+        return {"error": "Malformed request"}, 400
+
+
+def check_username(username):
+    return User.query.filter_by(username=username).scalar() is not None
+
+
+def check_email(email):
+    return User.query.filter_by(email=email).scalar() is not None
+
+
+@user_bp.route("/api/signup/password", methods=["POST"])
+def password_signup():
+    try:
+        data = json.loads(request.data)
+        name = data["name"]
+        username = data["username"]
+        email = data["email"]
+        password = data["password"]
+        if check_email(email):
+            return {
+                "success": False,
+                "message": "Another account seems to be using the same email.",
+            }
+
+        if check_username(username):
+            return {
+                "success": False,
+                "message": "Username has already been taken please try another username",
+            }
+
+        user = User(oauth_id="password", name=name, username=username, email=email)
+        login = Login(username=username, password=hash_pass(password))
+        db.session.add(user)
+        db.session.add(login)
+        db.session.commit()
+        session["user_id"] = user.id
+
+        return {"success": True, "user_id": session["user_id"]}
+
+    except json.decoder.JSONDecodeError:
+        return {"error": "Malformed request"}, 400
+
+
+def find_username(username):
+    return Login.query.filter_by(username=username).saclar()
+
+
+def get_pwd(username):
+    query = db.session.query(Login).filter(Login.username == username).one()
+    return query.password
+
+
+def get_id(username):
+    query = db.session.query(User).filter(User.username == username).one()
+    return query.id
+
+
+@user_bp.route("/api/login/password", methods=["POST"])
+def password_login():
+    try:
+        data = json.loads(request.data)
+        username = data["username"]
+        password = data["password"]
+        if find_username is None or hash_login(get_pwd(username), password) is False:
+            return {
+                "success": False,
+                "message": "Username does not exist or password is invalid.",
+            }
+        session["user_id"] = get_id(username)
 
         return {"success": True, "user_id": session["user_id"]}
 

@@ -7,9 +7,8 @@ import flask_sqlalchemy
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import server
-from server import app, db
-from tests.profileview_test import mocked_bad_query
+from server import db, create_app
+from config import Config
 
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
@@ -46,11 +45,16 @@ class MockedTransData:
 
 class OauthLoginTest(unittest.TestCase):
     def setUp(self):
-        db.drop_all()
-        db.create_all()
-        db.session.commit()
+        config = Config()
+        config.SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+        self.app = create_app(config)
+        self.client = self.app.test_client()
+        with self.app.app_context():
+            db.drop_all()
+            db.create_all()
+            db.session.commit()
 
-        self.client = app.test_client()
+        self.client = self.app.test_client()
         self.success_test_params_user = [
             {
                 KEY_INPUT: json.dumps({"token": "google_oauth_token"}),
@@ -66,6 +70,11 @@ class OauthLoginTest(unittest.TestCase):
                 KEY_EXPECTED: "Malformed request",
             },
         ]
+
+    def tearDown(self):
+        with self.app.app_context():
+            db.drop_all()
+            db.session.commit()
 
     def test_success_transaction_history(self):
         for test_case in self.success_test_params_user:
