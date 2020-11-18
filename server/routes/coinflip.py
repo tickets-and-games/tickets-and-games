@@ -1,15 +1,19 @@
 # pylint: disable=inconsistent-return-statements
-
 import json
 from random import randint
-from flask import request, session
+from flask import request, session, Blueprint
 from sqlalchemy.sql import func
-from server import app, db
 
+from server import db
 from server.models.transaction import Transaction
 
+coinflip_bp = Blueprint(
+    "coinflip_bp",
+    __name__,
+)
 
-@app.route("/api/coinflip", methods=["POST", "GET"])
+
+@coinflip_bp.route("/api/coinflip", methods=["POST", "GET"])
 def coinflip():
     if "user_id" in session:
         user_id = session["user_id"]

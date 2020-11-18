@@ -1,25 +1,34 @@
 # This file was created to test initialization of the databases
 
 import os
-from os.path import join, dirname
-from dotenv import load_dotenv
-import flask
-import flask_sqlalchemy
-import flask_socketio
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_socketio import SocketIO
+from flask_migrate import Migrate
 
-app = flask.Flask(__name__, static_folder="../build/static", template_folder="../build")
-socketio = flask_socketio.SocketIO(app)
-socketio.init_app(app, cors_allowed_origins="*")
-
-load_dotenv()
-app.secret_key = os.getenv("SECRET_KEY", "DEFAULT_KEY")
-app.config["SESSION_TYPE"] = "filesystem"
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///database.db")
-app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-db = flask_sqlalchemy.SQLAlchemy(app)
+socketio = SocketIO()
+db = SQLAlchemy()
+migrate = Migrate()
 
-import server.models
-import server.routes
-import server.utils
+
+def create_app(config):
+    app = Flask(__name__, instance_relative_config=False)
+    app.config.from_object(config)
+
+    db.init_app(app)
+    socketio.init_app(app, cors_allowed_origins="*")
+    migrate.init_app(app, db, render_as_batch=True)
+
+    with app.app_context():
+        import server.routes as routes
+
+        app.register_blueprint(routes.main_bp)
+        app.register_blueprint(routes.user_bp)
+        app.register_blueprint(routes.coinflip_bp)
+        app.register_blueprint(routes.leaderboard_bp)
+        app.register_blueprint(routes.profile_bp)
+        app.register_blueprint(routes.ticket_bp)
+
+    return app

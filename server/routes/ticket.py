@@ -1,11 +1,14 @@
-from flask import session
+from flask import session, Blueprint
 from sqlalchemy.orm.exc import NoResultFound
-from server import app, db
+from server import db
 from server.models.transaction import Transaction
 
 
-@app.route("/api/ticket/history", defaults={"user_id": None})
-@app.route("/api/ticket/history/<user_id>")
+ticket_bp = Blueprint("ticket_bp", __name__)
+
+
+@ticket_bp.route("/api/ticket/history", defaults={"user_id": None})
+@ticket_bp.route("/api/ticket/history/<user_id>")
 def get_transaction_history(user_id):
     # session['user_id'] = '1' # delete in future (off for unittest) (on for webpage)
     if user_id is None and "user_id" in session:
