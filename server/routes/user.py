@@ -126,7 +126,6 @@ def password_login():
                 "success": False,
                 "message": "Username does not exist or password is invalid.",
             }
-        print(hash_login(get_pwd(username), password))
         session["user_id"] = get_id(username)
 
         return {"success": True, "user_id": session["user_id"]}
