@@ -69,4 +69,3 @@ function AppHeader(props: Props) {
 }
 
 export default AppHeader;
-
