@@ -38,7 +38,8 @@ export default function Login(props: Props) {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            history.push('/');
+            setLoggedIn(true);
+            history.push('/profile');
           } else setLoginMessage(data.message);
         })
         .catch((error) => {
