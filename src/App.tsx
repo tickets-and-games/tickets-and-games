@@ -36,7 +36,7 @@ function App() {
               <Coinflip />
             </Route>
             <Route path="/signup">
-              <Signup />
+              <Signup setLoggedIn={setLoggedIn} />
             </Route>
             <Route path="/about">
               <About />
