@@ -86,7 +86,7 @@ function Signup() {
         />
         <div className="form-label">Password</div>
         <input
-          type="text"
+          type="password"
           name="password1"
           className="signup-password"
           defaultValue={params.password1}
@@ -95,7 +95,7 @@ function Signup() {
         />
         <div className="form-label">Enter Password Again</div>
         <input
-          type="text"
+          type="password"
           name="password2"
           className="signup-password"
           defaultValue={params.password2}
