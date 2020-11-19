@@ -9,6 +9,7 @@ class Transaction(db.Model):
     ticket_amount = db.Column(db.Integer)
     activity = db.Column(db.String(255))
     datetime = db.Column(db.DateTime, default=datetime.datetime.utcnow())
+    user = db.relationship("User", backref="user")
 
 
 class ActivityType(Enum):
