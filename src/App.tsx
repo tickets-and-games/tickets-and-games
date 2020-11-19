@@ -12,7 +12,7 @@ import Profileview from './Profileview';
 import Login from './Login';
 import Coinflip from './Coinflip';
 import Signup from './Signup';
-import About from './About';
+import Home from './Home';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -38,8 +38,8 @@ function App() {
             <Route path="/signup">
               <Signup />
             </Route>
-            <Route path="/about">
-              <About />
+            <Route path="/home">
+              <Home />
             </Route>
           </Switch>
         </Box>
