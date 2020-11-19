@@ -94,7 +94,6 @@ def password_signup():
         db.session.add(login)
         db.session.commit()
         session["user_id"] = user.id
-
         return {"success": True, "user_id": session["user_id"]}
 
     except json.decoder.JSONDecodeError:
