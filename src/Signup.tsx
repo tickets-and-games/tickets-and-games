@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-function Signup() {
+interface Props {
+  setLoggedIn: (isLoggedIn: boolean) => void;
+}
+
+function Signup(props: Props) {
+  const { setLoggedIn } = props;
   const history = useHistory();
   const [params, setParams] = useState({
     name: '',
@@ -36,7 +41,8 @@ function Signup() {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            history.push('/');
+            setLoggedIn(true);
+            history.push('/profile');
           } else setEMessage(data.message);
         })
         .catch((error) => {

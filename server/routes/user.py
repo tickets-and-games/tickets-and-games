@@ -94,7 +94,6 @@ def password_signup():
         db.session.add(login)
         db.session.commit()
         session["user_id"] = user.id
-
         return {"success": True, "user_id": session["user_id"]}
 
     except json.decoder.JSONDecodeError:
@@ -127,7 +126,6 @@ def password_login():
                 "message": "Username does not exist or password is invalid.",
             }
         session["user_id"] = get_id(username)
-
         return {"success": True, "user_id": session["user_id"]}
 
     except json.decoder.JSONDecodeError:
