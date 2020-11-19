@@ -3,10 +3,9 @@ import requests
 
 from flask import request, session, Blueprint
 
+from sqlalchemy.orm.exc import NoResultFound
 from server import db
 from server.models import Login, Transaction, User
-from sqlalchemy.orm.exc import NoResultFound
-
 from server.utils.hash import hash_pass, hash_login
 
 

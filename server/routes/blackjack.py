@@ -17,6 +17,8 @@ def valid_balance(user_id):
         .filter(Transaction.user_id == user_id)
         .scalar()
     )
+    if total_tickets is None:
+        return False
     return total_tickets >= 500
 
 @blackjack_bp.route("/api/blackjack/play", methods=["GET"])
@@ -25,7 +27,7 @@ def play_blackjack():
         if "user_id" not in session:
             return {"success": False, "message": "User is not suppose to be here"}
         if valid_balance(session["user_id"]) is False:
-            return {"success": False, "message": "User does not have sufficient tickets"}
+            return {"success": False, "message": "Client needs at least 500 tickets to play."}
         return {"success": True, "message": "Welcome to Blackjack!"}
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
@@ -35,8 +37,8 @@ def bet_blackjack():
     try:
         deck = get_deck_set()
         if not deck:
-            return {"success": False, "message": """Blackjack server is currently facing an problem.
-                Please try again later."""
+            return {"success": False, "message": "Blackjack server is currently facing an problem."\
+                " Please try again later."
             }
         session["blackjack_deck"] = deck
         hand = [draw_card(deck), draw_card(deck)]
