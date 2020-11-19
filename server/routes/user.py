@@ -5,6 +5,7 @@ from flask import request, session, Blueprint
 
 from server import db
 from server.models import Login, Transaction, User
+from sqlalchemy.orm.exc import NoResultFound
 
 from server.utils.hash import hash_pass, hash_login
 
@@ -130,3 +131,6 @@ def password_login():
 
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
+    
+    except NoResultFound:
+        return {"success": False, "message": "Username does not exist or password is invalid." }
