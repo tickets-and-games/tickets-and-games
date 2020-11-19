@@ -34,7 +34,7 @@ import requests
 #    'id': 490
 #}
 
-RANDOM_ORG_KEY = os.getenv("RANDOM_ORG_KEY")
+RANDOM_ORG_KEY = os.getenv("RANDOM_ORG_KEY", "DEFAULT_KEY")
 RANDOM_URL = "https://api.random.org/json-rpc/2/invoke"
 suits = ["Diamond", "Hearts", "Clover", "Spades"]
 
@@ -45,6 +45,8 @@ class Card():
         self.suit_string = suits[number % 4]
 
 def get_deck_set():
+    if RANDOM_ORG_KEY == "DEFAULT_KEY":
+        return [] # Key is missing. Perform manual deck generation
     json_rpc = {
         "jsonrpc": "2.0",
         "method": "generateIntegerSequences",
@@ -61,6 +63,8 @@ def get_deck_set():
     }
     random_request = requests.post(RANDOM_URL, json=json_rpc)
     data = random_request.json()
+    if "error" in data:
+        return [] # API failed. Perform manual deck generation
     return data["result"]["random"]["data"][0]
 
 def draw_card(deck):
