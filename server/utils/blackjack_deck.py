@@ -34,7 +34,7 @@ import requests
 #    'id': 490
 #}
 
-RANDOM_KEY = os.getenv("RANDOM_KEY")
+RANDOM_ORG_KEY = os.getenv("RANDOM_ORG_KEY")
 RANDOM_URL = "https://api.random.org/json-rpc/2/invoke"
 suits = ["Diamond", "Hearts", "Clover", "Spades"]
 
@@ -49,7 +49,7 @@ def get_deck_set():
         "jsonrpc": "2.0",
         "method": "generateIntegerSequences",
         "params": {
-            "apiKey": RANDOM_KEY,
+            "apiKey": RANDOM_ORG_KEY,
             "n": 1,
             "length": 208,
             "min": 1,
