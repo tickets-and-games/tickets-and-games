@@ -46,7 +46,7 @@ const tileData = [
     img: 'https://www.kindpng.com/picc/m/3-31921_house-free-content-clip-art-home-clipart-black.png',
     title: 'Home',
     author: 'author',
-    url: '/home',
+    url: '/',
   },
 
   {
