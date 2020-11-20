@@ -131,6 +131,6 @@ def password_login():
 
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
-    
+
     except NoResultFound:
         return {"success": False, "message": "Username does not exist or password is invalid." }
