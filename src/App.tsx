@@ -39,11 +39,11 @@ function App() {
             <Route path="/signup">
               <Signup setLoggedIn={setLoggedIn} />
             </Route>
-            <Route path="/">
-              <Home />
-            </Route>
             <Route path="/blackjack">
               <Blackjack />
+            </Route>
+            <Route path="/">
+              <Home />
             </Route>
           </Switch>
         </Box>
