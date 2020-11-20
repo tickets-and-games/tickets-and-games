@@ -63,7 +63,7 @@ function Coinflip() {
     <div className="Coinflip">
       <Paper className={classes.root} style={{ position: 'relative', top: '20px' }} elevation={3}>
         <Typography variant="h3">
-          Leaderboard
+          Coinflip
         </Typography>
         <br />
         <Typography variant="h5"> Enter an amount you would like to wager. </Typography>
