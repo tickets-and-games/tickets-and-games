@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Paper, makeStyles } from '@material-ui/core';
+import { Paper, makeStyles, Typography } from '@material-ui/core';
 import TicketHistory from './TicketHistory';
 
 const useStyles = makeStyles(() => ({
@@ -40,25 +40,27 @@ function Profileview() {
   const classes = useStyles();
   return (
     <div className="Profile">
-      <Paper className={classes.root}>
+      <Paper className={classes.root} style={{ position: 'relative', top: '20px' }} elevation={3}>
         <br />
-        <div className="profile-name">
-          Name:&nbsp;
-          {name}
-        </div>
-        <div className="profile-username">
-          Username:&nbsp;
-          { user}
-        </div>
-        <div className="profile-data">
-          User Since:&nbsp;
-          { rtime}
-        </div>
-        <div className="profile-total-tickets">
-          Total Tickets:&nbsp;
-          { tickets}
-        </div>
-        <TicketHistory />
+        <Typography variant="h5">
+          <div className="profile-name">
+            Name:&nbsp;
+            {name}
+          </div>
+          <div className="profile-username">
+            Username:&nbsp;
+            { user}
+          </div>
+          <div className="profile-data">
+            User Since:&nbsp;
+            { rtime}
+          </div>
+          <div className="profile-total-tickets">
+            Total Tickets:&nbsp;
+            { tickets}
+          </div>
+          <TicketHistory />
+        </Typography>
         <br />
       </Paper>
     </div>
