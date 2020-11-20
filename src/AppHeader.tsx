@@ -49,6 +49,7 @@ function AppHeader(props: Props) {
             <Button className={classes.button} color="inherit" component={RouterLink} to="/profile">Profile</Button>
             <Button className={classes.button} color="inherit" component={RouterLink} to="/leaderboard">Leaderboard</Button>
             <Button className={classes.button} color="inherit" component={RouterLink} to="/coinflip">Coinflip</Button>
+            <Button className={classes.button} color="inherit" component={RouterLink} to="/blackjack">BlackJack</Button>
           </Typography>
         </Toolbar>
       </AppBar>

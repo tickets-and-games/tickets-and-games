@@ -13,7 +13,7 @@ import Login from './Login';
 import Coinflip from './Coinflip';
 import Signup from './Signup';
 import About from './About';
-import BlackJack from './BlackJack';
+import Blackjack from './Blackjack';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -43,7 +43,7 @@ function App() {
               <About />
             </Route>
             <Route path="/blackjack">
-              <BlackJack />
+              <Blackjack />
             </Route>
           </Switch>
         </Box>
