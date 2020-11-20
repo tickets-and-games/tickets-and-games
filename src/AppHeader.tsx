@@ -45,11 +45,11 @@ function AppHeader(props: Props) {
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Tickets & Games
-            <Button className={classes.button} color="inherit" component={RouterLink} to="/">Home</Button>
-            <Button className={classes.button} color="inherit" component={RouterLink} to="/profile">Profile</Button>
-            <Button className={classes.button} color="inherit" component={RouterLink} to="/leaderboard">Leaderboard</Button>
-            <Button className={classes.button} color="inherit" component={RouterLink} to="/coinflip">Coinflip</Button>
           </Typography>
+          <Button className={classes.button} color="inherit" component={RouterLink} to="/home">Home</Button>
+          <Button className={classes.button} color="inherit" component={RouterLink} to="/profile">Profile</Button>
+          <Button className={classes.button} color="inherit" component={RouterLink} to="/leaderboard">Leaderboard</Button>
+          <Button className={classes.button} color="inherit" component={RouterLink} to="/coinflip">Coinflip</Button>
         </Toolbar>
       </AppBar>
     );
@@ -59,10 +59,9 @@ function AppHeader(props: Props) {
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           Tickets & Games
-          <Button className={classes.button} color="inherit" component={RouterLink} to="/">Home</Button>
-          <Button className={classes.button} color="inherit" component={RouterLink} to="/about">About us</Button>
-          <Button className={classes.button} color="inherit" component={RouterLink} to="/login">Login</Button>
         </Typography>
+        <Button className={classes.button} color="inherit" component={RouterLink} to="/home">Home</Button>
+        <Button className={classes.button} color="inherit" component={RouterLink} to="/login">Login</Button>
       </Toolbar>
     </AppBar>
   );

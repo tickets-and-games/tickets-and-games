@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Paper, makeStyles } from '@material-ui/core';
+import { Paper, makeStyles, Typography } from '@material-ui/core';
+import 'fontsource-roboto';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -40,25 +41,32 @@ function Leaderboard() {
   const classes = useStyles();
   return (
     <div className="Leaderboard">
-      <Paper className={classes.root}>
-        <h2>Leaderboard of Users</h2>
+      <Paper className={classes.root} style={{ position: 'relative', top: '20px' }} elevation={3}>
+        <Typography variant="h3">
+          Leaderboard
+        </Typography>
         <br />
-        <b><p>Name - Ticket Count</p></b>
+        <br />
+        <img src="https://media3.giphy.com/media/3Gm15eZOsNk0tptIuG/giphy.gif" alt="coinflip" className="coinflipgif" style={{ height: '200px', width: '200px', borderRadius: '25px' }} />
+        <br />
         <br />
         <table className={classes.table}>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Balance</th>
-          </tr>
-          {transactions.map((transaction) => (
+          <Typography variant="h6">
             <tr>
-              <td>{transaction.id}</td>
-              <td>{transaction.name}</td>
-              <td>{transaction.balance}</td>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Balance</th>
             </tr>
-          ))}
+            {transactions.map((transaction) => (
+              <tr>
+                <td>{transaction.id}</td>
+                <td>{transaction.name}</td>
+                <td>{transaction.balance}</td>
+              </tr>
+            ))}
+          </Typography>
         </table>
+
         <br />
       </Paper>
     </div>

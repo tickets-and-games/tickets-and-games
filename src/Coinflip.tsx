@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './Coinflip.css';
-import { Button, Paper, makeStyles } from '@material-ui/core';
+import {
+  Button, Paper, makeStyles, Typography,
+} from '@material-ui/core';
 
 function Coinflip() {
   const [bet, setBet] = useState(0);
@@ -59,19 +61,21 @@ function Coinflip() {
   const classes = useStyles();
   return (
     <div className="Coinflip">
-      <Paper className={classes.root}>
-        <h2>Coin Flip Game</h2>
+      <Paper className={classes.root} style={{ position: 'relative', top: '20px' }} elevation={3}>
+        <Typography variant="h3">
+          Leaderboard
+        </Typography>
         <br />
-        <p>Enter an amount you would like to wager. </p>
-        <p>If you win, you double your tickets. If you lose, you lose all your tickets you bet.</p>
+        <Typography variant="h5"> Enter an amount you would like to wager. </Typography>
+        <Typography variant="h5">If you win, you double your tickets. If you lose, you lose all your tickets you bet. </Typography>
         <img src="https://image.tutpad.com/tut/0/53/11_MONEDA.gif" alt="coinflip" className="coinflipgif" style={{ height: '200px', width: '400px' }} />
         <br />
-        <p>Place a Bet in Number of Tickets:</p>
+        <Typography variant="h6">Place a Bet in Number of Tickets:</Typography>
         <br />
         <input type="text" onChange={onChange} />
         <br />
         <br />
-        <p>Choose heads or tails:</p>
+        <Typography variant="h6">Choose heads or tails:</Typography>
         <br />
         <Button variant="contained" type="button" style={{ right: '10px' }} onClick={onHeads}>Heads</Button>
         <Button variant="contained" type="button" onClick={onTails}>Tails</Button>
