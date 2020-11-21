@@ -12,7 +12,7 @@ import Profileview from './Profileview';
 import Login from './Login';
 import Coinflip from './Coinflip';
 import Signup from './Signup';
-import About from './About';
+import Home from './Home';
 import Skiball from './Skiball';
 
 function App() {
@@ -42,8 +42,8 @@ function App() {
             <Route path="/signup">
               <Signup setLoggedIn={setLoggedIn} />
             </Route>
-            <Route path="/about">
-              <About />
+            <Route path="/">
+              <Home />
             </Route>
           </Switch>
         </Box>
