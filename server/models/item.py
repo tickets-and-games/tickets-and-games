@@ -9,4 +9,4 @@ class Item(db.Model):
     count = db.Column(db.Integer, default=1)
     active = db.Column(db.Boolean, default=False)
 
-    user = db.relationship("User", backref="user")
+    user = db.relationship("User", backref="user_items")
