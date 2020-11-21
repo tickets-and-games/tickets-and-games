@@ -58,14 +58,19 @@ def translate_hand(hand):
 
 def blackjack_total(hand):
     total = 0
+    aces = []
     for num in hand:
         if num % 13 == 0:
-            if total + 11 <= 21:
-                total += 11
-            else:
-                total += 1
+            aces.append(num)
+        elif (num % 13) + 1 > 10:
+            total += 10
         else:
             total += (num % 13) + 1
+    for _ in range(len(aces)):
+        if total + 11 <= 21:
+            total += 11
+        else:
+            total += 1
     return total
 
 def get_deck_set():
