@@ -2,7 +2,8 @@ import json
 
 from flask import session, Blueprint
 from sqlalchemy.sql import func
-from server.utils.blackjack_deck import get_deck_set, draw_card, translate_hand, blackjack_total
+from server.utils.blackjack_deck import draw_card, translate_hand, blackjack_total
+# get_deck_set implment when releasing final product
 from server import db
 from server.models import Transaction, Blackjack
 
@@ -52,19 +53,18 @@ def bet_blackjack():
         dealer_hand = [card1, card3]
         player_hand = [card2, card4]
         if new_player(session["user_id"]):
-            print(session["user_id"], deck, player_hand, dealer_hand)
             player_deck = Blackjack(
                 user_id=session["user_id"],
-                deck=deck,
-                player_hand=player_hand,
-                dealer_hand=dealer_hand
+                deck=json.dumps(deck),
+                player_hand=json.dumps(player_hand),
+                dealer_hand=json.dumps(dealer_hand)
             )
             db.session.add(player_deck)
         else:
             player_row = Blackjack.query.filter_by(user_id=session["user_id"]).first()
-            player_row.deck = deck
-            player_row.player_hand = player_hand
-            player_row.dealer_hand = dealer_hand
+            player_row.deck = json.dumps(deck)
+            player_row.player_hand = json.dumps(player_hand)
+            player_row.dealer_hand = json.dumps(dealer_hand)
         db.session.commit()
         client_dealer = translate_hand(dealer_hand)[0:2]
         client_player = translate_hand(player_hand)

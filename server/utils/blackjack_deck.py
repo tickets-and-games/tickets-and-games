@@ -37,7 +37,7 @@ import requests
 RANDOM_ORG_KEY = os.getenv("RANDOM_ORG_KEY", "DEFAULT_KEY")
 RANDOM_URL = "https://api.random.org/json-rpc/2/invoke"
 suits = ["Diamond", "Hearts", "Clover", "Spades"]
-values = ["Ace", "Two", "Three", "Four", "Five", "Six", 
+values = ["Ace", "Two", "Three", "Four", "Five", "Six",
     "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"]
 
 def get_suit(number):
@@ -67,7 +67,6 @@ def blackjack_total(hand):
         else:
             total += (num % 13) + 1
     return total
-
 
 def get_deck_set():
     if RANDOM_ORG_KEY == "DEFAULT_KEY":

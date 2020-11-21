@@ -10,7 +10,7 @@ DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///database.db")
 
 socketio = SocketIO()
 db = SQLAlchemy()
-migrate = Migrate()
+migrate = Migrate(compare_type=True)
 
 
 def create_app(config):
