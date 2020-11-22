@@ -11,8 +11,9 @@ function Coinflip() {
   const useStyles = makeStyles(() => ({
     root: {
       flexGrow: 1,
-      top: '40px',
-      backgroundColor: '#ADD8E6',
+      backgroundColor: '#f7cea2',
+      borderStyle: 'solid',
+      borderWidth: '3px',
       width: '70%',
       textAlign: 'center',
       margin: 'auto',
@@ -61,7 +62,7 @@ function Coinflip() {
   const classes = useStyles();
   return (
     <div className="Coinflip">
-      <Paper className={classes.root} style={{ position: 'relative', top: '20px' }} elevation={3}>
+      <Paper className={classes.root} style={{ position: 'relative', top: '7vh' }} elevation={3}>
         <Typography variant="h3">
           Coinflip
         </Typography>
