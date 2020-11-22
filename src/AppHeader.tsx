@@ -46,10 +46,11 @@ function AppHeader(props: Props) {
           <Typography variant="h6" className={classes.title}>
             Tickets & Games
           </Typography>
-          <Button className={classes.button} color="inherit" component={RouterLink} to="/home">Home</Button>
+          <Button className={classes.button} color="inherit" component={RouterLink} to="/">Home</Button>
           <Button className={classes.button} color="inherit" component={RouterLink} to="/profile">Profile</Button>
           <Button className={classes.button} color="inherit" component={RouterLink} to="/leaderboard">Leaderboard</Button>
           <Button className={classes.button} color="inherit" component={RouterLink} to="/coinflip">Coinflip</Button>
+          <Button className={classes.button} color="inherit" component={RouterLink} to="/skiball">Skiball</Button>
           <Button className={classes.button} color="inherit" component={RouterLink} to="/blackjack">BlackJack</Button>
         </Toolbar>
       </AppBar>
