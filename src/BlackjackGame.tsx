@@ -1,5 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import {
+  Box, makeStyles, Typography,
+} from '@material-ui/core';
 import BlackjackCard from './BlackjackCard';
+
+const useStyles = makeStyles(() => ({
+  dealer: {
+    display: 'block',
+    height: '30vh',
+    width: '100%',
+    textAlign: 'center',
+    margin: 'auto',
+  },
+  player: {
+    flexGrow: 1,
+    height: '30vh',
+    width: '100%',
+    textAlign: 'center',
+    margin: 'atuo',
+  },
+}));
 
 interface Props {
   pool: string;
@@ -144,13 +164,17 @@ function BlackjackGame(props: Props) {
         }
       });
   }, []);
+  const classes = useStyles();
   return (
     <div className="player-ui">
-      <div className="dealer-hand">{MakeCards(dealerHand)}</div>
-      <div className="blackjack-result">{result}</div>
+      <Box className={classes.dealer}>{MakeCards(dealerHand)}</Box>
+      <Typography variant="h5">
+        Winner:&nbsp;
+        {result}
+      </Typography>
       <div className="client-ui">
-        <div className="blackjack-effect">{effect}</div>
-        <div className="player-hand">{MakeCards(playerHand)}</div>
+        <Typography variant="h6" style={{ marginBottom: '20px' }}>{effect}</Typography>
+        <Box className={classes.player}>{MakeCards(playerHand)}</Box>
         { endScreen
           ? (
             <div className="blackjack-end">

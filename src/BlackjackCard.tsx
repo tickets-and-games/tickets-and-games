@@ -5,7 +5,7 @@ import {
 
 const useStyles = makeStyles(() => ({
   root: {
-    float: 'left',
+    display: 'inline-block',
     flexGrow: 1,
     position: 'relative',
     backgroundColor: '#f8f8ff',
