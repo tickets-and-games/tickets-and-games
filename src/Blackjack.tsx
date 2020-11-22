@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Button, Paper, makeStyles,
+  Button, Paper, makeStyles, Typography, Input, Box,
 } from '@material-ui/core';
 import BlackjackGame from './BlackjackGame';
 
@@ -9,25 +9,28 @@ const useStyles = makeStyles(() => ({
     flexGrow: 1,
     top: '40px',
     backgroundColor: '#136207',
-    height: '85vh',
-    width: '98%',
+    height: '80vh',
+    width: '96%',
     textAlign: 'center',
     margin: 'auto',
+    padding: '20px',
   },
 }));
 
 const rules = (
-  <ul>
-    <p>Rules:</p>
-    <p>1. Goal of blackjack is to beat the dealer&apos;s hand without going over 21</p>
-    <p>2. Jack, Queen and King are worth 10 points</p>
-    <p>3. Aces are worth 1 or 11 points. Which ever makes the hand better</p>
-    <p>4. Value cards are worth its repective value</p>
-    <p>7. &apos;Hit&apos; is to ask for another card.</p>
-    <p>8. &apos;Stand&apos; is to keep your total and end asking for cards</p>
-    <p>11. Dealer must hit until total is above 17</p>
-    <p>12. Reward is 1.5 worth of your total bet</p>
-  </ul>
+  <Box style={{ margin: 'auto', width: '35%' }}>
+    <Typography variant="h6">Rules:</Typography>
+    <Box style={{ textAlign: 'left', paddingLeft: '40px' }}>
+      <p>1. Goal of blackjack is to beat the dealer&apos;s hand without going over 21</p>
+      <p>2. Jack, Queen and King are worth 10 points</p>
+      <p>3. Aces are worth 1 or 11 points. Which ever makes the hand better</p>
+      <p>4. Value cards are worth its repective value</p>
+      <p>7. &apos;Hit&apos; is to ask for another card.</p>
+      <p>8. &apos;Stand&apos; is to keep your total and end asking for cards</p>
+      <p>11. Dealer must hit until total is above 17</p>
+      <p>12. Reward is 1.5 worth of your total bet</p>
+    </Box>
+  </Box>
 );
 
 function Blackjack() {
@@ -83,11 +86,11 @@ function Blackjack() {
           switch (gameState) {
             case 1: return (
               <div className="wagering-box">
-                <div className="message-box">{message}</div>
+                <Typography variant="h4" style={{ marginBottom: '15px' }}>{message}</Typography>
                 {rules}
-                <input type="text" defaultValue={pool} onChange={HandlePool} />
+                <Input type="text" defaultValue={pool} onChange={HandlePool} />
                 <Button variant="contained" type="button" onClick={PlayBlackJack} className="blackjack-play">Play</Button>
-                <div className="error-box">{errorMessage}</div>
+                <Typography variant="h6">{errorMessage}</Typography>
               </div>
             );
             case 2: return (
@@ -96,7 +99,7 @@ function Blackjack() {
             default: return (
               <div className="blackjack-error">
                 {rules}
-                <div className="error-box">{errorMessage}</div>
+                <Typography variant="h6">{errorMessage}</Typography>
               </div>
             );
           }
