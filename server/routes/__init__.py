@@ -6,6 +6,7 @@ from server.routes.leaderboard import leaderboard_bp
 from server.routes.profile import profile_bp
 from server.routes.ticket import ticket_bp
 from server.routes.blackjack import blackjack_bp
+from server.routes.store import store_bp
 
 
 main_bp = Blueprint(

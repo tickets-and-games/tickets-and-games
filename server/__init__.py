@@ -36,6 +36,7 @@ def create_app(config):
         app.register_blueprint(routes.profile_bp)
         app.register_blueprint(routes.ticket_bp)
         app.register_blueprint(routes.blackjack_bp)
+        app.register_blueprint(routes.store_bp)
 
         upgrade()  # Flask-migrate set up database automatically
 
