@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import BlackjackCard from './BlackjackCard';
 
 interface Props {
   pool: string;
@@ -14,6 +15,16 @@ function BlackjackGame(props: Props) {
   const [effect, seteffect] = useState<String>('');
   const [result, setResult] = useState<string>('');
   const [tie, setTie] = useState<Boolean>(false);
+
+  function MakeCards(hand) {
+    const displayHand : JSX.Element[] = [];
+    for (let i = 0; i < hand.length; i += 2) {
+      displayHand.push(
+        <BlackjackCard suit={hand[i + 1]} value={hand[i]} />,
+      );
+    }
+    return displayHand;
+  }
 
   function HandleResult(bust, blackjack, winner) {
     if (bust) {
@@ -135,11 +146,11 @@ function BlackjackGame(props: Props) {
   }, []);
   return (
     <div className="player-ui">
-      <div className="dealer-hand">{dealerHand}</div>
+      <div className="dealer-hand">{MakeCards(dealerHand)}</div>
       <div className="blackjack-result">{result}</div>
       <div className="client-ui">
         <div className="blackjack-effect">{effect}</div>
-        <div className="player-hand">{playerHand}</div>
+        <div className="player-hand">{MakeCards(playerHand)}</div>
         { endScreen
           ? (
             <div className="blackjack-end">

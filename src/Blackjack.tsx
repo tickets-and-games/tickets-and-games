@@ -28,7 +28,7 @@ const rules = (
       <p>7. &apos;Hit&apos; is to ask for another card.</p>
       <p>8. &apos;Stand&apos; is to keep your total and end asking for cards</p>
       <p>11. Dealer must hit until total is above 17</p>
-      <p>12. Reward is worth double of your bet</p>
+      <p>12. Reward is double of your bet</p>
     </Box>
   </Box>
 );
