@@ -43,12 +43,12 @@ def bet_blackjack():
         data = json.loads(request.data)
         transaction = Transaction(
             user_id=session["user_id"],
-            ticket_amount=data["amount"],
+            ticket_amount=-data["amount"],
             activity="blackjack",
         )
         db.session.add(transaction)
         # deck = get_deck_set() implement on final release
-        deck = [0, 13, 2, 12, 4, 5, 6, 7, 8, 9, 10]
+        deck = [11, 11, 10, 10, 4, 5, 6, 7, 8, 9, 10]
         if not deck:
             return {"success": False, "message": "Blackjack server is currently facing an problem."\
                 " Please try again later."
@@ -90,7 +90,7 @@ def play_again_blackjack():
         data = json.loads(request.data)
         transaction = Transaction(
             user_id=session["user_id"],
-            ticket_amount=data["amount"],
+            ticket_amount=-data["amount"],
             activity="blackjack",
         )
         db.session.add(transaction)
@@ -204,6 +204,32 @@ def stand_blackjack():
     return {
         "success": True,
         "winner": "dealer",
+        "dealer": client_dealer,
+        "player": client_player,
+    }
+
+@blackjack_bp.route("/api/blackjack/tiebreaker", methods=["GET"])
+def tiebreaker_blackjack():
+    query = Blackjack.query.filter_by(user_id=session["user_id"]).first()
+    deck = json.loads(query.deck)
+    card1 = draw_card(deck)
+    card2 = draw_card(deck)
+    card3 = draw_card(deck)
+    card4 = draw_card(deck)
+    dealer_hand = [card1, card3]
+    player_hand = [card2, card4]
+    if len(deck)<200:
+        # deck = deck + get_deck_set() implement on final release
+        deck = deck + [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    query.deck = json.dumps(deck)
+    query.player_hand = json.dumps(player_hand)
+    query.dealer_hand = json.dumps(dealer_hand)
+    db.session.commit()
+    client_dealer = translate_hand(dealer_hand)[0:2]
+    client_player = translate_hand(player_hand)
+    return {
+        "success": True,
+        "blackjack" : blackjack_total(player_hand) == 21,
         "dealer": client_dealer,
         "player": client_player,
     }

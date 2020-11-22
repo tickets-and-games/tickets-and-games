@@ -13,6 +13,7 @@ function BlackjackGame(props: Props) {
   const [errorMessage, setErrorMessage] = useState<String>('');
   const [effect, seteffect] = useState<String>('');
   const [result, setResult] = useState<string>('');
+  const [tie, setTie] = useState<Boolean>(false);
 
   function HandleResult(bust, blackjack, winner) {
     if (bust) {
@@ -24,7 +25,11 @@ function BlackjackGame(props: Props) {
         setResult('Player!');
       } else {
         setResult('Tied!');
+        setTie(true);
       }
+    } else if (winner === 'none') {
+      seteffect('Tied!');
+      setTie(true);
     } else {
       seteffect('');
       setResult(winner);
@@ -93,6 +98,23 @@ function BlackjackGame(props: Props) {
   function HandleButtonStand() {
     HandleStand(false, false);
   }
+  function HandleTie() {
+    fetch('/api/blackjack/tiebreaker')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setDealerHand(data.dealer);
+          setPlayerHand(data.player);
+          if (data.blackjack) {
+            HandleStand(false, data.blackjack);
+          }
+        }
+      });
+    setResult('');
+    seteffect('');
+    setEndScreen(false);
+    setTie(false);
+  }
   useEffect(() => {
     fetch('/api/blackjack/start', {
       method: 'POST',
@@ -121,9 +143,19 @@ function BlackjackGame(props: Props) {
         { endScreen
           ? (
             <div className="blackjack-end">
-              <input type="text" defaultValue={newPool} onChange={HandleNewPool} />
-              <div className="error-box">{errorMessage}</div>
-              <button type="button" onClick={HandlePlayAgain} className="blackjack-button-hit">Play Again</button>
+              { tie
+                ? (
+                  <div className="blackjack-tie">
+                    <button type="button" onClick={HandleTie} className="blackjack-button-hit">Another Round</button>
+                  </div>
+                )
+                : (
+                  <div className="blackjack-playagain">
+                    <input type="text" defaultValue={newPool} onChange={HandleNewPool} />
+                    <div className="error-box">{errorMessage}</div>
+                    <button type="button" onClick={HandlePlayAgain} className="blackjack-button-hit">Play Again</button>
+                  </div>
+                )}
             </div>
           )
           : (
