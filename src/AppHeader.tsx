@@ -24,10 +24,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textAlign: 'left',
     right: '50px',
+    color: '#cf4431',
   },
   button: {
     textAlign: 'left',
     margin: 'auto',
+    color: '#cf4431',
   },
 }));
 
@@ -46,11 +48,12 @@ function AppHeader(props: Props) {
           <Typography variant="h6" className={classes.title}>
             Tickets & Games
           </Typography>
-          <Button className={classes.button} color="inherit" component={RouterLink} to="/home">Home</Button>
-          <Button className={classes.button} color="inherit" component={RouterLink} to="/profile">Profile</Button>
-          <Button className={classes.button} color="inherit" component={RouterLink} to="/leaderboard">Leaderboard</Button>
-          <Button className={classes.button} color="inherit" component={RouterLink} to="/coinflip">Coinflip</Button>
-          <Button className={classes.button} color="inherit" component={RouterLink} to="/blackjack">BlackJack</Button>
+          <Button className={classes.button} component={RouterLink} to="/">Home</Button>
+          <Button className={classes.button} component={RouterLink} to="/profile">Profile</Button>
+          <Button className={classes.button} component={RouterLink} to="/leaderboard">Leaderboard</Button>
+          <Button className={classes.button} component={RouterLink} to="/coinflip">Coinflip</Button>
+          <Button className={classes.button} component={RouterLink} to="/skiball">Skiball</Button>
+          <Button className={classes.button} component={RouterLink} to="/blackjack">BlackJack</Button>
         </Toolbar>
       </AppBar>
     );
@@ -61,8 +64,8 @@ function AppHeader(props: Props) {
         <Typography variant="h6" className={classes.title}>
           Tickets & Games
         </Typography>
-        <Button className={classes.button} color="inherit" component={RouterLink} to="/home">Home</Button>
-        <Button className={classes.button} color="inherit" component={RouterLink} to="/login">Login</Button>
+        <Button className={classes.button} component={RouterLink} to="/home">Home</Button>
+        <Button className={classes.button} component={RouterLink} to="/login">Login</Button>
       </Toolbar>
     </AppBar>
   );
