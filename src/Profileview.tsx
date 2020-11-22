@@ -6,7 +6,9 @@ import TicketHistory from './TicketHistory';
 const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
-    backgroundColor: '#ADD8E6',
+    backgroundColor: '#f7cea2',
+    borderStyle: 'solid',
+    borderWidth: '3px',
     width: '70%',
     textAlign: 'center',
     margin: 'auto',

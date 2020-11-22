@@ -30,8 +30,9 @@ function Skiball() {
   const useStyles = makeStyles(() => ({
     root: {
       flexGrow: 1,
-      top: '40px',
-      backgroundColor: '#ADD8E6',
+      backgroundColor: '#f7cea2',
+      borderStyle: 'solid',
+      borderWidth: '3px',
       width: '70%',
       textAlign: 'center',
       margin: 'auto',
@@ -42,7 +43,7 @@ function Skiball() {
   const classes = useStyles();
   return (
     <div className="Skiball">
-      <Paper className={classes.root} style={{ position: 'relative', top: '20px' }} elevation={3}>
+      <Paper className={classes.root} style={{ position: 'relative', top: '8vh' }} elevation={3}>
         <Typography variant="h3">
           Skiball
         </Typography>
@@ -50,7 +51,14 @@ function Skiball() {
         <Typography variant="h5"> Click on roll ball and see where it lands! You win as many tickets as the point amount on the hole. </Typography>
         <Typography variant="h5">Takes 30 tickets to play!</Typography>
         <br />
-        <img src="https://media0.giphy.com/media/26gsqnn8rZOSiVFfy/200.gif" alt="coinflip" className="coinflipgif" style={{ height: '250px', width: '300px' }} />
+        <img
+          src="https://media0.giphy.com/media/26gsqnn8rZOSiVFfy/200.gif"
+          alt="coinflip"
+          className="coinflipgif"
+          style={{
+            height: '250px', width: '300px', borderStyle: 'solid', borderWidth: '2px',
+          }}
+        />
         <br />
         <br />
         <Typography variant="h6">Go ahead and roll:</Typography>
