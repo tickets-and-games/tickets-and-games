@@ -1,26 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import {
+  Button, Paper, makeStyles,
+} from '@material-ui/core';
 import BlackjackGame from './BlackjackGame';
+
+const useStyles = makeStyles(() => ({
+  root: {
+    flexGrow: 1,
+    top: '40px',
+    backgroundColor: '#136207',
+    height: '85vh',
+    width: '98%',
+    textAlign: 'center',
+    margin: 'auto',
+  },
+}));
 
 const rules = (
   <ul>
     <p>Rules:</p>
     <p>1. Goal of blackjack is to beat the dealer&apos;s hand without going over 21</p>
     <p>2. Jack, Queen and King are worth 10 points</p>
-    <p>3. Aces are worth 1 or 11 points. Which every makes the hand better</p>
-    <p>4. Other cards are worth its repective value</p>
-    <p>5. Player and dealer are dealt 2 cards each</p>
-    <p>6. Both player cards are shown and only once dealer card is shown</p>
+    <p>3. Aces are worth 1 or 11 points. Which ever makes the hand better</p>
+    <p>4. Value cards are worth its repective value</p>
     <p>7. &apos;Hit&apos; is to ask for another card.</p>
     <p>8. &apos;Stand&apos; is to keep your total and end asking for cards</p>
-    <p>9. If player goes over 21 that is a bust and player loses regardless of dealer</p>
-    <p>10. If player is dealt 21 at the start, that is a blackjack</p>
     <p>11. Dealer must hit until total is above 17</p>
-    <p>
-      11. &apos;Double&apos; is to double current bet and draw one card
-      but the player can no longer draw anymore cards
-    </p>
-    <p>12. The reward is 1.5 worth of your total bet rounded up</p>
-    <p>13. Bust or lost is to lose your total pooled</p>
+    <p>12. Reward is 1.5 worth of your total bet</p>
   </ul>
 );
 
@@ -69,28 +75,33 @@ function Blackjack() {
         }
       });
   }, []);
-  if (gameState === 1) {
-    return (
-      <div className="blackjack-page">
-        <div className="message-box">{message}</div>
-        {rules}
-        <input type="text" defaultValue={pool} onChange={HandlePool} />
-        <button type="button" onClick={PlayBlackJack} className="blackjack-play">Play</button>
-        <div className="error-box">{errorMessage}</div>
-      </div>
-    );
-  }
-  if (gameState === 2) {
-    return (
-      <div className="blackjack-page">
-        <BlackjackGame pool={pool} />
-      </div>
-    );
-  }
+  const classes = useStyles();
   return (
     <div className="blackjack-page">
-      <div className="error-box">{errorMessage}</div>
-      {rules}
+      <Paper className={classes.root} style={{ position: 'relative', top: '20px' }}>
+        {(() => {
+          switch (gameState) {
+            case 1: return (
+              <div className="wagering-box">
+                <div className="message-box">{message}</div>
+                {rules}
+                <input type="text" defaultValue={pool} onChange={HandlePool} />
+                <Button variant="contained" type="button" onClick={PlayBlackJack} className="blackjack-play">Play</Button>
+                <div className="error-box">{errorMessage}</div>
+              </div>
+            );
+            case 2: return (
+              <BlackjackGame pool={pool} />
+            );
+            default: return (
+              <div className="blackjack-error">
+                {rules}
+                <div className="error-box">{errorMessage}</div>
+              </div>
+            );
+          }
+        })()}
+      </Paper>
     </div>
   );
 }
