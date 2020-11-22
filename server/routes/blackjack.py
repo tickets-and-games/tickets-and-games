@@ -2,8 +2,7 @@ import json
 
 from flask import request, session, Blueprint
 from sqlalchemy.sql import func
-from server.utils.blackjack_deck import draw_card, translate_hand, blackjack_total
-# get_deck_set implment when releasing final product
+from server.utils.blackjack_deck import draw_card, translate_hand, blackjack_total, get_deck_set
 from server import db
 from server.models import Transaction, Blackjack
 
@@ -47,8 +46,7 @@ def bet_blackjack():
             activity="blackjack",
         )
         db.session.add(transaction)
-        # deck = get_deck_set() implement on final release
-        deck = [11, 11, 10, 10, 4, 5, 6, 7, 8, 9, 10]
+        deck = get_deck_set()
         if not deck:
             return {"success": False, "message": "Blackjack server is currently facing an problem."\
                 " Please try again later."
@@ -103,8 +101,7 @@ def play_again_blackjack():
         dealer_hand = [card1, card3]
         player_hand = [card2, card4]
         if len(deck)<200:
-            # deck = deck + get_deck_set() implement on final release
-            deck = deck + [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            deck = deck + get_deck_set()
         query.deck = json.dumps(deck)
         query.player_hand = json.dumps(player_hand)
         query.dealer_hand = json.dumps(dealer_hand)
@@ -127,8 +124,7 @@ def hit_blackjack():
     player_hand = json.loads(query.player_hand)
     next_card = draw_card(deck)
     if len(deck)<200:
-        # deck = deck + get_deck_set() implement on final release
-        deck = deck + [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        deck = deck + get_deck_set()
     player_hand.append(next_card)
     query.deck = json.dumps(deck)
     query.player_hand = json.dumps(player_hand)
@@ -166,8 +162,7 @@ def stand_blackjack():
     while blackjack_total(dealer_hand) <= 17:
         dealer_hand.append(draw_card(deck))
     if len(deck)<200:
-        # deck = deck + get_deck_set() implement on final release
-        deck = deck + [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        deck = deck + get_deck_set()
     query.deck = json.dumps(deck)
     query.player_hand = json.dumps(player_hand)
     query.dealer_hand = json.dumps(dealer_hand)
@@ -219,8 +214,7 @@ def tiebreaker_blackjack():
     dealer_hand = [card1, card3]
     player_hand = [card2, card4]
     if len(deck)<200:
-        # deck = deck + get_deck_set() implement on final release
-        deck = deck + [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        deck = deck + get_deck_set()
     query.deck = json.dumps(deck)
     query.player_hand = json.dumps(player_hand)
     query.dealer_hand = json.dumps(dealer_hand)
