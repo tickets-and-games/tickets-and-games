@@ -2,8 +2,7 @@ import json
 
 from flask import session, Blueprint
 from sqlalchemy.sql import func
-from server.utils.blackjack_deck import draw_card, translate_hand, blackjack_total
-# get_deck_set implment when releasing final product
+from server.utils.blackjack_deck import draw_card, translate_hand, blackjack_total, get_deck_set
 from server import db
 from server.models import Transaction, Blackjack
 
@@ -40,8 +39,7 @@ def play_blackjack():
 @blackjack_bp.route("/api/blackjack/start", methods=["GET"])
 def bet_blackjack():
     try:
-        # deck = get_deck_set()
-        deck = [0, 1, 2, 3, 4, 5]
+        deck = get_deck_set()
         if not deck:
             return {"success": False, "message": "Blackjack server is currently facing an problem."\
                 " Please try again later."
