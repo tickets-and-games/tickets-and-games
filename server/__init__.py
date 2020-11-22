@@ -37,5 +37,5 @@ def create_app(config):
         app.register_blueprint(routes.ticket_bp)
         app.register_blueprint(routes.blackjack_bp)
         app.register_blueprint(routes.skiball_bp)
-        
+    
     return app
