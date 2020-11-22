@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import BlackjackGame from './BlackjackGame';
 
 const rules = (
   <ul>
@@ -26,7 +27,7 @@ const rules = (
 function Blackjack() {
   const [message, setMessage] = useState<String>('');
   const [errorMessage, setErrorMessage] = useState<String>('');
-  const [ready, setReady] = useState<Boolean>(false);
+  const [gameState, setGameState] = useState<number>(0);
   const [pool, setPool] = useState<string>('500');
   function HandlePool(event) {
     const { value: NewValue } = event.target;
@@ -40,7 +41,7 @@ function Blackjack() {
       setPool('500');
       setErrorMessage('Minimum pool required is 500 tickets');
     } else {
-      // Play blackjack
+      setGameState(2);
     }
   }
   useEffect(() => {
@@ -49,13 +50,13 @@ function Blackjack() {
       .then((data) => {
         if (data.success === true) {
           setMessage(data.message);
-          setReady(true);
+          setGameState(1);
         } else {
           setErrorMessage(data.message);
         }
       });
   }, []);
-  if (ready) {
+  if (gameState === 1) {
     return (
       <div className="blackjack-page">
         <div className="message-box">{message}</div>
@@ -63,6 +64,13 @@ function Blackjack() {
         <input type="text" defaultValue={pool} onChange={HandlePool} />
         <button type="button" onClick={PlayBlackJack} className="blackjack-play">Play</button>
         <div className="error-box">{errorMessage}</div>
+      </div>
+    );
+  }
+  if (gameState === 2) {
+    return (
+      <div className="blackjack-page">
+        <BlackjackGame />
       </div>
     );
   }
