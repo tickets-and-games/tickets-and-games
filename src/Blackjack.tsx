@@ -70,7 +70,7 @@ function Blackjack() {
   if (gameState === 2) {
     return (
       <div className="blackjack-page">
-        <BlackjackGame />
+        <BlackjackGame pool={pool} />
       </div>
     );
   }

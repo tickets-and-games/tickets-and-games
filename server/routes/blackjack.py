@@ -1,6 +1,6 @@
 import json
 
-from flask import session, Blueprint
+from flask import request, session, Blueprint
 from sqlalchemy.sql import func
 from server.utils.blackjack_deck import draw_card, translate_hand, blackjack_total
 # get_deck_set implment when releasing final product
@@ -37,9 +37,11 @@ def play_blackjack():
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
 
-@blackjack_bp.route("/api/blackjack/start", methods=["GET"])
+@blackjack_bp.route("/api/blackjack/start", methods=["POST"])
 def bet_blackjack():
     try:
+        data = json.loads(request.data)
+        print(data["amount"])
         # remember to deduct from database!!!
         # deck = get_deck_set() implement on final release
         deck = [0, 13, 2, 12, 4, 5, 6, 7, 8, 9, 10]
@@ -78,10 +80,11 @@ def bet_blackjack():
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
 
-@blackjack_bp.route("/api/blackjack/playagain", methods=["GET"])
+@blackjack_bp.route("/api/blackjack/playagain", methods=["POST"])
 def play_again_blackjack():
     try:
-        # remember to deduct from database!!!
+        data = json.loads(request.data)
+        print(data["amount"])
         query = Blackjack.query.filter_by(user_id=session["user_id"]).first()
         deck = json.loads(query.deck)
         card1 = draw_card(deck)

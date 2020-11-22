@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-function BlackjackGame() {
+interface Props {
+  pool: string;
+}
+
+function BlackjackGame(props: Props) {
+  const { pool } = props;
   const [playerHand, setPlayerHand] = useState<Array<number|String>>([]);
   const [dealerHand, setDealerHand] = useState<Array<number|String>>([]);
   const [endScreen, setEndScreen] = useState<Boolean>(false);
-  const [pool, setPool] = useState<string>('500');
+  const [newPool, setNewPool] = useState<string>('500');
   const [errorMessage, setErrorMessage] = useState<String>('');
   const [effect, seteffect] = useState<String>('');
   const [result, setResult] = useState<string>('');
@@ -38,19 +43,24 @@ function BlackjackGame() {
         }
       });
   }
-  function HandlePool(event) {
+  function HandleNewPool(event) {
     const { value: NewValue } = event.target;
-    setPool(NewValue);
+    setNewPool(NewValue);
   }
   function HandlePlayAgain() {
-    const num = Number(pool);
-    if (/^\d*$/.test(pool) === false || Number.isNaN(num)) {
+    const num = Number(newPool);
+    if (/^\d*$/.test(newPool) === false || Number.isNaN(num)) {
       setErrorMessage('Invalid Input');
     } else if (num < 500) {
-      setPool('500');
+      setNewPool('500');
       setErrorMessage('Minimum pool required is 500 tickets');
     } else {
-      fetch('/api/blackjack/playagain')
+      fetch('/api/blackjack/playagain', {
+        method: 'POST',
+        body: JSON.stringify({
+          amount: Number(newPool),
+        }),
+      })
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
@@ -84,7 +94,12 @@ function BlackjackGame() {
     HandleStand(false, false);
   }
   useEffect(() => {
-    fetch('/api/blackjack/start')
+    fetch('/api/blackjack/start', {
+      method: 'POST',
+      body: JSON.stringify({
+        amount: Number(pool),
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -106,7 +121,7 @@ function BlackjackGame() {
         { endScreen
           ? (
             <div className="blackjack-end">
-              <input type="text" defaultValue={pool} onChange={HandlePool} />
+              <input type="text" defaultValue={newPool} onChange={HandleNewPool} />
               <div className="error-box">{errorMessage}</div>
               <button type="button" onClick={HandlePlayAgain} className="blackjack-button-hit">Play Again</button>
             </div>
