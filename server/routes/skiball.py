@@ -39,7 +39,6 @@ def coinflip():
         fee = Transaction(user_id=user_id, ticket_amount=-30, activity="skiball")
 
         db.session.add(fee)
-        db.session.commit()
         db.session.add(transaction)
         db.session.commit()
 
