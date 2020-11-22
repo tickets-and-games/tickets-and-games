@@ -41,8 +41,12 @@ def play_blackjack():
 def bet_blackjack():
     try:
         data = json.loads(request.data)
-        print(data["amount"])
-        # remember to deduct from database!!!
+        transaction = Transaction(
+            user_id=session["user_id"],
+            ticket_amount=data["amount"],
+            activity="blackjack",
+        )
+        db.session.add(transaction)
         # deck = get_deck_set() implement on final release
         deck = [0, 13, 2, 12, 4, 5, 6, 7, 8, 9, 10]
         if not deck:
@@ -84,7 +88,12 @@ def bet_blackjack():
 def play_again_blackjack():
     try:
         data = json.loads(request.data)
-        print(data["amount"])
+        transaction = Transaction(
+            user_id=session["user_id"],
+            ticket_amount=data["amount"],
+            activity="blackjack",
+        )
+        db.session.add(transaction)
         query = Blackjack.query.filter_by(user_id=session["user_id"]).first()
         deck = json.loads(query.deck)
         card1 = draw_card(deck)
@@ -168,6 +177,17 @@ def stand_blackjack():
     dealer_total = blackjack_total(dealer_hand)
     player_total = blackjack_total(player_hand)
     if dealer_total > 21 or dealer_total < player_total:
+        last_transaction = session.query(Transaction)\
+            .filter_by(Transaction.user_id==session["user_id"])\
+            .order_by(Transaction.id.desc()).first()
+        new_amount = last_transaction.ticket_amount * 1.5
+        transaction = Transaction(
+            user_id=session["user_id"],
+            ticket_amount=new_amount,
+            activity="blackjack",
+        )
+        db.session.add(transaction)
+        db.session.commit()
         return {
             "success": True,
             "winner": "player",
