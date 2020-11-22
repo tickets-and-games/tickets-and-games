@@ -43,7 +43,7 @@ def get_starting_cards():
     card4 = draw_card(deck)
     dealer_hand = [card1, card3]
     player_hand = [card2, card4]
-    if len(deck)<200:
+    if len(deck) < 200:
         deck = deck + get_deck_set()
     query.deck = json.dumps(deck)
     query.player_hand = json.dumps(player_hand)
@@ -83,6 +83,7 @@ def check_funds_blackjack():
         return {"success": True}
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
+
 @blackjack_bp.route("/api/blackjack/start", methods=["POST"])
 def bet_blackjack():
     try:
@@ -147,7 +148,7 @@ def hit_blackjack():
     deck = json.loads(query.deck)
     player_hand = json.loads(query.player_hand)
     next_card = draw_card(deck)
-    if len(deck)<200:
+    if len(deck) < 200:
         deck = deck + get_deck_set()
     player_hand.append(next_card)
     query.deck = json.dumps(deck)
@@ -185,7 +186,7 @@ def stand_blackjack():
     dealer_hand = json.loads(query.dealer_hand)
     while blackjack_total(dealer_hand) <= 17:
         dealer_hand.append(draw_card(deck))
-    if len(deck)<200:
+    if len(deck) < 200:
         deck = deck + get_deck_set()
     query.deck = json.dumps(deck)
     query.player_hand = json.dumps(player_hand)
@@ -197,9 +198,9 @@ def stand_blackjack():
     player_total = blackjack_total(player_hand)
     if dealer_total > 21 or dealer_total < player_total:
         last_transaction = db.session.query(Transaction)\
-            .filter_by(user_id=session["user_id"])\
+            .filter_by(user_id=session["user_id"], activity="blackjack")\
             .order_by(Transaction.id.desc()).first()
-        new_amount = last_transaction.ticket_amount * 1.5
+        new_amount = last_transaction.ticket_amount * 2
         blackjack_transaction(-new_amount)
         return {
             "success": True,
