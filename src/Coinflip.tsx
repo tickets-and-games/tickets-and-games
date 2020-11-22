@@ -61,7 +61,7 @@ function Coinflip() {
   const classes = useStyles();
   return (
     <div className="Coinflip">
-      <Paper className={classes.root} style={{ position: 'relative', top: '20px' }} elevation={3}>
+      <Paper className={classes.root} style={{ position: 'relative', top: '8vh' }} elevation={3}>
         <Typography variant="h3">
           Coinflip
         </Typography>

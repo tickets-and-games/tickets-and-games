@@ -6,7 +6,6 @@ import TicketHistory from './TicketHistory';
 const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
-    top: '40px',
     backgroundColor: '#ADD8E6',
     width: '70%',
     textAlign: 'center',
@@ -40,7 +39,7 @@ function Profileview() {
   const classes = useStyles();
   return (
     <div className="Profile">
-      <Paper className={classes.root} style={{ position: 'relative', top: '20px' }} elevation={3}>
+      <Paper className={classes.root} style={{ position: 'relative', top: '25vh' }} elevation={3}>
         <br />
         <Typography variant="h5">
           <div className="profile-name">
