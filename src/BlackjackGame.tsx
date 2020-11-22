@@ -1,41 +1,46 @@
 import React, { useEffect, useState } from 'react';
 
-function HandleResult(bust, blackjack) {
-  if (bust) {
-    return 'Bust!';
-  }
-  // dealer players
-  // find way to combine blackjack/tied
-  if (blackjack) {
-    return 'Blackjack!';
-  }
-  return 'Tied!';
-}
-
 function BlackjackGame() {
   const [playerHand, setPlayerHand] = useState<Array<number|String>>([]);
   const [dealerHand, setDealerHand] = useState<Array<number|String>>([]);
   const [endScreen, setEndScreen] = useState<Boolean>(false);
   const [pool, setPool] = useState<string>('500');
   const [errorMessage, setErrorMessage] = useState<String>('');
-  const [result, setResult] = useState<String>('');
+  const [effect, seteffect] = useState<String>('');
+  const [result, setResult] = useState<string>('');
 
-  function HandlePool(event) {
-    const { value: NewValue } = event.target;
-    setPool(NewValue);
+  function HandleResult(bust, blackjack, winner) {
+    if (bust) {
+      seteffect('bust!');
+      setResult('Dealer!');
+    } else if (blackjack) {
+      seteffect('Blackjack!');
+      if (winner === 'player') {
+        setResult('Player!');
+      } else {
+        setResult('Tied!');
+      }
+    } else {
+      seteffect('');
+      setResult(winner);
+    }
+    setEndScreen(true);
   }
-  function HandleHit() {
-    fetch('/api/blackjack/hit')
+  function HandleStand(bust, blackjack) {
+    fetch('/api/blackjack/stand')
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          if (data.bust || data.blackjack) {
-            setResult(HandleResult(data.bust, data.blackjack));
-            setEndScreen(true);
-          }
+          setDealerHand(data.dealer);
           setPlayerHand(data.player);
+          HandleResult(bust, blackjack, data.winner);
+          setEndScreen(true);
         }
       });
+  }
+  function HandlePool(event) {
+    const { value: NewValue } = event.target;
+    setPool(NewValue);
   }
   function HandlePlayAgain() {
     const num = Number(pool);
@@ -52,14 +57,31 @@ function BlackjackGame() {
             setDealerHand(data.dealer);
             setPlayerHand(data.player);
             if (data.blackjack) {
-              setResult(HandleResult(false, data.blackjack));
+              HandleStand(false, data.blackjack);
             }
           }
         });
+      setResult('');
+      seteffect('');
       setEndScreen(false);
     }
   }
-  function HandleStand() {
+  function HandleHit() {
+    fetch('/api/blackjack/hit')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          if (data.bust) {
+            HandleResult(data.bust, data.blackjack, data.winner);
+          } else if (data.blackjack) {
+            HandleStand(false, data.blackjack);
+          }
+          setPlayerHand(data.player);
+        }
+      });
+  }
+  function HandleButtonStand() {
+    HandleStand(false, false);
   }
   useEffect(() => {
     fetch('/api/blackjack/start')
@@ -69,7 +91,7 @@ function BlackjackGame() {
           setDealerHand(data.dealer);
           setPlayerHand(data.player);
           if (data.blackjack) {
-            setResult(HandleResult(false, data.blackjack));
+            HandleStand(false, data.blackjack);
           }
         }
       });
@@ -77,8 +99,9 @@ function BlackjackGame() {
   return (
     <div className="player-ui">
       <div className="dealer-hand">{dealerHand}</div>
+      <div className="blackjack-result">{result}</div>
       <div className="client-ui">
-        <div className="blackjack-result">{result}</div>
+        <div className="blackjack-effect">{effect}</div>
         <div className="player-hand">{playerHand}</div>
         { endScreen
           ? (
@@ -91,7 +114,7 @@ function BlackjackGame() {
           : (
             <div className="blackjack-play">
               <button type="button" onClick={HandleHit} className="blackjack-button-hit">Hit</button>
-              <button type="button" onClick={HandleStand} className="blackjack-button-hit">Hold</button>
+              <button type="button" onClick={HandleButtonStand} className="blackjack-button-hit">Hold</button>
             </div>
           )}
       </div>

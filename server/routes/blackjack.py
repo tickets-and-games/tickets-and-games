@@ -42,7 +42,7 @@ def bet_blackjack():
     try:
         # remember to deduct from database!!!
         # deck = get_deck_set() implement on final release
-        deck = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        deck = [0, 13, 2, 12, 4, 5, 6, 7, 8, 9, 10]
         if not deck:
             return {"success": False, "message": "Blackjack server is currently facing an problem."\
                 " Please try again later."
@@ -127,6 +127,7 @@ def hit_blackjack():
         return {
             "success": True,
             "bust": True,
+            "winner": "Dealer",
             "blackjack": False,
             "player": client_player
         }
@@ -143,3 +144,43 @@ def hit_blackjack():
         "blackjack": False,
         "player": client_player
         }
+
+@blackjack_bp.route("/api/blackjack/stand", methods=["GET"])
+def stand_blackjack():
+    query = Blackjack.query.filter_by(user_id=session["user_id"]).first()
+    deck = json.loads(query.deck)
+    player_hand = json.loads(query.player_hand)
+    dealer_hand = json.loads(query.dealer_hand)
+    while blackjack_total(dealer_hand) <= 17:
+        dealer_hand.append(draw_card(deck))
+    if len(deck)<200:
+        # deck = deck + get_deck_set() implement on final release
+        deck = deck + [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    query.deck = json.dumps(deck)
+    query.player_hand = json.dumps(player_hand)
+    query.dealer_hand = json.dumps(dealer_hand)
+
+    client_dealer = translate_hand(dealer_hand)
+    client_player = translate_hand(player_hand)
+    dealer_total = blackjack_total(dealer_hand)
+    player_total = blackjack_total(player_hand)
+    if dealer_total > 21 or dealer_total < player_total:
+        return {
+            "success": True,
+            "winner": "player",
+            "dealer": client_dealer,
+            "player": client_player,
+        }
+    if dealer_total == player_total:
+        return {
+            "success": True,
+            "winner": "none",
+            "dealer": client_dealer,
+            "player": client_player,
+        }
+    return {
+        "success": True,
+        "winner": "dealer",
+        "dealer": client_dealer,
+        "player": client_player,
+    }
