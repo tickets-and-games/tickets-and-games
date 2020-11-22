@@ -25,6 +25,35 @@ def valid_balance(user_id):
         return False
     return total_tickets >= 500
 
+def blackjack_transaction(amount):
+    transaction = Transaction(
+        user_id=session["user_id"],
+        ticket_amount=amount,
+        activity="blackjack",
+    )
+    db.session.add(transaction)
+    db.session.commit()
+
+def get_starting_cards():
+    query = Blackjack.query.filter_by(user_id=session["user_id"]).first()
+    deck = json.loads(query.deck)
+    card1 = draw_card(deck)
+    card2 = draw_card(deck)
+    card3 = draw_card(deck)
+    card4 = draw_card(deck)
+    dealer_hand = [card1, card3]
+    player_hand = [card2, card4]
+    if len(deck)<200:
+        deck = deck + get_deck_set()
+    query.deck = json.dumps(deck)
+    query.player_hand = json.dumps(player_hand)
+    query.dealer_hand = json.dumps(dealer_hand)
+    db.session.commit()
+    return {
+        "dealer_hand": dealer_hand,
+        "player_hand": player_hand
+    }
+
 @blackjack_bp.route("/api/blackjack/play", methods=["GET"])
 def play_blackjack():
     try:
@@ -40,12 +69,7 @@ def play_blackjack():
 def bet_blackjack():
     try:
         data = json.loads(request.data)
-        transaction = Transaction(
-            user_id=session["user_id"],
-            ticket_amount=-data["amount"],
-            activity="blackjack",
-        )
-        db.session.add(transaction)
+        blackjack_transaction(-data["amount"])
         deck = get_deck_set()
         if not deck:
             return {"success": False, "message": "Blackjack server is currently facing an problem."\
@@ -86,31 +110,13 @@ def bet_blackjack():
 def play_again_blackjack():
     try:
         data = json.loads(request.data)
-        transaction = Transaction(
-            user_id=session["user_id"],
-            ticket_amount=-data["amount"],
-            activity="blackjack",
-        )
-        db.session.add(transaction)
-        query = Blackjack.query.filter_by(user_id=session["user_id"]).first()
-        deck = json.loads(query.deck)
-        card1 = draw_card(deck)
-        card2 = draw_card(deck)
-        card3 = draw_card(deck)
-        card4 = draw_card(deck)
-        dealer_hand = [card1, card3]
-        player_hand = [card2, card4]
-        if len(deck)<200:
-            deck = deck + get_deck_set()
-        query.deck = json.dumps(deck)
-        query.player_hand = json.dumps(player_hand)
-        query.dealer_hand = json.dumps(dealer_hand)
-        db.session.commit()
-        client_dealer = translate_hand(dealer_hand)[0:2]
-        client_player = translate_hand(player_hand)
+        blackjack_transaction(-data["amount"])
+        new_cards = get_starting_cards()
+        client_dealer = translate_hand(new_cards["dealer_hand"])[0:2]
+        client_player = translate_hand(new_cards["player_hand"])
         return {
             "success": True,
-            "blackjack" : blackjack_total(player_hand) == 21,
+            "blackjack" : blackjack_total(new_cards["player_hand"]) == 21,
             "dealer": client_dealer,
             "player": client_player,
         }
@@ -176,13 +182,7 @@ def stand_blackjack():
             .filter_by(Transaction.user_id==session["user_id"])\
             .order_by(Transaction.id.desc()).first()
         new_amount = last_transaction.ticket_amount * 1.5
-        transaction = Transaction(
-            user_id=session["user_id"],
-            ticket_amount=new_amount,
-            activity="blackjack",
-        )
-        db.session.add(transaction)
-        db.session.commit()
+        blackjack_transaction(new_amount)
         return {
             "success": True,
             "winner": "player",
@@ -205,25 +205,12 @@ def stand_blackjack():
 
 @blackjack_bp.route("/api/blackjack/tiebreaker", methods=["GET"])
 def tiebreaker_blackjack():
-    query = Blackjack.query.filter_by(user_id=session["user_id"]).first()
-    deck = json.loads(query.deck)
-    card1 = draw_card(deck)
-    card2 = draw_card(deck)
-    card3 = draw_card(deck)
-    card4 = draw_card(deck)
-    dealer_hand = [card1, card3]
-    player_hand = [card2, card4]
-    if len(deck)<200:
-        deck = deck + get_deck_set()
-    query.deck = json.dumps(deck)
-    query.player_hand = json.dumps(player_hand)
-    query.dealer_hand = json.dumps(dealer_hand)
-    db.session.commit()
-    client_dealer = translate_hand(dealer_hand)[0:2]
-    client_player = translate_hand(player_hand)
+    new_cards = get_starting_cards()
+    client_dealer = translate_hand(new_cards["dealer_hand"])[0:2]
+    client_player = translate_hand(new_cards["player_hand"])
     return {
         "success": True,
-        "blackjack" : blackjack_total(player_hand) == 21,
+        "blackjack" : blackjack_total(new_cards["player_hand"]) == 21,
         "dealer": client_dealer,
         "player": client_player,
     }
