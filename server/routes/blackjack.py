@@ -17,7 +17,7 @@ def new_player(user_id):
 
 def valid_balance(user_id):
     total_tickets = (
-        db.session.query(func.sum(Transaction.ticket_amount))
+        db.session.query(func.sum(Transaction.ticket_amount))\
         .filter(Transaction.user_id == user_id)
         .scalar()
     )
@@ -65,6 +65,24 @@ def play_blackjack():
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
 
+@blackjack_bp.route("/api/blackjack/checkfunds", methods=["POST"])
+def check_funds_blackjack():
+    try:
+        data = json.loads(request.data)
+        bet_amount = data["amount"]
+        total_tickets = (
+            db.session.query(func.sum(Transaction.ticket_amount))
+            .filter(Transaction.user_id == session["user_id"])
+            .scalar()
+        )
+        if bet_amount > total_tickets:
+            return {
+                "success": False,
+                "message": "You are wagering more tickets than you currently have"
+            }
+        return {"success": True}
+    except json.decoder.JSONDecodeError:
+        return {"error": "Malformed request"}, 400
 @blackjack_bp.route("/api/blackjack/start", methods=["POST"])
 def bet_blackjack():
     try:
@@ -178,11 +196,11 @@ def stand_blackjack():
     dealer_total = blackjack_total(dealer_hand)
     player_total = blackjack_total(player_hand)
     if dealer_total > 21 or dealer_total < player_total:
-        last_transaction = session.query(Transaction)\
-            .filter_by(Transaction.user_id==session["user_id"])\
+        last_transaction = db.session.query(Transaction)\
+            .filter_by(user_id=session["user_id"])\
             .order_by(Transaction.id.desc()).first()
         new_amount = last_transaction.ticket_amount * 1.5
-        blackjack_transaction(new_amount)
+        blackjack_transaction(-new_amount)
         return {
             "success": True,
             "winner": "player",

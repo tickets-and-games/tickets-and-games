@@ -41,7 +41,20 @@ function Blackjack() {
       setPool('500');
       setErrorMessage('Minimum pool required is 500 tickets');
     } else {
-      setGameState(2);
+      fetch('/api/blackjack/checkfunds', {
+        method: 'POST',
+        body: JSON.stringify({
+          amount: Number(pool),
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            setGameState(2);
+          } else {
+            setErrorMessage(data.message);
+          }
+        });
     }
   }
   useEffect(() => {
