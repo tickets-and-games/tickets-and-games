@@ -35,7 +35,7 @@ def coinflip():
 
         if amount > 0:
             if did_win:
-                tickets_won = amount*2
+                tickets_won = amount
             else:
                 tickets_won = amount * -1
 
