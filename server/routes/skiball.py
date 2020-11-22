@@ -25,7 +25,6 @@ def coinflip():
             .scalar()
         )
         
-        ticket_balance = 40
         if ticket_balance < 30:
             return {"error": "Insufficient balance"}, 400
 
