@@ -10,6 +10,8 @@ class Transaction(db.Model):
     activity = db.Column(db.String(255))
     datetime = db.Column(db.DateTime, default=datetime.datetime.utcnow())
 
+    user = db.relationship("User", backref="user_transactions")
+
 
 class ActivityType(Enum):
     TRANSFER = "transfer"
