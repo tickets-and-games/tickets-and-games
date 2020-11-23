@@ -10,14 +10,25 @@ const useStyles = makeStyles(() => ({
     height: '30vh',
     width: '100%',
     textAlign: 'center',
-    margin: 'auto',
   },
   player: {
-    flexGrow: 1,
+    display: 'block',
+    position: 'absolute',
     height: '30vh',
     width: '100%',
     textAlign: 'center',
-    margin: 'atuo',
+    bottom: '20px',
+  },
+  clientUI: {
+    display: 'block',
+    position: 'relative',
+    height: '100%',
+    width: '100%',
+  },
+  playerUI: {
+    display: 'block',
+    height: '60%',
+    width: '100%',
   },
 }));
 
@@ -166,41 +177,41 @@ function BlackjackGame(props: Props) {
   }, []);
   const classes = useStyles();
   return (
-    <div className="player-ui">
+    <Box className={classes.playerUI}>
       <Box className={classes.dealer}>{MakeCards(dealerHand)}</Box>
-      <Typography variant="h5">
-        Winner:&nbsp;
-        {result}
-      </Typography>
-      <div className="client-ui">
-        <Typography variant="h6" style={{ marginBottom: '20px' }}>{effect}</Typography>
+      { endScreen
+        ? (
+          <div className="blackjack-end">
+            <Typography variant="h5">
+              Winner:&nbsp;
+              {result}
+            </Typography>
+            { tie
+              ? (
+                <div className="blackjack-tie">
+                  <button type="button" onClick={HandleTie} className="blackjack-button-hit">Another Round</button>
+                </div>
+              )
+              : (
+                <div className="blackjack-playagain">
+                  <input type="text" defaultValue={newPool} onChange={HandleNewPool} />
+                  <div className="error-box">{errorMessage}</div>
+                  <button type="button" onClick={HandlePlayAgain} className="blackjack-button-hit">Play Again</button>
+                </div>
+              )}
+          </div>
+        )
+        : (
+          <div className="blackjack-play">
+            <button type="button" onClick={HandleHit} className="blackjack-button-hit">Hit</button>
+            <button type="button" onClick={HandleButtonStand} className="blackjack-button-hit">Hold</button>
+          </div>
+        )}
+      <Box className={classes.clientUI}>
+        <Typography variant="h6">{effect}</Typography>
         <Box className={classes.player}>{MakeCards(playerHand)}</Box>
-        { endScreen
-          ? (
-            <div className="blackjack-end">
-              { tie
-                ? (
-                  <div className="blackjack-tie">
-                    <button type="button" onClick={HandleTie} className="blackjack-button-hit">Another Round</button>
-                  </div>
-                )
-                : (
-                  <div className="blackjack-playagain">
-                    <input type="text" defaultValue={newPool} onChange={HandleNewPool} />
-                    <div className="error-box">{errorMessage}</div>
-                    <button type="button" onClick={HandlePlayAgain} className="blackjack-button-hit">Play Again</button>
-                  </div>
-                )}
-            </div>
-          )
-          : (
-            <div className="blackjack-play">
-              <button type="button" onClick={HandleHit} className="blackjack-button-hit">Hit</button>
-              <button type="button" onClick={HandleButtonStand} className="blackjack-button-hit">Hold</button>
-            </div>
-          )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

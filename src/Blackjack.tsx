@@ -9,11 +9,11 @@ const useStyles = makeStyles(() => ({
     flexGrow: 1,
     top: '40px',
     backgroundColor: '#136207',
-    height: '80vh',
-    width: '96%',
+    height: '72vh',
+    width: '90%',
     textAlign: 'center',
     margin: 'auto',
-    padding: '20px',
+    padding: '50px',
   },
 }));
 

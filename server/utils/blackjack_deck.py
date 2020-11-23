@@ -83,7 +83,7 @@ def get_deck_set():
             "n": 1,
             "length": 208,
             "min": 0,
-           "max": 207,
+            "max": 207,
         "replacement": False,
         "base": 10
         },

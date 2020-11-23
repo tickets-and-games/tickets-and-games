@@ -16,6 +16,7 @@ const useStyles = makeStyles(() => ({
   botRight: {
     display: 'block',
     position: 'absolute',
+    transform: 'rotate(180deg)',
     textAlign: 'right',
     bottom: 0,
     right: '5px',
@@ -49,9 +50,9 @@ function BlackjackCard(props: Props) {
               {cardSuit}
             </Typography>
             <Typography variant="h6" className={classes.botRight} style={{ color: 'red' }}>
-              {cardSuit}
-              <br />
               {cardValue}
+              <br />
+              {cardSuit}
             </Typography>
           </div>
         )
@@ -63,9 +64,9 @@ function BlackjackCard(props: Props) {
               {cardSuit}
             </Typography>
             <Typography variant="h6" className={classes.botRight}>
-              {cardSuit}
-              <br />
               {cardValue}
+              <br />
+              {cardSuit}
             </Typography>
           </div>
         )}
