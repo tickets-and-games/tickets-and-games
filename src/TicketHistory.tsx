@@ -40,7 +40,12 @@ function TicketHistory() {
 
   if (tHistory.length !== 0) {
     return (
-      <table className="transaction-history-table">
+      <table
+        style={{
+          margin: 'auto', textAlign: 'center', position: 'relative', top: '2vh',
+        }}
+        className="transaction-history-table"
+      >
         <tbody className="table-body">
           <tr>
             <th> </th>
