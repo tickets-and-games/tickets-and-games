@@ -10,7 +10,7 @@ DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///database.db")
 
 socketio = SocketIO()
 db = SQLAlchemy()
-migrate = Migrate()
+migrate = Migrate(compare_type=True)
 
 
 def create_app(config):
@@ -36,8 +36,7 @@ def create_app(config):
         app.register_blueprint(routes.profile_bp)
         app.register_blueprint(routes.ticket_bp)
         app.register_blueprint(routes.blackjack_bp)
+        app.register_blueprint(routes.skiball_bp)
         app.register_blueprint(routes.store_bp)
-
-        upgrade()  # Flask-migrate set up database automatically
 
     return app

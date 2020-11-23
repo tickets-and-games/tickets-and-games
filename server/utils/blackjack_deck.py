@@ -37,12 +37,41 @@ import requests
 RANDOM_ORG_KEY = os.getenv("RANDOM_ORG_KEY", "DEFAULT_KEY")
 RANDOM_URL = "https://api.random.org/json-rpc/2/invoke"
 suits = ["Diamond", "Hearts", "Clover", "Spades"]
+values = ["Ace", "Two", "Three", "Four", "Five", "Six",
+    "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"]
 
-class Card():
-    def __init__(self, number):
-        self.suit = number % 4
-        self.value = number % 13
-        self.suit_string = suits[number % 4]
+def get_suit(number):
+    return suits[number % 4]
+
+def get_string_value(number):
+    return values[number % 13]
+
+def get_numeric_value(number):
+    return (number % 13) + 1
+
+def translate_hand(hand):
+    lst = []
+    for num in hand:
+        lst.append(values[num % 13])
+        lst.append(suits[num % 4])
+    return lst
+
+def blackjack_total(hand):
+    total = 0
+    aces = []
+    for num in hand:
+        if num % 13 == 0:
+            aces.append(num)
+        elif (num % 13) + 1 > 10:
+            total += 10
+        else:
+            total += (num % 13) + 1
+    for _ in range(len(aces)):
+        if total + 11 <= 21:
+            total += 11
+        else:
+            total += 1
+    return total
 
 def get_deck_set():
     if RANDOM_ORG_KEY == "DEFAULT_KEY":
@@ -54,8 +83,8 @@ def get_deck_set():
             "apiKey": RANDOM_ORG_KEY,
             "n": 1,
             "length": 208,
-            "min": 1,
-            "max": 208,
+            "min": 0,
+            "max": 207,
         "replacement": False,
         "base": 10
         },
@@ -68,6 +97,4 @@ def get_deck_set():
     return data["result"]["random"]["data"][0]
 
 def draw_card(deck):
-    card_number = deck.pop()
-    playing_card = Card(card_number)
-    return playing_card
+    return deck.pop(0)

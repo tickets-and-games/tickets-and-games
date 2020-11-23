@@ -34,7 +34,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   paper: {
     flexGrow: 1,
-    backgroundColor: '#ADD8E6',
+    backgroundColor: '#f7cea2',
+    borderStyle: 'solid',
+    borderWidth: '3px',
     width: '70%',
     textAlign: 'center',
     margin: 'auto',
@@ -50,7 +52,7 @@ const tileData = [
   },
 
   {
-    img: 'https://lh3.googleusercontent.com/proxy/2EHRYvBscJ7P-NF5M_OYkABN6bwR5dnFOr4AbiDZzoiK_YjI6nPOgRHGqmKAbjHXyHLji_oUCIWrUZbNTyc5SHxUbwku8DnL47HIUoPr637FO-NrCDF2RM8e',
+    img: 'https://www.eguardtech.com/wp-content/uploads/2018/08/Network-Profile.png',
     title: 'Profile',
     author: 'author',
     url: '/profile',

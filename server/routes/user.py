@@ -101,7 +101,7 @@ def password_signup():
 
 
 def find_username(username):
-    return Login.query.filter_by(username=username).saclar()
+    return Login.query.filter_by(username=username).scalar()
 
 
 def get_pwd(username):
