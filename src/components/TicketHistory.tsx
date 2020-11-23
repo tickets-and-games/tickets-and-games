@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
 
 type Transaction = {
   id: number
@@ -40,24 +41,29 @@ function TicketHistory() {
 
   if (tHistory.length !== 0) {
     return (
-      <table className="transaction-history-table">
-        <tbody className="table-body">
-          <tr>
-            <th> </th>
-            <th>Date</th>
-            <th>Activity</th>
-            <th>Amount</th>
-          </tr>
-          {tHistory.map((row, index) => (
-            <tr key={row.id}>
-              <td>{index + 1}</td>
-              <td>{row.datetime}</td>
-              <td>{row.activity}</td>
-              <td>{row.amount}</td>
+      <>
+        <Typography variant="h4" component="h4">
+          Ticket History
+        </Typography>
+        <table className="transaction-history-table">
+          <tbody className="table-body">
+            <tr>
+              <th> </th>
+              <th>Date</th>
+              <th>Activity</th>
+              <th>Amount</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+            {tHistory.map((row, index) => (
+              <tr key={row.id}>
+                <td>{index + 1}</td>
+                <td>{row.datetime}</td>
+                <td>{row.activity}</td>
+                <td>{row.amount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
     );
   }
   return (

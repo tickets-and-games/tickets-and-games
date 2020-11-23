@@ -1,7 +1,9 @@
-from flask import session, Blueprint
+import json
+from flask import session, request, Blueprint
 from sqlalchemy.orm.exc import NoResultFound
 from server import db
-from server.models import Transaction
+from server.models import Transaction, User
+from server.utils import get_current_user, get_user_balance
 
 
 ticket_bp = Blueprint("ticket_bp", __name__)
@@ -36,4 +38,52 @@ def get_transaction_history(user_id):
             no_history = []
             return {"ticketTransaction": no_history}
     else:
-        return {"error": "client not suppose to be here"}, 404
+        return {"error": "User not logged in"}, 404
+
+
+@ticket_bp.route("/api/ticket/transfer", methods=["POST"])
+def transfer_tickets():
+    try:
+        current_user = get_current_user()
+        if current_user is None:
+            return {"error": "User not logged in"}, 400
+
+        balance = get_user_balance(current_user)
+
+        data = json.loads(request.data)
+        recipient_id = data["to"]
+        amount = data["amount"]
+
+        if amount <= 0:
+            return {"error": "You can't transfer non-positive number of tickets"}, 400
+
+        if balance < amount:
+            return {"error": "Insufficient balance"}, 400
+
+        if recipient_id == current_user.id:
+            return {"error": "You can't send points to yourself"}, 400
+
+        recipient = User.query.filter_by(id=recipient_id).first()
+
+        if recipient is None:
+            return {"error": "Recipient does not exist"}, 400
+
+        subtract_balance = Transaction(
+            user_id=current_user.id,
+            ticket_amount=-1 * amount,
+            activity=f"Transfer to {recipient.name}",
+        )
+        add_balance = Transaction(
+            user_id=recipient_id,
+            ticket_amount=amount,
+            activity=f"Transfer from {current_user.name}",
+        )
+
+        db.session.add(subtract_balance)
+        db.session.add(add_balance)
+        db.session.commit()
+
+        return {"success": True, "user_id": recipient.id, "amount": amount}
+
+    except json.decoder.JSONDecodeError:
+        return {"error": "Malformed request"}, 400
