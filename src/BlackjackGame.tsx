@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Box, makeStyles, Typography,
 } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import BlackjackCard from './BlackjackCard';
 
 const useStyles = makeStyles(() => ({
@@ -46,7 +47,11 @@ function BlackjackGame(props: Props) {
   const [effect, seteffect] = useState<String>('');
   const [result, setResult] = useState<string>('');
   const [tie, setTie] = useState<Boolean>(false);
+  const history = useHistory();
 
+  function HandleLeave() {
+    history.push('/');
+  }
   function MakeCards(hand) {
     const displayHand : JSX.Element[] = [];
     for (let i = 0; i < hand.length; i += 2) {
@@ -102,7 +107,7 @@ function BlackjackGame(props: Props) {
       setNewPool('500');
       setErrorMessage('Minimum pool required is 500 tickets');
     } else {
-      fetch('/api/blackjack/playagain', {
+      fetch('/api/blackjack/checkfunds', {
         method: 'POST',
         body: JSON.stringify({
           amount: Number(newPool),
@@ -111,16 +116,29 @@ function BlackjackGame(props: Props) {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            setDealerHand(data.dealer);
-            setPlayerHand(data.player);
-            if (data.blackjack) {
-              HandleStand(false, data.blackjack);
-            }
+            fetch('/api/blackjack/playagain', {
+              method: 'POST',
+              body: JSON.stringify({
+                amount: Number(newPool),
+              }),
+            })
+              .then((response) => response.json())
+              .then((ndata) => {
+                if (ndata.success) {
+                  setDealerHand(ndata.dealer);
+                  setPlayerHand(ndata.player);
+                  if (ndata.blackjack) {
+                    HandleStand(false, ndata.blackjack);
+                  }
+                  setResult('');
+                  setEndScreen(false);
+                }
+              });
+          } else {
+            setErrorMessage(data.message);
           }
         });
-      setResult('');
       seteffect('');
-      setEndScreen(false);
     }
   }
   function HandleHit() {
@@ -197,6 +215,7 @@ function BlackjackGame(props: Props) {
                   <input type="text" defaultValue={newPool} onChange={HandleNewPool} />
                   <div className="error-box">{errorMessage}</div>
                   <button type="button" onClick={HandlePlayAgain} className="blackjack-button-hit">Play Again</button>
+                  <button type="button" onClick={HandleLeave} className="blackjack-logout">Leave</button>
                 </div>
               )}
           </div>
