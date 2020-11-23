@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Box, makeStyles, Typography,
+  Box, makeStyles, Typography, Button,
 } from '@material-ui/core';
 import BlackjackCard from './BlackjackCard';
 
@@ -189,22 +189,22 @@ function BlackjackGame(props: Props) {
             { tie
               ? (
                 <div className="blackjack-tie">
-                  <button type="button" onClick={HandleTie} className="blackjack-button-hit">Another Round</button>
+                  <Button onClick={HandleTie} className="blackjack-button-hit">Another Round</Button>
                 </div>
               )
               : (
                 <div className="blackjack-playagain">
                   <input type="text" defaultValue={newPool} onChange={HandleNewPool} />
                   <div className="error-box">{errorMessage}</div>
-                  <button type="button" onClick={HandlePlayAgain} className="blackjack-button-hit">Play Again</button>
+                  <Button onClick={HandlePlayAgain} className="blackjack-button-hit">Play Again</Button>
                 </div>
               )}
           </div>
         )
         : (
           <div className="blackjack-play">
-            <button type="button" onClick={HandleHit} className="blackjack-button-hit">Hit</button>
-            <button type="button" onClick={HandleButtonStand} className="blackjack-button-hit">Hold</button>
+            <Button onClick={HandleHit} style={{ right: '5px' }} className="blackjack-button-hit">Hit</Button>
+            <Button onClick={HandleButtonStand} className="blackjack-button-hit">Hold</Button>
           </div>
         )}
       <Box className={classes.clientUI}>
