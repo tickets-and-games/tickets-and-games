@@ -36,9 +36,8 @@ import requests
 
 RANDOM_ORG_KEY = os.getenv("RANDOM_ORG_KEY", "DEFAULT_KEY")
 RANDOM_URL = "https://api.random.org/json-rpc/2/invoke"
-suits = ["Diamond", "Hearts", "Clover", "Spades"]
-values = ["Ace", "Two", "Three", "Four", "Five", "Six",
-    "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"]
+suits = ["D", "H", "C", "S"]
+values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
 def get_suit(number):
     return suits[number % 4]
