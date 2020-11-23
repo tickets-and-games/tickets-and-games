@@ -54,19 +54,24 @@ def transfer_tickets():
         recipient_id = data["to"]
         amount = data["amount"]
 
-        if amount <= 0:
-            return {"error": "You can't transfer non-positive number of tickets"}, 400
-
-        if balance < amount:
-            return {"error": "Insufficient balance"}, 400
-
-        if recipient_id == current_user.id:
-            return {"error": "You can't send points to yourself"}, 400
+        error = None
 
         recipient = User.query.filter_by(id=recipient_id).first()
 
+        if amount <= 0:
+            error = "You can't transfer non-positive number of tickets"
+
+        if balance < amount:
+            error = "Insufficient balance"
+
+        if recipient_id == current_user.id:
+            error = "You can't send points to yourself"
+
         if recipient is None:
-            return {"error": "Recipient does not exist"}, 400
+            error = "Recipient does not exist"
+
+        if error is not None:
+            return {"error": error}, 400
 
         subtract_balance = Transaction(
             user_id=current_user.id,
