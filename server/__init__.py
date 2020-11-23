@@ -4,7 +4,7 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO
-from flask_migrate import Migrate
+from flask_migrate import Migrate, upgrade
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///database.db")
 
@@ -37,4 +37,6 @@ def create_app(config):
         app.register_blueprint(routes.ticket_bp)
         app.register_blueprint(routes.blackjack_bp)
         app.register_blueprint(routes.skiball_bp)
+        app.register_blueprint(routes.store_bp)
+
     return app
