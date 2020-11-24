@@ -1,4 +1,37 @@
 import React, { useEffect, useState } from 'react';
+import {
+  Box, makeStyles, Typography, Button,
+} from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
+import BlackjackCard from './BlackjackCard';
+
+const useStyles = makeStyles(() => ({
+  dealer: {
+    display: 'block',
+    height: '30vh',
+    width: '100%',
+    textAlign: 'center',
+  },
+  player: {
+    display: 'block',
+    position: 'absolute',
+    height: '30vh',
+    width: '100%',
+    textAlign: 'center',
+    bottom: '20px',
+  },
+  clientUI: {
+    display: 'block',
+    position: 'relative',
+    height: '100%',
+    width: '100%',
+  },
+  playerUI: {
+    display: 'block',
+    height: '60%',
+    width: '100%',
+  },
+}));
 
 interface Props {
   pool: string;
@@ -14,6 +47,20 @@ function BlackjackGame(props: Props) {
   const [effect, seteffect] = useState<String>('');
   const [result, setResult] = useState<string>('');
   const [tie, setTie] = useState<Boolean>(false);
+  const history = useHistory();
+
+  function HandleLeave() {
+    history.push('/');
+  }
+  function MakeCards(hand) {
+    const displayHand : JSX.Element[] = [];
+    for (let i = 0; i < hand.length; i += 2) {
+      displayHand.push(
+        <BlackjackCard suit={hand[i + 1]} value={hand[i]} />,
+      );
+    }
+    return displayHand;
+  }
 
   function HandleResult(bust, blackjack, winner) {
     if (bust) {
@@ -60,7 +107,7 @@ function BlackjackGame(props: Props) {
       setNewPool('500');
       setErrorMessage('Minimum pool required is 500 tickets');
     } else {
-      fetch('/api/blackjack/playagain', {
+      fetch('/api/blackjack/checkfunds', {
         method: 'POST',
         body: JSON.stringify({
           amount: Number(newPool),
@@ -69,16 +116,29 @@ function BlackjackGame(props: Props) {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            setDealerHand(data.dealer);
-            setPlayerHand(data.player);
-            if (data.blackjack) {
-              HandleStand(false, data.blackjack);
-            }
+            fetch('/api/blackjack/playagain', {
+              method: 'POST',
+              body: JSON.stringify({
+                amount: Number(newPool),
+              }),
+            })
+              .then((response) => response.json())
+              .then((ndata) => {
+                if (ndata.success) {
+                  setDealerHand(ndata.dealer);
+                  setPlayerHand(ndata.player);
+                  if (ndata.blackjack) {
+                    HandleStand(false, ndata.blackjack);
+                  }
+                  setResult('');
+                  setEndScreen(false);
+                }
+              });
+          } else {
+            setErrorMessage(data.message);
           }
         });
-      setResult('');
       seteffect('');
-      setEndScreen(false);
     }
   }
   function HandleHit() {
@@ -133,39 +193,44 @@ function BlackjackGame(props: Props) {
         }
       });
   }, []);
+  const classes = useStyles();
   return (
-    <div className="player-ui">
-      <div className="dealer-hand">{dealerHand}</div>
-      <div className="blackjack-result">{result}</div>
-      <div className="client-ui">
-        <div className="blackjack-effect">{effect}</div>
-        <div className="player-hand">{playerHand}</div>
-        { endScreen
-          ? (
-            <div className="blackjack-end">
-              { tie
-                ? (
-                  <div className="blackjack-tie">
-                    <button type="button" onClick={HandleTie} className="blackjack-button-hit">Another Round</button>
-                  </div>
-                )
-                : (
-                  <div className="blackjack-playagain">
-                    <input type="text" defaultValue={newPool} onChange={HandleNewPool} />
-                    <div className="error-box">{errorMessage}</div>
-                    <button type="button" onClick={HandlePlayAgain} className="blackjack-button-hit">Play Again</button>
-                  </div>
-                )}
-            </div>
-          )
-          : (
-            <div className="blackjack-play">
-              <button type="button" onClick={HandleHit} className="blackjack-button-hit">Hit</button>
-              <button type="button" onClick={HandleButtonStand} className="blackjack-button-hit">Hold</button>
-            </div>
-          )}
-      </div>
-    </div>
+    <Box className={classes.playerUI}>
+      <Box className={classes.dealer}>{MakeCards(dealerHand)}</Box>
+      { endScreen
+        ? (
+          <div className="blackjack-end">
+            <Typography variant="h5">
+              Winner:&nbsp;
+              {result}
+            </Typography>
+            { tie
+              ? (
+                <div className="blackjack-tie">
+                  <Button onClick={HandleTie} className="blackjack-button-hit">Another Round</Button>
+                </div>
+              )
+              : (
+                <div className="blackjack-playagain">
+                  <input type="text" defaultValue={newPool} onChange={HandleNewPool} />
+                  <div className="error-box">{errorMessage}</div>
+                  <Button onClick={HandlePlayAgain} className="blackjack-button-hit">Play Again</Button>
+                  <Button onClick={HandleLeave} className="blackjack-logout">Leave</Button>
+                </div>
+              )}
+          </div>
+        )
+        : (
+          <div className="blackjack-play">
+            <Button onClick={HandleHit} style={{ right: '5px' }} className="blackjack-button-hit">Hit</Button>
+            <Button onClick={HandleButtonStand} className="blackjack-button-hit">Hold</Button>
+          </div>
+        )}
+      <Box className={classes.clientUI}>
+        <Typography variant="h6">{effect}</Typography>
+        <Box className={classes.player}>{MakeCards(playerHand)}</Box>
+      </Box>
+    </Box>
   );
 }
 
