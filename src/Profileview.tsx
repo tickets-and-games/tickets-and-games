@@ -61,7 +61,9 @@ function Profileview() {
             Total Tickets:&nbsp;
             { tickets}
           </div>
+          <br />
           <TicketTransfer />
+          <br />
           <TicketHistory />
         </Typography>
         <br />

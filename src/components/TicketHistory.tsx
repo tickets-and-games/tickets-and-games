@@ -45,6 +45,7 @@ function TicketHistory() {
         <Typography variant="h4" component="h4">
           Ticket History
         </Typography>
+        <br />
         <table style={{ textAlign: 'center', margin: 'auto' }} className="transaction-history-table">
           <tbody className="table-body">
             <tr>
