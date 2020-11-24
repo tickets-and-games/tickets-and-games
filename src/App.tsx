@@ -15,6 +15,7 @@ import Signup from './Signup';
 import Blackjack from './Blackjack';
 import Home from './Home';
 import Skiball from './Skiball';
+import Store from './Store';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -45,6 +46,9 @@ function App() {
             </Route>
             <Route path="/blackjack">
               <Blackjack />
+            </Route>
+            <Route path="/store">
+              <Store />
             </Route>
             <Route path="/">
               <Home />

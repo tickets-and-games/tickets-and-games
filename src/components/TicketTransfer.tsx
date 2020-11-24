@@ -62,7 +62,7 @@ function TicketTransfer() {
           onChange={amountOnChange}
           variant="filled"
         />
-        <Button size="large" variant="contained" color="primary" onClick={transferTicket}>
+        <Button size="large" variant="contained" onClick={transferTicket}>
           Transfer
         </Button>
       </form>
