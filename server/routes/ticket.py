@@ -20,6 +20,7 @@ def get_transaction_history(user_id):
         try:
             ticket_history = (
                 db.session.query(Transaction)
+                .order_by(Transaction.id.desc())
                 .filter(Transaction.user_id == user_id)
                 .all()
             )
