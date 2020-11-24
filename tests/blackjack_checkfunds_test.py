@@ -1,13 +1,11 @@
 import json
 import unittest
-import unittest.mock as mock
 import os
 import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from server import db
-from server.utils import get_user_balance, get_user_by_id
 from server.utils.database_test import DatabaseTest
 from server.models import Transaction
 

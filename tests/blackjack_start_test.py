@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from server import db
 from server.utils import (
-    get_user_by_id, mocked_random_org_call_norm, mocked_call_blackjack, mocked_bad_deck
+    mocked_random_org_call_norm, mocked_call_blackjack, mocked_bad_deck
 )
 from server.utils.database_test import DatabaseTest
 from server.models import Transaction, Blackjack
@@ -81,7 +81,7 @@ class BlackjackStartTest(DatabaseTest):
                 }))
                 result = json.loads(res.data.decode("utf-8"))
                 self.assertDictEqual(self.blackjack_start_new_success, result)
-    
+
     def test_blackjack_start_bad(self):
         with self.app.app_context():
             with self.client.session_transaction() as sess:

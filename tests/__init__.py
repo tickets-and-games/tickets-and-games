@@ -6,3 +6,4 @@ import tests.pwd_login_test
 import tests.blackjack_play_test
 import tests.blackjack_checkfunds_test
 import tests.blackjack_start_test
+import tests.blackjack_again_test
