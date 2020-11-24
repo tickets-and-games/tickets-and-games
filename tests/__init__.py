@@ -3,3 +3,4 @@ import tests.profileview_test
 import tests.transaction_history_test
 import tests.signup_test
 import tests.pwd_login_test
+import tests.blackjack_play_test

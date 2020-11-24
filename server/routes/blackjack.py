@@ -56,14 +56,11 @@ def get_starting_cards():
 
 @blackjack_bp.route("/api/blackjack/play", methods=["GET"])
 def play_blackjack():
-    try:
-        if "user_id" not in session:
-            return {"success": False, "message": "User is not suppose to be here"}
-        if valid_balance(session["user_id"]) is False:
-            return {"success": False, "message": "Client needs at least 500 tickets to play."}
-        return {"success": True, "message": "Welcome to Blackjack!"}
-    except json.decoder.JSONDecodeError:
-        return {"error": "Malformed request"}, 400
+    if "user_id" not in session:
+        return {"success": False, "message": "User is not suppose to be here"}
+    if valid_balance(session["user_id"]) is False:
+        return {"success": False, "message": "Client needs at least 500 tickets to play."}
+    return {"success": True, "message": "Welcome to Blackjack!"}
 
 @blackjack_bp.route("/api/blackjack/checkfunds", methods=["POST"])
 def check_funds_blackjack():
