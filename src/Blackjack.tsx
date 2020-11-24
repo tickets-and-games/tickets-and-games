@@ -2,33 +2,35 @@ import React, { useState, useEffect } from 'react';
 import {
   Button, Paper, makeStyles, Typography, Input, Box,
 } from '@material-ui/core';
+import 'fontsource-roboto';
 import BlackjackGame from './BlackjackGame';
 
 const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
-    top: '40px',
-    backgroundColor: '#136207',
-    height: '72vh',
-    width: '90%',
+    backgroundColor: '#f7cea2',
+    borderStyle: 'solid',
+    borderWidth: '3px',
+    width: '70%',
     textAlign: 'center',
     margin: 'auto',
-    padding: '50px',
   },
 }));
 
 const rules = (
-  <Box style={{ margin: 'auto', width: '35%' }}>
-    <Typography variant="h6">Rules:</Typography>
+  <Box style={{ margin: 'auto', width: '55%' }}>
+    <Typography variant="h5">Rules:</Typography>
     <Box style={{ textAlign: 'left', paddingLeft: '40px' }}>
-      <p>1. Goal of blackjack is to beat the dealer&apos;s hand without going over 21</p>
-      <p>2. Jack, Queen and King are worth 10 points</p>
-      <p>3. Aces are worth 1 or 11 points. Which ever makes the hand better</p>
-      <p>4. Value cards are worth its repective value</p>
-      <p>7. &apos;Hit&apos; is to ask for another card.</p>
-      <p>8. &apos;Stand&apos; is to keep your total and end asking for cards</p>
-      <p>11. Dealer must hit until total is above 17</p>
-      <p>12. Reward is double of your bet</p>
+      <Typography variant="body1">
+        <p>1. Goal of blackjack is to beat the dealer&apos;s hand without going over 21</p>
+        <p>2. Jack, Queen and King are worth 10 points</p>
+        <p>3. Aces are worth 1 or 11 points. Which ever makes the hand better</p>
+        <p>4. Value cards are worth its repective value</p>
+        <p>7. &apos;Hit&apos; is to ask for another card.</p>
+        <p>8. &apos;Stand&apos; is to keep your total and end asking for cards</p>
+        <p>11. Dealer must hit until total is above 17</p>
+        <p>12. Reward is double of your bet</p>
+      </Typography>
     </Box>
   </Box>
 );
@@ -81,7 +83,7 @@ function Blackjack() {
   const classes = useStyles();
   return (
     <div className="blackjack-page">
-      <Paper className={classes.root} style={{ position: 'relative', top: '20px' }}>
+      <Paper className={classes.root} style={{ position: 'relative', top: '10vh' }}>
         {(() => {
           switch (gameState) {
             case 1: return (
