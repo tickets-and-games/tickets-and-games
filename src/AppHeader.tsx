@@ -51,6 +51,7 @@ function AppHeader(props: Props) {
           <Button className={classes.button} component={RouterLink} to="/">Home</Button>
           <Button className={classes.button} component={RouterLink} to="/profile">Profile</Button>
           <Button className={classes.button} component={RouterLink} to="/leaderboard">Leaderboard</Button>
+          <Button className={classes.button} component={RouterLink} to="/store">Store</Button>
           <Button className={classes.button} component={RouterLink} to="/coinflip">Coinflip</Button>
           <Button className={classes.button} component={RouterLink} to="/skiball">Skiball</Button>
           <Button className={classes.button} component={RouterLink} to="/blackjack">BlackJack</Button>
@@ -66,6 +67,7 @@ function AppHeader(props: Props) {
         </Typography>
         <Button className={classes.button} component={RouterLink} to="/home">Home</Button>
         <Button className={classes.button} component={RouterLink} to="/login">Login</Button>
+        <Button className={classes.button} component={RouterLink} to="/leaderboard">Leaderboard</Button>
       </Toolbar>
     </AppBar>
   );
