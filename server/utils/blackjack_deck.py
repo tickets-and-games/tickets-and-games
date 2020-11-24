@@ -73,8 +73,6 @@ def blackjack_total(hand):
     return total
 
 def get_deck_set():
-    if RANDOM_ORG_KEY == "DEFAULT_KEY":
-        return [] # Key is missing. Perform manual deck generation
     json_rpc = {
         "jsonrpc": "2.0",
         "method": "generateIntegerSequences",

@@ -1,15 +1,13 @@
 import json
 import unittest
-import unittest.mock as mock
 import os
 import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from server import db
-from server.utils import get_user_balance, get_user_by_id
 from server.utils.database_test import DatabaseTest
-from server.models import User, Transaction
+from server.models import Transaction
 
 KEY_SUCCESS = "success"
 KEY_MESSAGE = "message"
@@ -47,7 +45,7 @@ class BlackjackCheckFundsTest(DatabaseTest):
             }))
             result = json.loads(res.data.decode("utf-8"))
             self.assertDictEqual(self.blackjack_checkfunds_success, result)
-    
+
     def test_blackjack_check_bad(self):
         with self.app.app_context():
             with self.client.session_transaction() as sess:
@@ -57,7 +55,7 @@ class BlackjackCheckFundsTest(DatabaseTest):
             }))
             result = json.loads(res.data.decode("utf-8"))
             self.assertDictEqual(self.blackjack_checkfunds_bad, result)
-    
+
     def test_blackjack_check_error(self):
         res = self.client.post('/api/blackjack/checkfunds', data = "bad data")
         result = json.loads(res.data.decode("utf-8"))
