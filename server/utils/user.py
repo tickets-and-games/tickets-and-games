@@ -14,12 +14,19 @@ def get_current_user_id() -> Union[int, None]:
     return None
 
 
+def get_user_by_id(user_id: Union[int, None]) -> Union[User, None]:
+    if user_id is None:
+        return None
+
+    user = User.query.filter_by(id=user_id).first()
+
+    return user
+
+
 def get_current_user() -> Union[User, None]:
     user_id = get_current_user_id()
 
-    if user_id is None:
-        return None
-    user = User.query.filter_by(id=user_id).first()
+    user = get_user_by_id(user_id)
 
     return user
 
@@ -30,4 +37,8 @@ def get_user_balance(user: User) -> int:
         .filter(Transaction.user_id == user.id)
         .scalar()
     )
+
+    if ticket_balance is None:
+        return 0
+
     return ticket_balance
