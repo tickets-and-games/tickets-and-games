@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Paper, makeStyles, Typography } from '@material-ui/core';
 import 'fontsource-roboto';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -60,8 +61,8 @@ function Leaderboard() {
             </tr>
             {transactions.map((transaction) => (
               <tr>
-                <td>{transaction.id}</td>
-                <td>{transaction.name}</td>
+                <td><Link to={`/profile/${transaction.id}`}>{transaction.id}</Link></td>
+                <td><Link to={`/profile/${transaction.id}`}>{transaction.name}</Link></td>
                 <td>{transaction.balance}</td>
               </tr>
             ))}
