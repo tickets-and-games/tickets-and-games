@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Paper, makeStyles, Typography } from '@material-ui/core';
-import TicketHistory from './TicketHistory';
+import TicketHistory from './components/TicketHistory';
+import TicketTransfer from './components/TicketTransfer';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -60,6 +61,7 @@ function Profileview() {
             Total Tickets:&nbsp;
             { tickets}
           </div>
+          <TicketTransfer />
           <TicketHistory />
         </Typography>
         <br />
