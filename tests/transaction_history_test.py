@@ -75,7 +75,7 @@ class ProfileViewTest(unittest.TestCase):
             },
             {
                 KEY_INPUT: "Intruder input",
-                KEY_EXPECTED: ({"error": "client not suppose to be here"}),
+                KEY_EXPECTED: ({"error": "User not logged in"}),
             },
         ]
 
