@@ -42,7 +42,7 @@ function Profileview() {
   const classes = useStyles();
   return (
     <div className="Profile">
-      <Paper className={classes.root} style={{ position: 'relative', top: '25vh' }} elevation={3}>
+      <Paper className={classes.root} style={{ position: 'relative', top: '15vh' }} elevation={3}>
         <br />
         <Typography variant="h5">
           <div className="profile-name">
@@ -61,7 +61,9 @@ function Profileview() {
             Total Tickets:&nbsp;
             { tickets}
           </div>
+          <br />
           <TicketTransfer />
+          <br />
           <TicketHistory />
         </Typography>
         <br />
