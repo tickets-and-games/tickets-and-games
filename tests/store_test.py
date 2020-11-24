@@ -13,6 +13,7 @@ KEY_ITEM_GROUP = "item_group"
 KEY_GROUP = "group"
 KEY_LIMIT = "limit"
 KEY_ITEMS = "items"
+KEY_PRICE = "price"
 
 
 class StoreListTest(DatabaseTest):
@@ -26,12 +27,14 @@ class StoreListTest(DatabaseTest):
                     KEY_NAME: "test",
                     KEY_ITEM_GROUP: 1,
                     KEY_LIMIT: 1,
+                    KEY_PRICE: 123,
                 },
                 KEY_EXPECTED: {
                     KEY_ID: 111,
                     KEY_NAME: "test",
                     KEY_GROUP: 1,
                     KEY_LIMIT: 1,
+                    KEY_PRICE: 123,
                 },
             },
             {
@@ -40,12 +43,14 @@ class StoreListTest(DatabaseTest):
                     KEY_NAME: "item name",
                     KEY_ITEM_GROUP: 1,
                     KEY_LIMIT: 1,
+                    KEY_PRICE: 123,
                 },
                 KEY_EXPECTED: {
                     KEY_ID: 33333,
                     KEY_NAME: "item name",
                     KEY_GROUP: 1,
                     KEY_LIMIT: 1,
+                    KEY_PRICE: 123,
                 },
             },
             {
@@ -54,12 +59,14 @@ class StoreListTest(DatabaseTest):
                     KEY_NAME: "test",
                     KEY_ITEM_GROUP: 1,
                     KEY_LIMIT: 1,
+                    KEY_PRICE: 123,
                 },
                 KEY_EXPECTED: {
                     KEY_ID: 1,
                     KEY_NAME: "test",
                     KEY_GROUP: 1,
                     KEY_LIMIT: 1,
+                    KEY_PRICE: 123,
                 },
             },
         ]

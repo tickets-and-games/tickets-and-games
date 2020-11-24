@@ -13,6 +13,7 @@ def store_list():
             "name": item.name,
             "group": item.item_group,
             "limit": item.limit,
+            "price": item.price,
         }
         store_items.append(item_obj)
 
