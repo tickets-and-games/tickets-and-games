@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 
+import TimeDisplay from './TimeDisplay';
+
 type Transaction = {
   id: number
-  datetime: Date,
-  activity: String,
+  datetime: string,
+  activity: string,
   amount: number
 };
 
@@ -57,7 +59,7 @@ function TicketHistory() {
             {tHistory.map((row, index) => (
               <tr key={row.id}>
                 <td>{index + 1}</td>
-                <td>{row.datetime}</td>
+                <td><TimeDisplay time={row.datetime} /></td>
                 <td>{row.activity}</td>
                 <td>{row.amount}</td>
               </tr>

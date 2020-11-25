@@ -28,7 +28,7 @@ def mocked_iterable():
 def mocked_transaction_query(table):
     if str(table) == "<class 'server.models.transaction.Transaction'>":
         mocked_query_all = mock.Mock()
-        mocked_query_all.filter.return_value = mocked_iterable()
+        mocked_query_all.order_by().filter.return_value = mocked_iterable()
         return mocked_query_all
     return "The given table was not Transaction."
 
