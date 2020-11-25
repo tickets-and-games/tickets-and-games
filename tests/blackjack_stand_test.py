@@ -72,7 +72,7 @@ class BlackjackStandTest(DatabaseTest):
             KEY_PLAYER: ['K', 'D', 'K', 'D']
         }
 
-    def hit_path(self, user_id, hit_result):
+    def stand_path(self, user_id, hit_result):
         with self.app.app_context():
             with self.client.session_transaction() as sess:
                 sess['user_id'] = user_id
@@ -81,10 +81,10 @@ class BlackjackStandTest(DatabaseTest):
                 result = json.loads(res.data.decode("utf-8"))
                 self.assertDictEqual(hit_result, result)
 
-    def test_blackjack_hit(self):
-        self.hit_path(self.user1_id, self.blackjack_stand_win)
-        self.hit_path(self.user2_id, self.blackjack_stand_tie)
-        self.hit_path(self.user3_id, self.blackjack_stand_lose)
+    def test_blackjack_stand(self):
+        self.stand_path(self.user1_id, self.blackjack_stand_win)
+        self.stand_path(self.user2_id, self.blackjack_stand_tie)
+        self.stand_path(self.user3_id, self.blackjack_stand_lose)
 
 if __name__ == "__main__":
     unittest.main()
