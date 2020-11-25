@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Paper, makeStyles, Typography } from '@material-ui/core';
+import {
+  Paper, makeStyles, Typography, CircularProgress,
+} from '@material-ui/core';
 import 'fontsource-roboto';
 import { Link } from 'react-router-dom';
 
@@ -31,12 +33,14 @@ type LeaderboardData = {
 
 function Leaderboard() {
   const [transactions, setTransactions] = useState<Array<Transaction>>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('/api/leaderboard')
       .then((res) => res.json())
       .then((data: LeaderboardData) => {
         setTransactions(data.transactions);
+        setLoading(false);
       });
   }, []);
 
@@ -59,6 +63,7 @@ function Leaderboard() {
               <th>Name</th>
               <th>Balance</th>
             </tr>
+            {loading ? <CircularProgress color="secondary" /> : null}
             {transactions.map((transaction) => (
               <tr>
                 <td><Link to={`/profile/${transaction.id}`}>{transaction.id}</Link></td>
