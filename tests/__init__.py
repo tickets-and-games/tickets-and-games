@@ -7,3 +7,6 @@ import tests.blackjack_play_test
 import tests.blackjack_checkfunds_test
 import tests.blackjack_start_test
 import tests.blackjack_again_test
+import tests.blackjack_hit_test
+import tests.blackjack_stand_test
+import tests.blackjack_tie_test

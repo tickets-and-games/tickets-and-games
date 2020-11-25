@@ -39,15 +39,6 @@ RANDOM_URL = "https://api.random.org/json-rpc/2/invoke"
 suits = ["D", "H", "C", "S"]
 values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
 
-def get_suit(number):
-    return suits[number % 4]
-
-def get_string_value(number):
-    return values[number % 13]
-
-def get_numeric_value(number):
-    return (number % 13) + 1
-
 def translate_hand(hand):
     lst = []
     for num in hand:
