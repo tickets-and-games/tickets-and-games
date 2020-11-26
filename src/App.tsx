@@ -16,12 +16,13 @@ import Blackjack from './Blackjack';
 import Home from './Home';
 import Skiball from './Skiball';
 import Store from './Store';
+import AuthRequired from './components/AuthRequired';
 
 import { useLocalStorage } from './utils/hooks';
 
 function App() {
   const [userId, setUserId] = useLocalStorage('userId', '');
-  const loggedIn = userId !== null;
+  const loggedIn = Boolean(userId);
 
   return (
     <Router>
@@ -29,29 +30,44 @@ function App() {
         <AppHeader loggedIn={loggedIn} setUserId={setUserId} />
         <Box>
           <Switch>
+            {/* Private routes that do require login */}
+            <Route path="/profile/:userId?" defaultParams={{ userId: '' }}>
+              <AuthRequired loggedIn={loggedIn}>
+                <Profileview />
+              </AuthRequired>
+            </Route>
+            <Route path="/coinflip">
+              <AuthRequired loggedIn={loggedIn}>
+                <Coinflip />
+              </AuthRequired>
+            </Route>
+            <Route path="/skiball">
+              <AuthRequired loggedIn={loggedIn}>
+                <Skiball />
+              </AuthRequired>
+            </Route>
+            <Route path="/signup">
+              <AuthRequired loggedIn={loggedIn}>
+                <Signup setLoggedIn={setUserId} />
+              </AuthRequired>
+            </Route>
+            <Route path="/blackjack">
+              <AuthRequired loggedIn={loggedIn}>
+                <Blackjack />
+              </AuthRequired>
+            </Route>
+            <Route path="/store">
+              <AuthRequired loggedIn={loggedIn}>
+                <Store />
+              </AuthRequired>
+            </Route>
+
+            {/* Public routes that don't require login */}
             <Route path="/leaderboard">
               <Leaderboard />
             </Route>
-            <Route path="/profile/:userId?" defaultParams={{ userId: '' }}>
-              <Profileview />
-            </Route>
             <Route path="/login">
               <Login setUserId={setUserId} />
-            </Route>
-            <Route path="/coinflip">
-              <Coinflip />
-            </Route>
-            <Route path="/skiball">
-              <Skiball />
-            </Route>
-            <Route path="/signup">
-              <Signup setLoggedIn={setUserId} />
-            </Route>
-            <Route path="/blackjack">
-              <Blackjack />
-            </Route>
-            <Route path="/store">
-              <Store />
             </Route>
             <Route path="/">
               <Home />
