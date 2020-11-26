@@ -3,11 +3,11 @@ import { GoogleLogin } from 'react-google-login';
 import { useHistory } from 'react-router-dom';
 
 interface Props {
-  setLoggedIn: (isLoggedIn: boolean) => void;
+  setUserId: (isLoggedIn: string) => void;
 }
 
 export default function Login(props: Props) {
-  const { setLoggedIn } = props;
+  const { setUserId } = props;
   const history = useHistory();
   const [loginMessage, setLoginMessage] = useState('');
   const [login, setLogin] = useState({
@@ -16,7 +16,7 @@ export default function Login(props: Props) {
   });
 
   function GoToSignUp() {
-    history.push('./signup');
+    history.push('/signup');
   }
 
   function PerformLogin() {
@@ -38,8 +38,8 @@ export default function Login(props: Props) {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            setLoggedIn(true);
-            history.push('/profile');
+            setUserId(data.user_id);
+            history.push('/');
           } else setLoginMessage(data.message);
         })
         .catch((error) => {
@@ -60,14 +60,19 @@ export default function Login(props: Props) {
   }
 
   function googleLogin(googleUser: any) {
-    setLoggedIn(true);
     fetch('/api/login/oauth', {
       method: 'POST',
       headers: new Headers({ 'content-type': 'application/json' }),
       mode: 'no-cors',
       body: JSON.stringify({ token: googleUser?.tokenId }),
+    }).then((response) => {
+      if (response.status === 200) {
+        response.json().then((data) => {
+          setUserId(data.user_id);
+          history.push('/');
+        });
+      }
     });
-    history.push('/profile');
   }
 
   return (

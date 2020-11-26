@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Link as RouterLink,
+  useHistory,
 } from 'react-router-dom';
-
 import {
   Toolbar,
   AppBar,
   Button,
   makeStyles,
   Typography,
+  Menu,
+  MenuItem,
+  IconButton,
+  ClickAwayListener,
 } from '@material-ui/core';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import { useGoogleLogout } from 'react-google-login';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,11 +41,39 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props {
   loggedIn: boolean;
+  setUserId: (isLoggedIn: string | null) => void;
 }
 
 function AppHeader(props: Props) {
-  const { loggedIn } = props;
+  const { loggedIn, setUserId } = props;
   const classes = useStyles();
+  const history = useHistory();
+  const { signOut } = useGoogleLogout({
+    clientId: '154638215001-5tdj4ttljsh2c3m5uojmq7nrruock21s.apps.googleusercontent.com',
+  });
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const isOpen = Boolean(anchorEl);
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    setAnchorEl(null);
+    signOut();
+    fetch('/api/user/logout').then((response) => {
+      if (response.status === 200) {
+        setUserId(null);
+        localStorage.removeItem('userId');
+        history.push('/');
+      }
+    });
+  };
 
   if (loggedIn) {
     return (
@@ -55,6 +89,30 @@ function AppHeader(props: Props) {
           <Button className={classes.button} component={RouterLink} to="/coinflip">Coinflip</Button>
           <Button className={classes.button} component={RouterLink} to="/skiball">Skiball</Button>
           <Button className={classes.button} component={RouterLink} to="/blackjack">BlackJack</Button>
+          <ClickAwayListener onClickAway={handleClose}>
+            <IconButton
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+          </ClickAwayListener>
+          <Menu
+            id="menu-appbar"
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            anchorEl={anchorEl}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={isOpen}
+          >
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
     );

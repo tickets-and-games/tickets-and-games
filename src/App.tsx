@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
@@ -17,13 +17,16 @@ import Home from './Home';
 import Skiball from './Skiball';
 import Store from './Store';
 
+import { useLocalStorage } from './utils/hooks';
+
 function App() {
-  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [userId, setUserId] = useLocalStorage('userId', '');
+  const loggedIn = userId !== null;
 
   return (
     <Router>
       <div className="App">
-        <AppHeader loggedIn={loggedIn} />
+        <AppHeader loggedIn={loggedIn} setUserId={setUserId} />
         <Box>
           <Switch>
             <Route path="/leaderboard">
@@ -33,7 +36,7 @@ function App() {
               <Profileview />
             </Route>
             <Route path="/login">
-              <Login setLoggedIn={setLoggedIn} />
+              <Login setUserId={setUserId} />
             </Route>
             <Route path="/coinflip">
               <Coinflip />
@@ -42,7 +45,7 @@ function App() {
               <Skiball />
             </Route>
             <Route path="/signup">
-              <Signup setLoggedIn={setLoggedIn} />
+              <Signup setLoggedIn={setUserId} />
             </Route>
             <Route path="/blackjack">
               <Blackjack />
