@@ -25,7 +25,7 @@ def item_available(user_id, item_type, quantity):
         return False
     return True
 
-def make_purchase(user_id, item_type):
+def make_purchase(user_id, item_type, quantity):
     item_info = Store.query.filter_by(id=item_type).first()
     transaction = Transaction(
         user_id=user_id,
@@ -42,7 +42,7 @@ def make_purchase(user_id, item_type):
         )
         db.session.add(item)
     else:
-        item_query.count = item.query.count + 1
+        item_query.count = item.query.count + quantity
     db.session.commit()
 
 @store_bp.route("/list", methods=["GET"])
@@ -71,7 +71,7 @@ def buy_item():
             return {"success": False, "message": "Insufficient funds"}
         if not item_available(user_id, item_type, quantity):
             return {"success": False, "message": "Reached purchase limit"}
-        make_purchase(user_id, item_type)
+        make_purchase(user_id, item_type, quantity)
         return {"success": True}
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
