@@ -7,15 +7,15 @@ import { Box } from '@material-ui/core';
 
 import './App.css';
 import AppHeader from './AppHeader';
-import Leaderboard from './Leaderboard';
-import Profileview from './Profileview';
-import Login from './Login';
-import Coinflip from './Coinflip';
-import Signup from './Signup';
-import Blackjack from './Blackjack';
-import Home from './Home';
-import Skiball from './Skiball';
-import Store from './Store';
+import Leaderboard from './views/Leaderboard';
+import Profileview from './views/Profileview';
+import Login from './views/Login';
+import Coinflip from './views/Coinflip';
+import Signup from './views/Signup';
+import Blackjack from './views/Blackjack';
+import Home from './views/Home';
+import Skiball from './views/Skiball';
+import Store from './views/Store';
 import AuthRequired from './components/AuthRequired';
 
 import { useLocalStorage } from './utils/hooks';
