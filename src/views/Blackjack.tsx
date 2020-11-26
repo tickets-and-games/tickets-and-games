@@ -3,7 +3,7 @@ import {
   Button, Paper, makeStyles, Typography, Input, Box,
 } from '@material-ui/core';
 import 'fontsource-roboto';
-import BlackjackGame from './BlackjackGame';
+import BlackjackGame from '../components/BlackjackGame';
 
 const useStyles = makeStyles(() => ({
   root: {
