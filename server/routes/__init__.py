@@ -18,7 +18,6 @@ main_bp = Blueprint(
 @main_bp.route("/", defaults={"filename": "index.html"})
 @main_bp.route("/<path:filename>")
 def get_client(filename):
-    print(current_app.template_folder)
     return send_from_directory(current_app.template_folder, filename)
 
 
