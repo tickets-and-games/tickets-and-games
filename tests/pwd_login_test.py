@@ -1,3 +1,5 @@
+from config import Config
+from server import db, create_app
 import json
 import unittest
 import unittest.mock as mock
@@ -6,8 +8,6 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from server import db, create_app
-from config import Config
 
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
@@ -135,7 +135,3 @@ class PwdLoginTest(unittest.TestCase):
                         expected = test_case[KEY_EXPECTED]
                         result = json.loads(res.data.decode("utf-8"))
                         self.assertDictEqual(expected, result)
-
-
-if __name__ == "__main__":
-    unittest.main()

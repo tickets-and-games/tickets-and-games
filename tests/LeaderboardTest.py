@@ -2,6 +2,7 @@
 # pylint: disable=unused-import
 # pylint: disable=invalid-name
 # pylint: disable=unused-argument
+from server.routes.leaderboard import get_leader_board
 import unittest
 import os
 import sys
@@ -10,7 +11,6 @@ from alchemy_mock.mocking import UnifiedAlchemyMagicMock
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from server.routes.leaderboard import get_leader_board
 
 db_session = UnifiedAlchemyMagicMock()
 
@@ -43,7 +43,3 @@ class LeaderboardTest(unittest.TestCase):
                 self.assertEqual(transaction["id"], row[0])
                 self.assertEqual(transaction["name"], row[1])
                 self.assertEqual(transaction["balance"], row[2])
-
-
-if __name__ == "__main__":
-    unittest.main()

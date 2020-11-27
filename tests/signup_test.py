@@ -1,3 +1,5 @@
+from config import Config
+from server import db, create_app
 import json
 import unittest
 import unittest.mock as mock
@@ -6,8 +8,6 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from server import db, create_app
-from config import Config
 
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
@@ -120,7 +120,3 @@ class SignUpTest(unittest.TestCase):
                     self.assertDictEqual(expected, result)
             with self.client.session_transaction() as client_session:
                 client_session.clear()
-
-
-if __name__ == "__main__":
-    unittest.main()

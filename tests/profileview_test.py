@@ -1,3 +1,4 @@
+from server.routes.profile import get_profile_view
 import unittest
 import unittest.mock as mock
 import os
@@ -6,7 +7,6 @@ from sqlalchemy.orm.exc import NoResultFound
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from server.routes.profile import get_profile_view
 
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
@@ -86,7 +86,3 @@ class ProfileViewTest(unittest.TestCase):
                 with mock.patch("server.db.session.query", mocked_query):
                     result = get_profile_view(test_case[KEY_INPUT])
                 self.assertDictEqual(expected, result)
-
-
-if __name__ == "__main__":
-    unittest.main()

@@ -10,24 +10,27 @@ class TicketTransferTest(DatabaseTest):
     def setUp(self):
         super().setUp()
         self.sender_id = 1
-        sender = User(id=self.sender_id, name="Sender",
-                      email="sender@example.com")
+        sender = User(id=self.sender_id, name="Sender", email="sender@example.com")
         self.receiver_id = 2
-        receiver = User(id=self.receiver_id, name="Receiver",
-                        email="receiver@example.com")
+        receiver = User(
+            id=self.receiver_id, name="Receiver", email="receiver@example.com"
+        )
 
         with self.app.app_context():
             db.session.add(sender)
             db.session.add(receiver)
             transaction = Transaction(
-                user=sender, ticket_amount=1000, activity="Transfer Test Initial Balance")
+                user=sender,
+                ticket_amount=1000,
+                activity="Transfer Test Initial Balance",
+            )
             db.session.add(transaction)
             db.session.commit()
 
     def test_successful_transfer(self):
         with self.app.app_context():
             with self.client.session_transaction() as sess:
-                sess['user_id'] = self.sender_id
+                sess["user_id"] = self.sender_id
 
             sender = get_user_by_id(self.sender_id)
             receiver = get_user_by_id(self.receiver_id)
@@ -36,10 +39,10 @@ class TicketTransferTest(DatabaseTest):
             total_transfer = 0
 
             for i in range(10):
-                response = self.client.post('/api/ticket/transfer', data=json.dumps({
-                    "to": receiver.id,
-                    "amount": amount
-                }))
+                response = self.client.post(
+                    "/api/ticket/transfer",
+                    data=json.dumps({"to": receiver.id, "amount": amount}),
+                )
                 total_transfer += amount
 
                 sender_balance = get_user_balance(sender)
@@ -52,17 +55,17 @@ class TicketTransferTest(DatabaseTest):
     def test_insufficient_balance(self):
         with self.app.app_context():
             with self.client.session_transaction() as sess:
-                sess['user_id'] = self.sender_id
+                sess["user_id"] = self.sender_id
 
             sender = get_user_by_id(self.sender_id)
             receiver = get_user_by_id(self.receiver_id)
 
             amount = 1_000_000
 
-            response = self.client.post('/api/ticket/transfer', data=json.dumps({
-                "to": receiver.id,
-                "amount": amount
-            }))
+            response = self.client.post(
+                "/api/ticket/transfer",
+                data=json.dumps({"to": receiver.id, "amount": amount}),
+            )
 
             sender_balance = get_user_balance(sender)
             receiver_balance = get_user_balance(receiver)
@@ -74,17 +77,17 @@ class TicketTransferTest(DatabaseTest):
     def test_sending_to_self(self):
         with self.app.app_context():
             with self.client.session_transaction() as sess:
-                sess['user_id'] = self.sender_id
+                sess["user_id"] = self.sender_id
 
             sender = get_user_by_id(self.sender_id)
             receiver = get_user_by_id(self.receiver_id)
 
             amount = 10
 
-            response = self.client.post('/api/ticket/transfer', data=json.dumps({
-                "to": sender.id,
-                "amount": amount
-            }))
+            response = self.client.post(
+                "/api/ticket/transfer",
+                data=json.dumps({"to": sender.id, "amount": amount}),
+            )
 
             sender_balance = get_user_balance(sender)
             receiver_balance = get_user_balance(receiver)
@@ -96,17 +99,17 @@ class TicketTransferTest(DatabaseTest):
     def test_sending_negative_tickets(self):
         with self.app.app_context():
             with self.client.session_transaction() as sess:
-                sess['user_id'] = self.sender_id
+                sess["user_id"] = self.sender_id
 
             sender = get_user_by_id(self.sender_id)
             receiver = get_user_by_id(self.receiver_id)
 
             amount = -100
 
-            response = self.client.post('/api/ticket/transfer', data=json.dumps({
-                "to": receiver.id,
-                "amount": amount
-            }))
+            response = self.client.post(
+                "/api/ticket/transfer",
+                data=json.dumps({"to": receiver.id, "amount": amount}),
+            )
 
             sender_balance = get_user_balance(sender)
             receiver_balance = get_user_balance(receiver)
