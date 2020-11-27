@@ -36,7 +36,7 @@ def make_purchase(user_id, item_type, quantity):
     item_query = Item.query.filter_by(user_id=user_id, item_type=item_type).first()
     if item_query is None:
         item = Item(
-            item_type = item_info.id,
+            item_type = item_type,
             item_group = item_info.item_group,
             user_id = user_id,
         )
