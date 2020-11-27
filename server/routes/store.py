@@ -13,13 +13,13 @@ def valid_funds(user_id, item_type):
         .filter(Transaction.user_id == user_id)
         .scalar()
     )
-    item_price = Store.query.filter_by(item_type=item_type).first().price
+    item_price = Store.query.filter_by(id=item_type).first().price
     if total_tickets is None or item_price is None:
         return False
     return total_tickets >= item_price
 
 def item_available(user_id, item_type, quantity):
-    item_info = Store.query.filter_by(item_type=item_type).first()
+    item_info = Store.query.filter_by(id=item_type).first()
     item_query = Item.query.filter_by(user_id=user_id, item_type=item_type).first()
     if item_query is not None and item_query.count + quantity > item_info.limit:
         return False
@@ -29,14 +29,14 @@ def make_purchase(user_id, item_type, quantity):
     item_info = Store.query.filter_by(id=item_type).first()
     transaction = Transaction(
         user_id=user_id,
-        ticket_amount=item_info.price,
+        ticket_amount=-item_info.price,
         activity="ticketstore",
     )
     db.session.add(transaction)
     item_query = Item.query.filter_by(user_id=user_id, item_type=item_type).first()
     if item_query is None:
         item = Item(
-            item_type = item_type,
+            item_type = item_info.id,
             item_group = item_info.item_group,
             user_id = user_id,
         )
@@ -64,7 +64,7 @@ def store_list():
 def buy_item():
     try:
         data = json.loads(request.data)
-        item_type = data["item_type"]
+        item_type = data["id"]
         quantity = data["quantity"]
         user_id = session["user_id"]
         if not valid_funds(user_id, item_type):
