@@ -42,7 +42,7 @@ def make_purchase(user_id, item_type, quantity):
         )
         db.session.add(item)
     else:
-        item_query.count = item.query.count + quantity
+        item_query.count = item_query.count + quantity
     db.session.commit()
 
 @store_bp.route("/list", methods=["GET"])
