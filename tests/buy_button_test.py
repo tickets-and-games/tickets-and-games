@@ -15,6 +15,10 @@ KEY_MESSAGE = "message"
 KEY_ERROR = "error"
 KEY_ID = "id"
 KEY_QUANTITY = "quantity"
+KEY_EXPECTED = "expected"
+KEY_PARAMS = "parameters"
+KEY_USER_ID = "user_id"
+KEY_AMOUNT = "AMOUNT"
 
 class BuyButtonTest(DatabaseTest):
     def setUp(self):
@@ -66,10 +70,6 @@ class BuyButtonTest(DatabaseTest):
             db.session.add(item1)
             db.session.add(item2)
             db.session.commit()
-
-        self.buy_button_success = {
-            KEY_SUCCESS: True
-        }
         self.params_item1 = {
             KEY_ID: 1,
             KEY_QUANTITY: 1
@@ -86,25 +86,59 @@ class BuyButtonTest(DatabaseTest):
             KEY_ID: 2,
             KEY_QUANTITY: 1
         }
+        self.buy_button_params = [
+        {
+            KEY_USER_ID: self.user1_id,
+            KEY_PARAMS: self.params_item1,
+            KEY_AMOUNT: 500,
+            KEY_EXPECTED: { KEY_SUCCESS: True }
+        },
+        {
+            KEY_USER_ID: self.user1_id,
+            KEY_PARAMS: self.params_item2,
+            KEY_AMOUNT: 0,
+            KEY_EXPECTED: { KEY_SUCCESS: True }
+        },
+        {
+            KEY_USER_ID: self.user2_id,
+            KEY_PARAMS: self.params_item1,
+            KEY_AMOUNT: 500,
+            KEY_EXPECTED: self.buy_button_bad_funds
+        },
+        {
+            KEY_USER_ID: self.user3_id,
+            KEY_PARAMS: self.params_item1,
+            KEY_AMOUNT: None,
+            KEY_EXPECTED: self.buy_button_bad_funds
+        },
+        {
+            KEY_USER_ID: self.user2_id,
+            KEY_PARAMS: self.params_item2,
+            KEY_AMOUNT: 500,
+            KEY_EXPECTED: self.buy_button_bad_item
+        }]
         self.buy_button_error = {
             KEY_ERROR: "Malformed request"
         }
 
-    def buy_button_test(self, user_id, params, output):
+    def buy_button_test(self, test_case):
         with self.app.app_context():
             with self.client.session_transaction() as sess:
-                sess['user_id'] = user_id
-            res = self.client.post('/api/store/buy', data = json.dumps(params))
+                sess['user_id'] = test_case[KEY_USER_ID]
+            res = self.client.post('/api/store/buy', data = json.dumps(test_case[KEY_PARAMS]))
             result = json.loads(res.data.decode("utf-8"))
-            self.assertDictEqual(output, result)
+            self.assertDictEqual(test_case[KEY_EXPECTED], result)
+            self.assertEqual(
+                test_case[KEY_AMOUNT],
+                db.session.query(func.sum(Transaction.ticket_amount))
+                .filter(Transaction.user_id == test_case[KEY_USER_ID])
+                .scalar()
+            )
 
     def test_buy_button_success(self):
-        self.buy_button_test(self.user1_id, self.params_item1, self.buy_button_success)
-        self.buy_button_test(self.user1_id, self.params_item2, self.buy_button_success)
-        self.buy_button_test(self.user2_id, self.params_item1, self.buy_button_bad_funds)
-        self.buy_button_test(self.user3_id, self.params_item1, self.buy_button_bad_funds)
-        self.buy_button_test(self.user2_id, self.params_item2, self.buy_button_bad_item)
-
+        for test_case in self.buy_button_params:
+            self.buy_button_test(test_case)
+    
     def test_buy_button_error(self):
         res = self.client.post('/api/store/buy', data = "bad data")
         result = json.loads(res.data.decode("utf-8"))
