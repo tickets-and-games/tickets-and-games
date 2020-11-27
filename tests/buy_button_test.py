@@ -140,9 +140,12 @@ class BuyButtonTest(DatabaseTest):
             self.buy_button_test(test_case)
     
     def test_buy_button_error(self):
-        res = self.client.post('/api/store/buy', data = "bad data")
-        result = json.loads(res.data.decode("utf-8"))
-        self.assertEqual(self.buy_button_error, result)
+        with self.app.app_context():
+            with self.client.session_transaction() as sess:
+                sess['user_id'] = self.user1_id
+            res = self.client.post('/api/store/buy', data = "bad data")
+            result = json.loads(res.data.decode("utf-8"))
+            self.assertEqual(self.buy_button_error, result)
 
 if __name__ == "__main__":
     unittest.main()
