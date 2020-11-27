@@ -31,10 +31,10 @@ def get_current_user() -> Union[User, None]:
     return user
 
 
-def get_user_balance(user: User) -> int:
+def get_user_balance(user_id: int) -> int:
     ticket_balance = (
         db.session.query(func.sum(Transaction.ticket_amount))
-        .filter(Transaction.user_id == user.id)
+        .filter(Transaction.user_id == user_id)
         .scalar()
     )
 

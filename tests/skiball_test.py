@@ -40,7 +40,7 @@ class CoinflipTest(DatabaseTest):
                     balance += amount
 
                     self.assertEqual(response.json["amount"], amount)
-                    self.assertEqual(get_user_balance(user), balance)
+                    self.assertEqual(get_user_balance(user.id), balance)
 
     def test_fail_coinflip(self):
         with self.app.test_request_context():

@@ -44,7 +44,7 @@ class CoinflipTest(DatabaseTest):
                 )
 
                 self.assertTrue(response.json["won"])  # Win 100 points
-                self.assertEqual(get_user_balance(user), 1100)
+                self.assertEqual(get_user_balance(user.id), 1100)
 
                 response = self.client.post(
                     COINFLIP_ENDPOINT,
@@ -57,7 +57,7 @@ class CoinflipTest(DatabaseTest):
                 )
 
                 self.assertFalse(response.json["won"])  # Lose 100 points
-                self.assertEqual(get_user_balance(user), 1000)
+                self.assertEqual(get_user_balance(user.id), 1000)
 
             with mock.patch("server.routes.coinflip.randint", lambda _a, _b: 1):
                 response = self.client.post(
@@ -71,7 +71,7 @@ class CoinflipTest(DatabaseTest):
                 )
 
                 self.assertTrue(response.json["won"])  # Win 100 points
-                self.assertEqual(get_user_balance(user), 1100)
+                self.assertEqual(get_user_balance(user.id), 1100)
 
                 response = self.client.post(
                     COINFLIP_ENDPOINT,
@@ -84,7 +84,7 @@ class CoinflipTest(DatabaseTest):
                 )
 
                 self.assertFalse(response.json["won"])  # Lose 100 points
-                self.assertEqual(get_user_balance(user), 1000)
+                self.assertEqual(get_user_balance(user.id), 1000)
 
     def test_fail_coinflip(self):
         with self.app.test_request_context():
@@ -106,7 +106,7 @@ class CoinflipTest(DatabaseTest):
                 )
 
                 self.assertIn("error", response.json)
-                self.assertEqual(1000, get_user_balance(user))
+                self.assertEqual(1000, get_user_balance(user.id))
 
     def test_malformed_request(self):
         with self.app.test_request_context():

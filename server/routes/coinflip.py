@@ -6,6 +6,7 @@ from sqlalchemy.sql import func
 
 from server import db
 from server.models.transaction import Transaction
+from server.routes.decorators import login_required
 
 coinflip_bp = Blueprint(
     "coinflip_bp",
@@ -14,6 +15,7 @@ coinflip_bp = Blueprint(
 
 
 @coinflip_bp.route("/api/coinflip", methods=["POST", "GET"])
+@login_required
 def coinflip():
     if "user_id" in session:
         user_id = session["user_id"]

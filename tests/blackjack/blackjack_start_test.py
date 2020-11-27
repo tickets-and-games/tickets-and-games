@@ -94,6 +94,8 @@ class BlackjackStartTest(DatabaseTest):
                 self.assertDictEqual(self.blackjack_start_bad, result)
 
     def test_blackjack_start_error(self):
+        with self.client.session_transaction() as sess:
+            sess["user_id"] = self.user2_id
         res = self.client.post("/api/blackjack/start", data="bad input")
         result = json.loads(res.data.decode("utf-8"))
         self.assertEqual(self.blackjack_start_error, result)

@@ -1,16 +1,12 @@
+import json
+
 from server.models import Transaction
 from server.utils.database_test import DatabaseTest
 from server import db
-import json
-import unittest
-import os
-import sys
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 
 KEY_SUCCESS = "success"
 KEY_MESSAGE = "message"
+KEY_ERROR = "error"
 
 
 class BlackjackPlayTest(DatabaseTest):
@@ -39,8 +35,7 @@ class BlackjackPlayTest(DatabaseTest):
             KEY_MESSAGE: "Welcome to Blackjack!",
         }
         self.blackjack_play_bad_user = {
-            KEY_SUCCESS: False,
-            KEY_MESSAGE: "User is not suppose to be here",
+            KEY_ERROR: "User not logged in",
         }
         self.blackjack_play_bad_funds = {
             KEY_SUCCESS: False,

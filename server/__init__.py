@@ -1,5 +1,3 @@
-# This file was created to test initialization of the databases
-
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
