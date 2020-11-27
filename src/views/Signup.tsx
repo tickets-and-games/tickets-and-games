@@ -1,9 +1,25 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import {
+  Paper, makeStyles, Typography, Button,
+} from '@material-ui/core';
+import 'fontsource-roboto';
 
 interface Props {
   setLoggedIn: (isLoggedIn: boolean) => void;
 }
+
+const useStyles = makeStyles(() => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: '#f7cea2',
+    borderStyle: 'solid',
+    borderWidth: '3px',
+    width: '70%',
+    textAlign: 'center',
+    margin: 'auto',
+  },
+}));
 
 function Signup(props: Props) {
   const { setLoggedIn } = props;
@@ -60,57 +76,76 @@ function Signup(props: Props) {
       [event.target.name]: NewValue,
     });
   }
+  const classes = useStyles();
   return (
     <div className="sign-form-box">
-      <form className="signup-form">
-        <div className="form-label">Name</div>
-        <input
-          type="text"
-          name="name"
-          className="signup-name"
-          defaultValue={params.name}
-          onChange={handleParams}
-          autoComplete="off"
-        />
-        <div className="form-label">Username</div>
-        <input
-          type="text"
-          name="username"
-          className="signup-username"
-          defaultValue={params.username}
-          onChange={handleParams}
-          autoComplete="off"
-        />
-        <div className="form-label">Email</div>
-        <input
-          type="text"
-          name="email"
-          className="signup-email"
-          defaultValue={params.email}
-          onChange={handleParams}
-          autoComplete="off"
-        />
-        <div className="form-label">Password</div>
-        <input
-          type="password"
-          name="password1"
-          className="signup-password"
-          defaultValue={params.password1}
-          onChange={handleParams}
-          autoComplete="off"
-        />
-        <div className="form-label">Enter Password Again</div>
-        <input
-          type="password"
-          name="password2"
-          className="signup-password"
-          defaultValue={params.password2}
-          onChange={handleParams}
-          autoComplete="off"
-        />
-      </form>
-      <button type="button" value="Submit" onClick={SigningUp}>Submit</button>
-      <div className="signup-error-box">{eMessage}</div>
+      <Paper className={classes.root} style={{ position: 'relative', top: '12vh' }} elevation={3}>
+        <form className="signup-form">
+          <div className="form-label">Name</div>
+          <input
+            type="text"
+            name="name"
+            className="signup-name"
+            defaultValue={params.name}
+            onChange={handleParams}
+            autoComplete="off"
+          />
+          <div className="form-label">
+            <Typography variant="h6">
+              Username
+            </Typography>
+          </div>
+          <input
+            type="text"
+            name="username"
+            className="signup-username"
+            defaultValue={params.username}
+            onChange={handleParams}
+            autoComplete="off"
+          />
+          <div className="form-label">
+            <Typography variant="h6">
+              Email
+            </Typography>
+          </div>
+          <input
+            type="text"
+            name="email"
+            className="signup-email"
+            defaultValue={params.email}
+            onChange={handleParams}
+            autoComplete="off"
+          />
+          <div className="form-label">
+            <Typography variant="h6">
+              Password
+            </Typography>
+          </div>
+          <input
+            type="password"
+            name="password1"
+            className="signup-password"
+            defaultValue={params.password1}
+            onChange={handleParams}
+            autoComplete="off"
+          />
+          <div className="form-label">
+            <Typography variant="h6">
+              Enter Password Again
+            </Typography>
+          </div>
+          <input
+            type="password"
+            name="password2"
+            className="signup-password"
+            defaultValue={params.password2}
+            onChange={handleParams}
+            autoComplete="off"
+          />
+        </form>
+        <Button variant="contained" value="Submit" onClick={SigningUp}>Submit</Button>
+        <div className="signup-error-box">{eMessage}</div>
+      </Paper>
     </div>
   );
 }
