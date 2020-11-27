@@ -3,6 +3,7 @@ from flask import session, Blueprint
 from sqlalchemy.sql import func
 
 from server import db
+from server.routes.decorators import login_required
 from server.models.transaction import Transaction
 
 skiball_bp = Blueprint(
@@ -12,6 +13,7 @@ skiball_bp = Blueprint(
 
 
 @skiball_bp.route("/api/skiball", methods=["POST", "GET"])
+@login_required
 def coinflip():
     if "user_id" in session:
         user_id = session["user_id"]
@@ -27,9 +29,7 @@ def coinflip():
 
     amount = return_balance()
 
-    transaction = Transaction(
-        user_id=user_id, ticket_amount=amount, activity="skiball"
-    )
+    transaction = Transaction(user_id=user_id, ticket_amount=amount, activity="skiball")
     fee = Transaction(user_id=user_id, ticket_amount=-30, activity="skiball")
 
     db.session.add(fee)

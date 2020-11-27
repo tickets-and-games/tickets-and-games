@@ -73,6 +73,8 @@ class StoreListTest(DatabaseTest):
 
     def test_list(self):
         with self.app.app_context():
+            with self.client.session_transaction() as sess:
+                sess["user_id"] = 1
             for test_case in self.list_test_cases:
                 item = Store(**test_case[KEY_INPUT])
                 db.session.add(item)

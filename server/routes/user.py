@@ -6,6 +6,7 @@ from flask import request, session, Blueprint
 from sqlalchemy.orm.exc import NoResultFound
 from server import db
 from server.models import Login, Transaction, User
+from server.routes.decorators import login_required
 from server.utils.hash import hash_pass, hash_login
 
 
@@ -88,8 +89,7 @@ def password_signup():
                 "message": "Username has already been taken please try another username",
             }
 
-        user = User(oauth_id="password", name=name,
-                    username=username, email=email)
+        user = User(oauth_id="password", name=name, username=username, email=email)
         login = Login(username=username, password=hash_pass(password))
         db.session.add(user)
         db.session.add(login)
@@ -134,10 +134,14 @@ def password_login():
         return {"error": "Malformed request"}, 400
 
     except NoResultFound:
-        return {"success": False, "message": "Username does not exist or password is invalid."}
+        return {
+            "success": False,
+            "message": "Username does not exist or password is invalid.",
+        }
 
 
 @user_bp.route("/api/user/logout", methods=["GET", "POST"])
+@login_required
 def logout():
     session.pop("user_id", None)
     return {"success": True}

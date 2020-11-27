@@ -1,3 +1,5 @@
+from config import Config
+from server import db, create_app
 import unittest
 import unittest.mock as mock
 import json
@@ -7,8 +9,6 @@ import flask_sqlalchemy
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from server import db, create_app
-from config import Config
 
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
@@ -94,7 +94,3 @@ class OauthLoginTest(unittest.TestCase):
                 response = client.post("/api/login/oauth", data=test_case[KEY_INPUT])
                 self.assertIn("error", response.json)
                 self.assertEqual(test_case[KEY_EXPECTED], response.json["error"])
-
-
-if __name__ == "__main__":
-    unittest.main()

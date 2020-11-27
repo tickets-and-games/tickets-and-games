@@ -1,10 +1,10 @@
+import server.models as table
 import unittest
 import os
 import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import server.models as table
 
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
@@ -32,7 +32,3 @@ class SqlEnumTest(unittest.TestCase):
             result = table.transaction.ActivityType(test_case[KEY_INPUT]).name
             expected = test_case[KEY_EXPECTED]
             self.assertEqual(expected, result)
-
-
-if __name__ == "__main__":
-    unittest.main()
