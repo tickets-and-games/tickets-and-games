@@ -46,11 +46,6 @@ function App() {
                 <Skiball />
               </AuthRequired>
             </Route>
-            <Route path="/signup">
-              <AuthRequired loggedIn={loggedIn}>
-                <Signup setLoggedIn={setUserId} />
-              </AuthRequired>
-            </Route>
             <Route path="/blackjack">
               <AuthRequired loggedIn={loggedIn}>
                 <Blackjack />
@@ -68,6 +63,9 @@ function App() {
             </Route>
             <Route path="/login">
               <Login setUserId={setUserId} />
+            </Route>
+            <Route path="/signup">
+              <Signup setLoggedIn={setUserId} />
             </Route>
             <Route path="/">
               <Home />
