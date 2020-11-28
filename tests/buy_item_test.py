@@ -121,7 +121,7 @@ class BuyItemTest(DatabaseTest):
             KEY_ERROR: "Malformed request"
         }
 
-    def buy_button_test(self, test_case):
+    def buy_item_test(self, test_case):
         with self.app.app_context():
             with self.client.session_transaction() as sess:
                 sess['user_id'] = test_case[KEY_USER_ID]
@@ -137,7 +137,7 @@ class BuyItemTest(DatabaseTest):
 
     def test_buy_item_success(self):
         for test_case in self.buy_item_params:
-            self.buy_button_test(test_case)
+            self.buy_item_test(test_case)
     
     def test_buy_item_error(self):
         with self.app.app_context():
