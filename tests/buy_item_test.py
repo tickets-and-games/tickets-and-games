@@ -146,6 +146,3 @@ class BuyItemTest(DatabaseTest):
             res = self.client.post('/api/store/buy', data = "bad data")
             result = json.loads(res.data.decode("utf-8"))
             self.assertEqual(self.buy_item_error, result)
-
-if __name__ == "__main__":
-    unittest.main()
