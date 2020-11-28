@@ -20,7 +20,7 @@ KEY_PARAMS = "parameters"
 KEY_USER_ID = "user_id"
 KEY_AMOUNT = "AMOUNT"
 
-class BuyButtonTest(DatabaseTest):
+class BuyItemTest(DatabaseTest):
     def setUp(self):
         super().setUp()
         self.user1_id = 1
@@ -74,11 +74,11 @@ class BuyButtonTest(DatabaseTest):
             KEY_ID: 1,
             KEY_QUANTITY: 1
         }
-        self.buy_button_bad_funds = {
+        self.buy_item_bad_funds = {
             KEY_SUCCESS: False,
             KEY_MESSAGE: "Insufficient funds"
         }
-        self.buy_button_bad_item = {
+        self.buy_item_bad_item = {
             KEY_SUCCESS: False,
             KEY_MESSAGE: "Reached purchase limit"
         }
@@ -86,7 +86,7 @@ class BuyButtonTest(DatabaseTest):
             KEY_ID: 2,
             KEY_QUANTITY: 1
         }
-        self.buy_button_params = [
+        self.buy_item_params = [
         {
             KEY_USER_ID: self.user1_id,
             KEY_PARAMS: self.params_item1,
@@ -103,21 +103,21 @@ class BuyButtonTest(DatabaseTest):
             KEY_USER_ID: self.user2_id,
             KEY_PARAMS: self.params_item1,
             KEY_AMOUNT: 500,
-            KEY_EXPECTED: self.buy_button_bad_funds
+            KEY_EXPECTED: self.buy_item_bad_funds
         },
         {
             KEY_USER_ID: self.user3_id,
             KEY_PARAMS: self.params_item1,
             KEY_AMOUNT: None,
-            KEY_EXPECTED: self.buy_button_bad_funds
+            KEY_EXPECTED: self.buy_item_bad_funds
         },
         {
             KEY_USER_ID: self.user2_id,
             KEY_PARAMS: self.params_item2,
             KEY_AMOUNT: 500,
-            KEY_EXPECTED: self.buy_button_bad_item
+            KEY_EXPECTED: self.buy_item_bad_item
         }]
-        self.buy_button_error = {
+        self.buy_item_error = {
             KEY_ERROR: "Malformed request"
         }
 
@@ -135,17 +135,17 @@ class BuyButtonTest(DatabaseTest):
                 .scalar()
             )
 
-    def test_buy_button_success(self):
-        for test_case in self.buy_button_params:
+    def test_buy_item_success(self):
+        for test_case in self.buy_item_params:
             self.buy_button_test(test_case)
     
-    def test_buy_button_error(self):
+    def test_buy_item_error(self):
         with self.app.app_context():
             with self.client.session_transaction() as sess:
                 sess['user_id'] = self.user1_id
             res = self.client.post('/api/store/buy', data = "bad data")
             result = json.loads(res.data.decode("utf-8"))
-            self.assertEqual(self.buy_button_error, result)
+            self.assertEqual(self.buy_item_error, result)
 
 if __name__ == "__main__":
     unittest.main()
