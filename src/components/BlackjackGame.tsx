@@ -4,6 +4,7 @@ import {
   Box, makeStyles, Typography, Button,
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import BlackjackCard from './BlackjackCard';
 
 const useStyles = makeStyles(() => ({
   dealer: {
@@ -51,17 +52,6 @@ function BlackjackGame(props: Props) {
   function HandleLeave() {
     history.push('/');
   }
-  function MakeCards(hand) {
-    const displayHand : JSX.Element[] = [];
-    for (let i = 0; i < hand.length; i += 2) {
-      const link = ['https://deckofcardsapi.com/static/img/', hand[i], hand[i + 1], '.png'].join('');
-      displayHand.push(
-        <img className="blackjack-card" src={link} alt="Playing Card" />,
-      );
-    }
-    return displayHand;
-  }
-
   function HandleResult(bust, blackjack, winner) {
     if (bust) {
       seteffect('bust!');
@@ -196,7 +186,7 @@ function BlackjackGame(props: Props) {
   const classes = useStyles();
   return (
     <Box className={classes.playerUI}>
-      <Box className={classes.dealer}>{MakeCards(dealerHand)}</Box>
+      <Box className={classes.dealer}><BlackjackCard hand={dealerHand} /></Box>
       { endScreen
         ? (
           <div className="blackjack-end">
@@ -228,7 +218,7 @@ function BlackjackGame(props: Props) {
         )}
       <Box className={classes.clientUI}>
         <Typography variant="h6">{effect}</Typography>
-        <Box className={classes.player}>{MakeCards(playerHand)}</Box>
+        <Box className={classes.player}><BlackjackCard hand={playerHand} /></Box>
       </Box>
     </Box>
   );
