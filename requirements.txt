@@ -9,5 +9,6 @@ pylint-flask
 pylint-flask-sqlalchemy
 python-dotenv
 requests
+stripe
 alchemy_mock
 Flask-Session
