@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Typography } from '@material-ui/core';
+import { Typography, CircularProgress } from '@material-ui/core';
 
 import TimeDisplay from './TimeDisplay';
 
@@ -22,6 +22,7 @@ type Params = {
 function TicketHistory() {
   const [tHistory, setTHistory] = useState<Array<Transaction>>([]);
   const { userId } = useParams<Params>();
+  const [loading, setLoading] = useState(true);
   const requestUrl = userId ? '/api/ticket/history/'.concat(userId) : '/api/ticket/history';
 
   useEffect(() => {
@@ -38,7 +39,10 @@ function TicketHistory() {
       .catch(() => (
         // TODO: Show error message to user
         setTHistory([])
-      ));
+      ))
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   if (tHistory.length !== 0) {
@@ -48,6 +52,7 @@ function TicketHistory() {
           Ticket History
         </Typography>
         <br />
+        {loading ? <CircularProgress color="secondary" /> : null}
         <table style={{ textAlign: 'center', margin: 'auto' }} className="transaction-history-table">
           <tbody className="table-body">
             <tr>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Paper, Typography } from '@material-ui/core';
+import {
+  Paper, Typography, CircularProgress,
+} from '@material-ui/core';
 import TicketHistory from '../components/TicketHistory';
 import TicketTransfer from '../components/TicketTransfer';
 
@@ -15,6 +17,7 @@ function Profileview() {
   const [user, setUser] = useState('');
   const [rtime, setRtime] = useState('');
   const [tickets, setTickets] = useState('');
+  const [loading, setLoading] = useState(true);
   const { userId } = useParams<Params>();
   const requestUrl = userId ? '/api/profile/'.concat(userId) : '/api/profile/';
 
@@ -26,6 +29,7 @@ function Profileview() {
         setUser(data.username);
         setRtime(data.registration_datetime);
         setTickets(data.total_tickets);
+        setLoading(false);
       })
       .catch((error) => (<div className="Profile">{error}</div>));
   }, []);
@@ -34,6 +38,7 @@ function Profileview() {
     <div className="Profile">
       <Paper className={classes.root}>
         <br />
+        {loading ? <CircularProgress color="secondary" /> : null}
         <Typography variant="h5">
           <div className="profile-name">
             Name:&nbsp;
