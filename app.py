@@ -1,14 +1,15 @@
-import os
+from os import getenv
 
-from server import app, db
-from flask_migrate import Migrate
+from server import create_app
 
+from config import Config
 
-migrate = Migrate(app, db)
+config = Config()
+app = create_app(config)
 
 if __name__ == "__main__":
     app.run(
-        host=os.getenv("IP", "0.0.0.0"),
-        port=int(os.getenv("PORT", 80)),
-        debug=os.getenv("DEBUG", False),
+        host=getenv("IP", "0.0.0.0"),
+        port=int(getenv("PORT", "80")),
+        debug=getenv("DEBUG", False),
     )

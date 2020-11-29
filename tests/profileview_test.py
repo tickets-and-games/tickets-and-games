@@ -1,12 +1,9 @@
-import unittest
-import unittest.mock as mock
-import os
-import sys
-from sqlalchemy.orm.exc import NoResultFound
+import datetime
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from server import db
+from server.utils.database_test import DatabaseTest
+from server.models import User
 
-from server.routes.profileview import get_profile_view
 
 KEY_INPUT = "input"
 KEY_EXPECTED = "expected"
@@ -15,69 +12,51 @@ KEY_USERNAME = "username"
 KEY_REGISTRATION = "registration_datetime"
 KEY_TOTAL_TICKETS = "total_tickets"
 
-def mocked_user_output():
-    mocked_output_user = mock.Mock()
-    mocked_output_user.one.return_value = MockedUserData()
-    return mocked_output_user
 
-def mocked_user_filter():
-    mocked_query_user = mock.Mock()
-    mocked_query_user.filter.return_value = mocked_user_output()
-    return mocked_query_user
-
-def mocked_sum_output():
-    mocked_output_sum = mock.Mock()
-    mocked_output_sum.scalar.return_value = 50
-    return mocked_output_sum
-
-def mocked_transaction_filter():
-    mocked_tquery = mock.Mock()
-    mocked_tquery.filter.return_value = mocked_sum_output()
-    return mocked_tquery
-
-def mocked_query(table):
-    if str(table) == "<class 'server.models.user.User'>":
-        return mocked_user_filter()
-    return mocked_transaction_filter()
-
-def mocked_bad_query(table):
-    raise NoResultFound()
-
-class MockedUserData():
-    id = 1
-    name = "allen"
-    username = "ak2253"
-    registration_datetime = "Tue, 10 Nov 2020 18:19:43 GMT"
-
-class ProfileViewTest(unittest.TestCase):
+class ProfileViewTest(DatabaseTest):
     def setUp(self):
-        self.success_test_params_proview = [
-        {
-            KEY_INPUT: "1",
-            KEY_EXPECTED: {
-                KEY_NAME: "allen",
-                KEY_USERNAME: "ak2253",
-                KEY_REGISTRATION: "Tue, 10 Nov 2020 18:19:43 GMT",
-                KEY_TOTAL_TICKETS: 50,
-            }
-        },
-        {
-            KEY_INPUT: "bad bad input",
-            KEY_EXPECTED: ({'error': 'Result not found'}, 404)
-        }]
+        super().setUp()
+        self.user_id = 1
+        self.registration_time = datetime.datetime.utcnow()
+        user = User(
+            id=self.user_id,
+            name="Current user",
+            email="user@example.com",
+            registration_datetime=self.registration_time,
+        )
+        self.other_user_id = 2
+        other_user = User(
+            id=self.other_user_id,
+            name="Other user",
+            email="otheruser@example.com",
+            registration_datetime=self.registration_time,
+        )
+
+        with self.app.app_context():
+            db.session.add(user)
+            db.session.add(other_user)
+            db.session.commit()
 
     def test_success_profile_view(self):
-        for test_case in self.success_test_params_proview:
-            expected = test_case[KEY_EXPECTED]
-            if test_case[KEY_INPUT] == "bad bad input":
-                with mock.patch("server.db.session.query", mocked_bad_query):
-                    result = get_profile_view(test_case[KEY_INPUT])
-                self.assertEqual(expected, result)
-            else:
-                with mock.patch("server.db.session.query", mocked_query):
-                    result = get_profile_view(test_case[KEY_INPUT])
-                self.assertDictEqual(expected, result)
+        with self.app.app_context():
+            with self.client.session_transaction() as sess:
+                sess["user_id"] = 1
 
+            response = self.client.get("/api/profile/")
+            self.assertEqual(response.json[KEY_NAME], "Current user")
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_other_successful_profile_view(self):
+        with self.app.app_context():
+            with self.client.session_transaction() as sess:
+                sess["user_id"] = self.user_id
+
+            response = self.client.get(f"/api/profile/{self.other_user_id}")
+            self.assertEqual(response.json[KEY_NAME], "Other user")
+
+    def test_other_user_not_found(self):
+        with self.app.app_context():
+            with self.client.session_transaction() as sess:
+                sess["user_id"] = self.user_id
+
+            response = self.client.get(f"/api/profile/{3333333}")
+            self.assertEqual(response.status_code, 404)
