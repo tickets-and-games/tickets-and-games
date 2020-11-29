@@ -1,10 +1,3 @@
-from server.models import Transaction, Blackjack
-from server.utils.database_test import DatabaseTest
-from server.utils import (
-    mocked_random_org_call_norm,
-    mocked_call_blackjack,
-    mocked_bad_deck,
-)
 from server import db
 import json
 import unittest
@@ -14,6 +7,14 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from server.models import Transaction, Blackjack
+from server.utils.database_test import DatabaseTest
+from server.utils import (
+    mocked_random_org_call_norm,
+    mocked_call_blackjack,
+    mocked_bad_deck,
+    mocked_local_deck,
+)
 
 KEY_SUCCESS = "success"
 KEY_MESSAGE = "message"
@@ -53,10 +54,11 @@ class BlackjackStartTest(DatabaseTest):
             KEY_DEALER: ["2", "H"],
             KEY_PLAYER: ["A", "D", "Q", "S"],
         }
-        self.blackjack_start_bad = {
-            KEY_SUCCESS: False,
-            KEY_MESSAGE: "Blackjack server is currently facing an problem."
-            " Please try again later.",
+        self.blackjack_bad_api_success = {
+            KEY_SUCCESS: True,
+            KEY_BLACKJACK: False,
+            KEY_DEALER: ["A", "D"],
+            KEY_PLAYER: ["2", "H", "4", "S"],
         }
         self.blackjack_start_error = {"error": "Malformed request"}
 
@@ -87,11 +89,12 @@ class BlackjackStartTest(DatabaseTest):
             with self.client.session_transaction() as sess:
                 sess["user_id"] = self.user2_id
             with mock.patch("requests.post", mocked_bad_deck):
-                res = self.client.post(
-                    "/api/blackjack/start", data=json.dumps({KEY_AMOUNT: 500})
-                )
-                result = json.loads(res.data.decode("utf-8"))
-                self.assertDictEqual(self.blackjack_start_bad, result)
+                with mock.patch("random.shuffle", mocked_local_deck):
+                    res = self.client.post(
+                        "/api/blackjack/start", data=json.dumps({KEY_AMOUNT: 500})
+                    )
+                    result = json.loads(res.data.decode("utf-8"))
+                    self.assertDictEqual(self.blackjack_bad_api_success, result)
 
     def test_blackjack_start_error(self):
         with self.client.session_transaction() as sess:

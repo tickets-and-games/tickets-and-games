@@ -101,12 +101,6 @@ def bet_blackjack():
         data = json.loads(request.data)
         blackjack_transaction(-data["amount"])
         deck = get_deck_set()
-        if not deck:
-            return {
-                "success": False,
-                "message": "Blackjack server is currently facing an problem."
-                " Please try again later.",
-            }
         card1 = draw_card(deck)
         card2 = draw_card(deck)
         card3 = draw_card(deck)

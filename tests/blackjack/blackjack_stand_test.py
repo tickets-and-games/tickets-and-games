@@ -57,7 +57,7 @@ class BlackjackStandTest(DatabaseTest):
         self.blackjack_stand_win = {
             KEY_SUCCESS: True,
             KEY_WINNER: KEY_PLAYER,
-            KEY_DEALER: ["10", "H", "6", "H", "A", "D", "2", "H"],
+            KEY_DEALER: ["0", "H", "6", "H", "A", "D", "2", "H"],
             KEY_PLAYER: ["A", "D", "K", "D"],
         }
         self.blackjack_stand_tie = {

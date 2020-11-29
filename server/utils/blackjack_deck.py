@@ -1,3 +1,4 @@
+import random
 import os
 import requests
 
@@ -37,7 +38,7 @@ import requests
 RANDOM_ORG_KEY = os.getenv("RANDOM_ORG_KEY", "DEFAULT_KEY")
 RANDOM_URL = "https://api.random.org/json-rpc/2/invoke"
 suits = ["D", "H", "C", "S"]
-values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "0", "J", "Q", "K"]
 
 def translate_hand(hand):
     lst = []
@@ -63,6 +64,11 @@ def blackjack_total(hand):
             total += 1
     return total
 
+def local_deck_set():
+    deck = list(range(0,208))
+    random.shuffle(deck)
+    return deck
+
 def get_deck_set():
     json_rpc = {
         "jsonrpc": "2.0",
@@ -81,7 +87,7 @@ def get_deck_set():
     random_request = requests.post(RANDOM_URL, json=json_rpc)
     data = random_request.json()
     if "error" in data:
-        return [] # API failed. Perform manual deck generation
+        return local_deck_set()
     return data["result"]["random"]["data"][0]
 
 def draw_card(deck):
