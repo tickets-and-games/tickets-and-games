@@ -1,20 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Paper, makeStyles, Typography } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 import TicketHistory from '../components/TicketHistory';
 import TicketTransfer from '../components/TicketTransfer';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: '#f7cea2',
-    borderStyle: 'solid',
-    borderWidth: '3px',
-    width: '70%',
-    textAlign: 'center',
-    margin: 'auto',
-  },
-}));
+import { useStyles } from '../styles';
 
 type Params = {
   userId: string;
@@ -42,7 +32,7 @@ function Profileview() {
   const classes = useStyles();
   return (
     <div className="Profile">
-      <Paper className={classes.root} style={{ position: 'relative', top: '15vh' }} elevation={3}>
+      <Paper className={classes.root}>
         <br />
         <Typography variant="h5">
           <div className="profile-name">

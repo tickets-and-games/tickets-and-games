@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import './Coinflip.css';
 import {
-  Button, Paper, makeStyles, Typography,
+  Button, Paper, Typography,
 } from '@material-ui/core';
+
+import { useStyles } from '../styles';
 
 function Skiball() {
   const [message, setMessage] = useState('');
+  const classes = useStyles();
 
   function play() {
     fetch('/api/skiball')
@@ -27,23 +30,9 @@ function Skiball() {
       });
   }
 
-  const useStyles = makeStyles(() => ({
-    root: {
-      flexGrow: 1,
-      backgroundColor: '#f7cea2',
-      borderStyle: 'solid',
-      borderWidth: '3px',
-      width: '70%',
-      textAlign: 'center',
-      margin: 'auto',
-    },
-
-  }));
-  // send over data with the head/tail, bet amount
-  const classes = useStyles();
   return (
     <div className="Skiball">
-      <Paper className={classes.root} style={{ position: 'relative', top: '8vh' }} elevation={3}>
+      <Paper className={classes.root}>
         <Typography variant="h3">
           Skiball
         </Typography>

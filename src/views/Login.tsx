@@ -2,25 +2,15 @@ import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useHistory } from 'react-router-dom';
 import {
-  Paper, makeStyles, Typography, Button,
+  Paper, Typography, Button,
 } from '@material-ui/core';
 import 'fontsource-roboto';
+
+import { useStyles } from '../styles';
 
 interface Props {
   setUserId: (isLoggedIn: string) => void;
 }
-
-const useStyles = makeStyles(() => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: '#f7cea2',
-    borderStyle: 'solid',
-    borderWidth: '3px',
-    width: '70%',
-    textAlign: 'center',
-    margin: 'auto',
-  },
-}));
 
 export default function Login(props: Props) {
   const { setUserId } = props;
@@ -93,7 +83,7 @@ export default function Login(props: Props) {
   const classes = useStyles();
   return (
     <div className="LoginBox">
-      <Paper className={classes.root} style={{ position: 'relative', top: '15vh' }} elevation={3}>
+      <Paper className={classes.root}>
         <div className="Login">
           <div className="login-password">
             <form>
