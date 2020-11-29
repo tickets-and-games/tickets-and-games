@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import './Blackjack.css';
 import {
   Box, makeStyles, Typography, Button,
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import BlackjackCard from './BlackjackCard';
 
 const useStyles = makeStyles(() => ({
   dealer: {
@@ -14,7 +14,6 @@ const useStyles = makeStyles(() => ({
   },
   player: {
     display: 'block',
-    position: 'absolute',
     height: '30vh',
     width: '100%',
     textAlign: 'center',
@@ -55,8 +54,9 @@ function BlackjackGame(props: Props) {
   function MakeCards(hand) {
     const displayHand : JSX.Element[] = [];
     for (let i = 0; i < hand.length; i += 2) {
+      const link = ['https://deckofcardsapi.com/static/img/', hand[i], hand[i + 1], '.png'].join('');
       displayHand.push(
-        <BlackjackCard suit={hand[i + 1]} value={hand[i]} />,
+        <img className="blackjack-card" src={link} alt="Playing Card" />,
       );
     }
     return displayHand;
