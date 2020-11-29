@@ -1,25 +1,14 @@
 import React, { useState } from 'react';
 import './Coinflip.css';
 import {
-  Button, Paper, makeStyles, Typography,
+  Box, Button, Paper, Typography,
 } from '@material-ui/core';
+
+import { useStyles } from '../styles';
 
 function Coinflip() {
   const [bet, setBet] = useState(0);
   const [message, setMessage] = useState('');
-
-  const useStyles = makeStyles(() => ({
-    root: {
-      flexGrow: 1,
-      backgroundColor: '#f7cea2',
-      borderStyle: 'solid',
-      borderWidth: '3px',
-      width: '70%',
-      textAlign: 'center',
-      margin: 'auto',
-    },
-
-  }));
 
   const onChange = (event) => {
     setBet(event.target.value);
@@ -62,7 +51,7 @@ function Coinflip() {
   const classes = useStyles();
   return (
     <div className="Coinflip">
-      <Paper className={classes.root} style={{ position: 'relative', top: '7vh' }} elevation={3}>
+      <Paper className={classes.root}>
         <Typography variant="h3">
           Coinflip
         </Typography>
@@ -78,8 +67,10 @@ function Coinflip() {
         <br />
         <Typography variant="h6">Choose heads or tails:</Typography>
         <br />
-        <Button variant="contained" type="button" style={{ right: '10px' }} onClick={onHeads}>Heads</Button>
-        <Button variant="contained" type="button" onClick={onTails}>Tails</Button>
+        <Box>
+          <Button variant="contained" type="button" style={{ right: '10px' }} onClick={onHeads}>Heads</Button>
+          <Button variant="contained" type="button" onClick={onTails}>Tails</Button>
+        </Box>
         <br />
         <br />
         <p>{message}</p>

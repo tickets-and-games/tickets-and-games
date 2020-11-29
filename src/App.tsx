@@ -1,9 +1,13 @@
-import React from 'react';
-import {
-  BrowserRouter as Router, Switch, Route,
-} from 'react-router-dom';
+import React, { Dispatch } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { Box } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+
+import { useLocalStorage } from './utils/hooks';
+import { AppState } from './reducers';
+import { MessageActions, DELETE_MESSAGE } from './actions/messageActions';
 
 import './App.css';
 import AppHeader from './AppHeader';
@@ -18,17 +22,31 @@ import Skiball from './views/Skiball';
 import Store from './views/Store';
 import AuthRequired from './components/AuthRequired';
 
-import { useLocalStorage } from './utils/hooks';
-
 function App() {
   const [userId, setUserId] = useLocalStorage('userId', '');
+  const messages = useSelector((state: AppState) => state.messages);
+  const messagesDispatch = useDispatch<Dispatch<MessageActions>>();
+
   const loggedIn = Boolean(userId);
 
   return (
     <Router>
-      <div className="App">
-        <AppHeader loggedIn={loggedIn} setUserId={setUserId} />
+      <AppHeader loggedIn={loggedIn} setUserId={setUserId} />
+      <Container>
         <Box>
+          {messages.map((error) => (
+            <Alert
+              severity={error.type}
+              onClose={() => messagesDispatch({
+                type: DELETE_MESSAGE,
+                payload: {
+                  id: error.id,
+                },
+              })}
+            >
+              {error.message}
+            </Alert>
+          ))}
           <Switch>
             {/* Private routes that do require login */}
             <Route path="/profile/:userId?" defaultParams={{ userId: '' }}>
@@ -72,7 +90,7 @@ function App() {
             </Route>
           </Switch>
         </Box>
-      </div>
+      </Container>
     </Router>
   );
 }

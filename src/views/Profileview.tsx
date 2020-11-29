@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Paper, makeStyles, Typography } from '@material-ui/core';
+import {
+  Paper, Typography, CircularProgress,
+} from '@material-ui/core';
 import TicketHistory from '../components/TicketHistory';
 import TicketTransfer from '../components/TicketTransfer';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: '#f7cea2',
-    borderStyle: 'solid',
-    borderWidth: '3px',
-    width: '70%',
-    textAlign: 'center',
-    margin: 'auto',
-  },
-}));
+import { useStyles } from '../styles';
 
 type Params = {
   userId: string;
@@ -25,6 +17,7 @@ function Profileview() {
   const [user, setUser] = useState('');
   const [rtime, setRtime] = useState('');
   const [tickets, setTickets] = useState('');
+  const [loading, setLoading] = useState(true);
   const { userId } = useParams<Params>();
   const requestUrl = userId ? '/api/profile/'.concat(userId) : '/api/profile/';
 
@@ -36,14 +29,16 @@ function Profileview() {
         setUser(data.username);
         setRtime(data.registration_datetime);
         setTickets(data.total_tickets);
+        setLoading(false);
       })
       .catch((error) => (<div className="Profile">{error}</div>));
   }, []);
   const classes = useStyles();
   return (
     <div className="Profile">
-      <Paper className={classes.root} style={{ position: 'relative', top: '15vh' }} elevation={3}>
+      <Paper className={classes.root}>
         <br />
+        {loading ? <CircularProgress color="secondary" /> : null}
         <Typography variant="h5">
           <div className="profile-name">
             Name:&nbsp;

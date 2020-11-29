@@ -76,9 +76,9 @@ def buy_item():
         quantity = data["quantity"]
         user_id = session["user_id"]
         if not valid_funds(user_id, item_type):
-            return {"success": False, "message": "Insufficient funds"}
+            return {"success": False, "message": "Insufficient funds"}, 400
         if not item_available(user_id, item_type, quantity):
-            return {"success": False, "message": "Reached purchase limit"}
+            return {"success": False, "message": "Reached purchase limit"}, 400
         make_purchase(user_id, item_type, quantity)
         return {"success": True}
     except json.decoder.JSONDecodeError:
