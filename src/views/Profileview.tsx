@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
-  Paper, Typography, CircularProgress,
+  Button, Paper, Typography, CircularProgress,
 } from '@material-ui/core';
 import TicketHistory from '../components/TicketHistory';
 import TicketTransfer from '../components/TicketTransfer';
@@ -58,6 +58,7 @@ function Profileview() {
           </div>
           <br />
           <TicketTransfer />
+          <Button size="large" variant="contained" component={Link} to="/purchase">Purchase</Button>
           <br />
           <TicketHistory />
         </Typography>
