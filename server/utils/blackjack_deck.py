@@ -64,25 +64,25 @@ def blackjack_total(hand):
     return total
 
 def get_deck_set():
-    #json_rpc = {
-    #    "jsonrpc": "2.0",
-    #    "method": "generateIntegerSequences",
-    #    "params": {
-    #        "apiKey": RANDOM_ORG_KEY,
-    #        "n": 1,
-    #        "length": 208,
-    #        "min": 0,
-    #        "max": 207,
-    #    "replacement": False,
-    #    "base": 10
-    #    },
-    #    "id": 490
-    #}
-    #random_request = requests.post(RANDOM_URL, json=json_rpc)
-    #data = random_request.json()
-    #if "error" in data:
-    #    return [] # API failed. Perform manual deck generation
-    #return data["result"]["random"]["data"][0]
+    json_rpc = {
+        "jsonrpc": "2.0",
+        "method": "generateIntegerSequences",
+        "params": {
+            "apiKey": RANDOM_ORG_KEY,
+            "n": 1,
+            "length": 208,
+            "min": 0,
+            "max": 207,
+        "replacement": False,
+        "base": 10
+        },
+        "id": 490
+    }
+    random_request = requests.post(RANDOM_URL, json=json_rpc)
+    data = random_request.json()
+    if "error" in data:
+        return [] # API failed. Perform manual deck generation
+    return data["result"]["random"]["data"][0]
     return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 def draw_card(deck):
