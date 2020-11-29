@@ -1,5 +1,4 @@
-from random import shuffle
-
+import random
 import os
 import requests
 
@@ -67,8 +66,7 @@ def blackjack_total(hand):
 
 def local_deck_set():
     deck = list(range(0,208))
-    shuffle(deck)
-    print(deck)
+    random.shuffle(deck)
     return deck
 
 def get_deck_set():
