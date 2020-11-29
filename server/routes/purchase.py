@@ -14,17 +14,56 @@ purchase_bp = Blueprint("purchase_bp", __name__, url_prefix="/api/purchase")
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "DEFAULT_KEY")
 STRIPE_ENDPOINT_SECRET = os.getenv("STRIPE_ENDPOINT_SECRET", "DEFAULT_SECRET")
 
+ITEMS = [
+    {
+        "tickets": 10000,
+        "price": 0.99,
+    },
+    {
+        "tickets": 55000,
+        "price": 4.99,
+    },
+    {
+        "tickets": 130000,
+        "price": 9.99,
+    },
+    {
+        "tickets": 300000,
+        "price": 19.99,
+    },
+    {
+        "tickets": 1000000,
+        "price": 49.99,
+    },
+    {
+        "tickets": 2500000,
+        "price": 99.99,
+    },
+]
 
-@purchase_bp.route("/payment-intent")
+
+@purchase_bp.route("/list")
+@login_required
+def get_purchase_list():
+    return {"items": ITEMS}
+
+
+@purchase_bp.route("/payment-intent", methods=["POST"])
 @login_required
 @stripe_required
 def create_payment_intent():
+    data = json.loads(request.data)
+    index = data["item_index"]
+
+    item = ITEMS[index]
+
     user = get_current_user()
 
     payment_intent = stripe.PaymentIntent.create(
-        amount=1000,
+        amount=round(item["price"] * 100),
         currency="usd",
         receipt_email=user.email,
+        metadata={"integration_check": "accept_a_payment"},
     )
 
     return payment_intent
@@ -42,6 +81,9 @@ def payment_complete():
     amount = event_object["amount"]
     email = event_object["receipt_email"]
 
+    item = list(filter(lambda item: round(item["price"] * 100) == amount, ITEMS))[0]
+    tickets = item["tickets"]
+
     try:
         if (
             os.getenv("DEBUG", "").lower() != "true"
@@ -57,7 +99,7 @@ def payment_complete():
     user = User.query.filter_by(email=email).first()
     if user is not None:
         transaction = Transaction(
-            user_id=user.id, ticket_amount=amount * 100, activity="Ticket purchase"
+            user_id=user.id, ticket_amount=tickets, activity="Ticket purchase"
         )
         db.session.add(transaction)
         db.session.commit()

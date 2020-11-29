@@ -20,6 +20,7 @@ import Blackjack from './views/Blackjack';
 import Home from './views/Home';
 import Skiball from './views/Skiball';
 import Store from './views/Store';
+import TicketPurchase from './views/TicketPurchase';
 import AuthRequired from './components/AuthRequired';
 
 function App() {
@@ -72,6 +73,11 @@ function App() {
             <Route path="/store">
               <AuthRequired loggedIn={loggedIn}>
                 <Store />
+              </AuthRequired>
+            </Route>
+            <Route path="/purchase">
+              <AuthRequired loggedIn={loggedIn}>
+                <TicketPurchase />
               </AuthRequired>
             </Route>
 

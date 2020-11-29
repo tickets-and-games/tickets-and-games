@@ -16,6 +16,12 @@ export const useStyles = makeStyles((theme: Theme) => ({
     width: '70%',
     margin: 'auto',
     padding: '8px',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+  stepper: {
+    backgroundColor: '#f7cea2',
   },
   table: {
     textAlign: 'center',
@@ -27,5 +33,10 @@ export const useStyles = makeStyles((theme: Theme) => ({
   },
   media: {
     height: 140,
+  },
+  form: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
   },
 }));

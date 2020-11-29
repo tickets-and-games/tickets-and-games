@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import rootReducer from './reducers';
 
 import App from './App';
@@ -11,10 +14,14 @@ import reportWebVitals from './reportWebVitals';
 const store = createStore(rootReducer);
 const rootElement = document.getElementById('root');
 
+const stripePromise = loadStripe('pk_test_51HseN4AEuYim4mUyZxsKMzK8vBtG8gB91HjoAi09qb6OHfqEz6WARLYu8MA1I5ywcNOs2txEVwy8g2SmpRl2f3Nm00RPwSNMz7');
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Elements stripe={stripePromise}>
+        <App />
+      </Elements>
     </Provider>
   </React.StrictMode>,
   rootElement,
