@@ -1,25 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Paper, makeStyles, Typography, CircularProgress,
+  Paper, Typography, CircularProgress,
 } from '@material-ui/core';
 import 'fontsource-roboto';
 import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: '#f7cea2',
-    borderStyle: 'solid',
-    borderWidth: '3px',
-    width: '70%',
-    textAlign: 'center',
-    margin: 'auto',
-  },
-  table: {
-    textAlign: 'center',
-    margin: 'auto',
-  },
-}));
+import { useStyles } from '../styles';
 
 type Transaction = {
   balance: number;
@@ -35,6 +21,8 @@ function Leaderboard() {
   const [transactions, setTransactions] = useState<Array<Transaction>>([]);
   const [loading, setLoading] = useState(true);
 
+  const classes = useStyles();
+
   useEffect(() => {
     fetch('/api/leaderboard')
       .then((res) => res.json())
@@ -44,10 +32,9 @@ function Leaderboard() {
       });
   }, []);
 
-  const classes = useStyles();
   return (
     <div className="Leaderboard">
-      <Paper className={classes.root} style={{ position: 'relative', top: '10vh' }} elevation={3}>
+      <Paper className={classes.root}>
         <Typography variant="h3">
           Leaderboard
         </Typography>
