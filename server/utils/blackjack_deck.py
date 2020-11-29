@@ -1,3 +1,5 @@
+from random import shuffle
+
 import os
 import requests
 
@@ -63,6 +65,12 @@ def blackjack_total(hand):
             total += 1
     return total
 
+def local_deck_set():
+    deck = list(range(0,208))
+    shuffle(deck)
+    print(deck)
+    return deck
+
 def get_deck_set():
     json_rpc = {
         "jsonrpc": "2.0",
@@ -81,9 +89,8 @@ def get_deck_set():
     random_request = requests.post(RANDOM_URL, json=json_rpc)
     data = random_request.json()
     if "error" in data:
-        return [] # API failed. Perform manual deck generation
+        return local_deck_set()
     return data["result"]["random"]["data"][0]
-    return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 def draw_card(deck):
     return deck.pop(0)
