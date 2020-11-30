@@ -6,7 +6,6 @@ from flask import request, session, Blueprint
 from sqlalchemy.orm.exc import NoResultFound
 from server import db
 from server.models import Login, Transaction, User
-from server.routes.decorators import login_required
 from server.utils.hash import hash_pass, hash_login
 
 
@@ -24,6 +23,10 @@ def get_token_info(token):
 
 def query_user(email):
     user = User.query.filter_by(email=email).first()
+    return user
+
+def get_user(user_id):
+    user = User.query.filter_by(id=user_id).one()
     return user
 
 
@@ -77,6 +80,8 @@ def password_signup():
         username = data["username"]
         email = data["email"]
         password = data["password"]
+        is_public = data["is_public"]
+        
         if check_email(email):
             return {
                 "success": False,
@@ -88,15 +93,11 @@ def password_signup():
                 "success": False,
                 "message": "Username has already been taken please try another username",
             }
-        user = User(oauth_id="password", name=name, username=username, email=email)
+
+        user = User(oauth_id="password", name=name, username=username, email=email, is_public=is_public)
         login = Login(username=username, password=hash_pass(password))
         db.session.add(user)
         db.session.add(login)
-        db.session.commit()
-        transaction = Transaction(
-            user_id=user.id, ticket_amount=1000, activity="Sign up bonus"
-        )
-        db.session.add(transaction)
         db.session.commit()
         session["user_id"] = user.id
         return {"success": True, "user_id": session["user_id"]}
@@ -138,14 +139,38 @@ def password_login():
         return {"error": "Malformed request"}, 400
 
     except NoResultFound:
-        return {
-            "success": False,
-            "message": "Username does not exist or password is invalid.",
-        }
+        return {"success": False, "message": "Username does not exist or password is invalid."}
 
 
 @user_bp.route("/api/user/logout", methods=["GET", "POST"])
-@login_required
 def logout():
     session.pop("user_id", None)
     return {"success": True}
+
+@user_bp.route("/api/user/update", methods=["GET", "POST"])
+def change_profile():
+    try:
+        data = json.loads(request.data)
+        user = get_user(data["user_id"])
+        user.is_public = data["is_public"]
+        db.session.commit()
+
+        return { "success": True }
+    except NoResultFound:
+        return {"error": "Result not found"}, 404
+
+@user_bp.route("/api/user/<user_id>")
+def user(user_id):
+    try:
+        user = get_user(user_id)
+        return {
+            "id": user.id,
+            "oauth_id": user.oauth_id,
+            "name": user.name,
+            "username": user.username,
+            "email": user.email,
+            "registration_datetime": user.registration_datetime,
+            "is_public": user.is_public,
+        }  
+    except NoResultFound:
+        return {"error": "Result not found"}, 404
