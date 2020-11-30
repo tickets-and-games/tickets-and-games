@@ -23,6 +23,15 @@ def get_user_by_id(user_id: Union[int, None]) -> Union[User, None]:
     return user
 
 
+def get_user_by_id_and_privacy(user_id: Union[int, None]) -> Union[User, None]:
+    if user_id is None:
+        return None
+
+    user = User.query.filter(User.id == user_id, User.is_public.is_(True)).first()
+
+    return user
+
+
 def get_current_user() -> Union[User, None]:
     user_id = get_current_user_id()
 

@@ -6,6 +6,7 @@ from flask import request, session, Blueprint
 from sqlalchemy.orm.exc import NoResultFound
 from server import db
 from server.models import Login, Transaction, User
+from server.routes.decorators import login_required
 from server.utils.hash import hash_pass, hash_login
 
 
@@ -99,6 +100,11 @@ def password_signup():
         db.session.add(user)
         db.session.add(login)
         db.session.commit()
+        transaction = Transaction(
+            user_id=user.id, ticket_amount=1000, activity="Sign up bonus"
+        )
+        db.session.add(transaction)
+        db.session.commit()
         session["user_id"] = user.id
         return {"success": True, "user_id": session["user_id"]}
 
@@ -139,19 +145,24 @@ def password_login():
         return {"error": "Malformed request"}, 400
 
     except NoResultFound:
-        return {"success": False, "message": "Username does not exist or password is invalid."}
+        return {
+            "success": False,
+            "message": "Username does not exist or password is invalid.",
+        }
 
 
 @user_bp.route("/api/user/logout", methods=["GET", "POST"])
+@login_required
 def logout():
     session.pop("user_id", None)
     return {"success": True}
 
-@user_bp.route("/api/user/update", methods=["GET", "POST"])
+@user_bp.route("/api/settings", methods=["GET", "POST"])
 def change_profile():
     try:
         data = json.loads(request.data)
-        user = get_user(data["user_id"])
+        user_id = session["user_id"]
+        user = get_user(user_id)
         user.is_public = data["is_public"]
         db.session.commit()
 
