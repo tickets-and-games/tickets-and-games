@@ -1,4 +1,4 @@
-# Project3
+# Tickets and Games
 
 * Heroku Link: https://tickets-and-games.herokuapp.com/
 * To use this repository, please follow the following steps:
