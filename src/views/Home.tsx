@@ -121,6 +121,13 @@ export default function Home() {
       </Paper>
       <Paper className={classes.paper} style={{ position: 'relative', top: '50px' }}>
         <Typography variant="body1">
+          To bring you an experience during the times we cannot sadly be together
+          to take part in such joy and games, we have brought to you our virtual carnival!
+          With all the games and features to take part with friends we have
+          set ways for you to take part in the fun! You can even contribute to our work
+          thru the payment functionality to gain more tickets and play more games to compete
+          with your friends. You can then work your way through the leaderboards and
+          customize your profile to your liking.
           Click on the above photos to navigate through the site to see all that we have to offer!
         </Typography>
       </Paper>
