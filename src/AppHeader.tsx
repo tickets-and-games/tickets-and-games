@@ -83,7 +83,6 @@ function AppHeader(props: Props) {
             Tickets & Games
           </Typography>
           <Button className={classes.button} component={RouterLink} to="/">Home</Button>
-          <Button className={classes.button} component={RouterLink} to="/profile">Profile</Button>
           <Button className={classes.button} component={RouterLink} to="/leaderboard">Leaderboard</Button>
           <Button className={classes.button} component={RouterLink} to="/store">Store</Button>
           <Button className={classes.button} component={RouterLink} to="/coinflip">Coinflip</Button>
@@ -101,10 +100,11 @@ function AppHeader(props: Props) {
           <Menu
             id="menu-appbar"
             anchorOrigin={{
-              vertical: 'top',
+              vertical: 'bottom',
               horizontal: 'right',
             }}
             anchorEl={anchorEl}
+            getContentAnchorEl={null}
             keepMounted
             transformOrigin={{
               vertical: 'top',
@@ -112,6 +112,7 @@ function AppHeader(props: Props) {
             }}
             open={isOpen}
           >
+            <MenuItem component={RouterLink} to="/profile">Profile</MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </Toolbar>

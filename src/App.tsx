@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Box, Container } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
-import { useLocalStorage } from './utils/hooks';
 import { AppState } from './reducers';
 import { MessageActions, DELETE_MESSAGE } from './actions/messageActions';
 
@@ -22,7 +21,9 @@ import Skiball from './views/Skiball';
 import Store from './views/Store';
 import TicketPurchase from './views/TicketPurchase';
 import AuthRequired from './components/AuthRequired';
-import Settings from './Setting';
+
+import { useLocalStorage } from './utils/hooks';
+import Settings from './Settings';
 
 function App() {
   const [userId, setUserId] = useLocalStorage('userId', '');
@@ -51,6 +52,9 @@ function App() {
           ))}
           <Switch>
             {/* Private routes that do require login */}
+            <Route path="/leaderboard">
+              <Leaderboard />
+            </Route>
             <Route path="/profile/:userId?" defaultParams={{ userId: '' }}>
               <AuthRequired loggedIn={loggedIn}>
                 <Profileview />

@@ -18,10 +18,9 @@ export default function Settings(props: ComponentProps) {
   }, [userId]);
 
   const onChange = useCallback((event: any) => {
-    fetch('/api/user/update', {
+    fetch('/api/settings', {
       method: 'POST',
       body: JSON.stringify({
-        user_id: userId,
         is_public: event.target.checked,
       }),
     })
