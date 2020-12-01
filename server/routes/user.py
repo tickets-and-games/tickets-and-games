@@ -8,6 +8,7 @@ from server import db
 from server.models import Login, Transaction, User
 from server.routes.decorators import login_required
 from server.utils.hash import hash_pass, hash_login
+from server.utils.user import get_current_user
 
 
 user_bp = Blueprint(
@@ -60,10 +61,32 @@ def oauth_login():
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
 
-
 def check_username(username):
     return User.query.filter_by(username=username).scalar() is not None
 
+@user_bp.route("/api/login/newuser", methods=["POST"])
+def oauth_newuser():
+    try:
+        data = json.loads(request.data)
+        username = data["user"]
+
+        if check_username(username):
+            return {"success": False, "message": "Username already exist. please try another one."}
+        
+        user = get_current_user()
+        user.username = username
+        transaction = Transaction(
+            user_id=user.id, ticket_amount=1000, activity="Sign up bonus"
+        )
+        db.session.add(transaction)
+        db.session.commit()
+
+        session["user_id"] = user.id
+
+        return {"success": True, "user_id": session["user_id"]}
+
+    except json.decoder.JSONDecodeError:
+        return {"error": "Malformed request"}, 400
 
 def check_email(email):
     return User.query.filter_by(email=email).scalar() is not None
