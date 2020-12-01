@@ -48,15 +48,15 @@ def oauth_login():
             user = User(oauth_id=sub, name=name, email=email)
             db.session.add(user)
             db.session.commit()
-            transaction = Transaction(
-                user_id=user.id, ticket_amount=1000, activity="Sign up bonus"
-            )
-            db.session.add(transaction)
-            db.session.commit()
+            session["user_id"] = user.id
+            return {"success": True, "new_user": True}
 
         session["user_id"] = user.id
 
-        return {"success": True, "user_id": session["user_id"]}
+        if user.username == "":
+            return {"success": True, "new_user:": True}
+
+        return {"success": True, "new_user": False, "user_id": session["user_id"]}
 
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400

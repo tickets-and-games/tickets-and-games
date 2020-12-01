@@ -22,6 +22,7 @@ import Skiball from './views/Skiball';
 import Store from './views/Store';
 import TicketPurchase from './views/TicketPurchase';
 import AuthRequired from './components/AuthRequired';
+import NewUser from './views/NewUser';
 
 function App() {
   const [userId, setUserId] = useLocalStorage('userId', '');
@@ -90,6 +91,9 @@ function App() {
             </Route>
             <Route path="/signup">
               <Signup setLoggedIn={setUserId} />
+            </Route>
+            <Route path="/newuser">
+              <NewUser setUserId={setUserId} />
             </Route>
             <Route path="/">
               <Home />

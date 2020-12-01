@@ -74,8 +74,13 @@ export default function Login(props: Props) {
     }).then((response) => {
       if (response.status === 200) {
         response.json().then((data) => {
-          setUserId(data.user_id);
-          history.push('/');
+          if (data.new_user) {
+            history.push('/newuser');
+          }
+          else {
+            setUserId(data.user_id);
+            history.push('/');
+          }
         });
       }
     });
