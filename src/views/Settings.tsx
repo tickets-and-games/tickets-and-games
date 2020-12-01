@@ -9,10 +9,10 @@ export default function Settings(props: ComponentProps) {
   const [isPublic, setIsPublic] = useState(true);
 
   useEffect(() => {
-    fetch(`/api/user/${userId}`)
+    fetch('/api/user')
       .then((res) => res.json())
       .then((data) => {
-        setIsPublic(data.is_public);
+        setIsPublic(!data.is_private);
       })
       .catch(() => {});
   }, [userId]);
