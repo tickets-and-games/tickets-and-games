@@ -26,6 +26,7 @@ def query_user(email):
     user = User.query.filter_by(email=email).first()
     return user
 
+
 @user_bp.route("/api/login/oauth", methods=["POST"])
 def oauth_login():
     try:
@@ -76,7 +77,7 @@ def password_signup():
         username = data["username"]
         email = data["email"]
         password = data["password"]
-        
+
         if check_email(email):
             return {
                 "success": False,
@@ -151,6 +152,7 @@ def logout():
     session.pop("user_id", None)
     return {"success": True}
 
+
 @user_bp.route("/api/settings", methods=["GET", "POST"])
 @login_required
 def settings():
@@ -160,9 +162,10 @@ def settings():
         user.is_public = data["is_public"]
         db.session.commit()
 
-        return { "success": True }
+        return {"success": True}
     except NoResultFound:
         return {"error": "Result not found"}, 404
+
 
 @user_bp.route("/api/user")
 @login_required
@@ -176,4 +179,4 @@ def user():
         "email": user.email,
         "registration_datetime": user.registration_datetime,
         "is_private": user.is_public == False,
-    }  
+    }
