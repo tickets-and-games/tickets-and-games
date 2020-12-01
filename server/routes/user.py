@@ -53,9 +53,9 @@ def oauth_login():
 
         session["user_id"] = user.id
 
-        if user.username == "":
-            return {"success": True, "new_user:": True}
-
+        if user.username is None:
+            return {"success": True, "new_user": True}
+        
         return {"success": True, "new_user": False, "user_id": session["user_id"]}
 
     except json.decoder.JSONDecodeError:

@@ -76,8 +76,7 @@ export default function Login(props: Props) {
         response.json().then((data) => {
           if (data.new_user) {
             history.push('/newuser');
-          }
-          else {
+          } else {
             setUserId(data.user_id);
             history.push('/');
           }
