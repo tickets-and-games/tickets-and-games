@@ -16,25 +16,29 @@ function NewUser(props: Props) {
     setUsername(NewValue);
   }
   function handleSubmit() {
-    fetch('/api/login/newuser', {
-      method: 'POST',
-      headers: new Headers({ 'content-type': 'application/json' }),
-      mode: 'no-cors',
-      body: JSON.stringify({ user: username }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          setUserId(data.user_id);
-          history.push('/');
-        } else setEMessage(data.message);
+    const tusername = username.trim();
+    if (tusername === '') setEMessage('Username field must be filled');
+    else {
+      fetch('/api/login/newuser', {
+        method: 'POST',
+        headers: new Headers({ 'content-type': 'application/json' }),
+        mode: 'no-cors',
+        body: JSON.stringify({ user: tusername }),
       })
-      .catch((error) => {
-        <div className="new-user-error-box">
-          Malformed message was recieved:
-          {error}
-        </div>;
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            setUserId(data.user_id);
+            history.push('/');
+          } else setEMessage(data.message);
+        })
+        .catch((error) => {
+          <div className="new-user-error-box">
+            Malformed message was recieved:
+            {error}
+          </div>;
+        });
+    }
   }
   return (
     <div>
