@@ -23,7 +23,7 @@ import TicketPurchase from './views/TicketPurchase';
 import AuthRequired from './components/AuthRequired';
 
 import { useLocalStorage } from './utils/hooks';
-import Settings from './Settings';
+import Settings from './views/Settings';
 
 function App() {
   const [userId, setUserId] = useLocalStorage('userId', '');
