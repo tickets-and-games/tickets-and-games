@@ -72,7 +72,7 @@ def oauth_newuser():
 
         if check_username(username):
             return {"success": False, "message": "Username already exist. please try another one."}
-        
+
         user = get_current_user()
         user.username = username
         transaction = Transaction(
