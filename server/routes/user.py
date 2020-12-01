@@ -8,7 +8,7 @@ from server import db
 from server.models import Login, Transaction, User
 from server.routes.decorators import login_required
 from server.utils.hash import hash_pass, hash_login
-
+from server.utils import get_current_user
 
 user_bp = Blueprint(
     "user_bp",
@@ -25,11 +25,6 @@ def get_token_info(token):
 def query_user(email):
     user = User.query.filter_by(email=email).first()
     return user
-
-def get_user(user_id):
-    user = User.query.filter_by(id=user_id).one()
-    return user
-
 
 @user_bp.route("/api/login/oauth", methods=["POST"])
 def oauth_login():
@@ -81,7 +76,6 @@ def password_signup():
         username = data["username"]
         email = data["email"]
         password = data["password"]
-        is_public = data["is_public"]
         
         if check_email(email):
             return {
@@ -95,7 +89,7 @@ def password_signup():
                 "message": "Username has already been taken please try another username",
             }
 
-        user = User(oauth_id="password", name=name, username=username, email=email, is_public=is_public)
+        user = User(oauth_id="password", name=name, username=username, email=email)
         login = Login(username=username, password=hash_pass(password))
         db.session.add(user)
         db.session.add(login)
@@ -158,11 +152,11 @@ def logout():
     return {"success": True}
 
 @user_bp.route("/api/settings", methods=["GET", "POST"])
-def change_profile():
+@login_required
+def settings():
     try:
         data = json.loads(request.data)
-        user_id = session["user_id"]
-        user = get_user(user_id)
+        user = get_current_user()
         user.is_public = data["is_public"]
         db.session.commit()
 
@@ -170,18 +164,16 @@ def change_profile():
     except NoResultFound:
         return {"error": "Result not found"}, 404
 
-@user_bp.route("/api/user/<user_id>")
-def user(user_id):
-    try:
-        user = get_user(user_id)
-        return {
-            "id": user.id,
-            "oauth_id": user.oauth_id,
-            "name": user.name,
-            "username": user.username,
-            "email": user.email,
-            "registration_datetime": user.registration_datetime,
-            "is_public": user.is_public,
-        }  
-    except NoResultFound:
-        return {"error": "Result not found"}, 404
+@user_bp.route("/api/user")
+@login_required
+def user():
+    user = get_current_user()
+    return {
+        "id": user.id,
+        "oauth_id": user.oauth_id,
+        "name": user.name,
+        "username": user.username,
+        "email": user.email,
+        "registration_datetime": user.registration_datetime,
+        "is_private": user.is_public == False,
+    }  
