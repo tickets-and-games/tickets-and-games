@@ -73,6 +73,20 @@ const tileData = [
     url: '/coinflip',
   },
 
+  {
+    img: 'cards.png',
+    title: 'Blackjack',
+    author: 'author',
+    url: '/blackjack',
+  },
+
+  {
+    img: 'skiball.png',
+    title: 'Skiball',
+    author: 'author',
+    url: '/skiball',
+  },
+
 ];
 
 export default function Home() {
@@ -102,7 +116,7 @@ export default function Home() {
       <br />
       <Paper className={classes.paper}>
         <div className={classes.root}>
-          <GridList className={classes.gridList} cols={4}>
+          <GridList className={classes.gridList} cols={6}>
             {tileData.map((tile) => (
               <GridListTile key={tile.img} component={RouterLink} to={tile.url}>
                 <img src={tile.img} alt={tile.title} />
