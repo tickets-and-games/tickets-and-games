@@ -6,8 +6,8 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-KEY_INPUT1 = "input"
-KEY_EXPECTED1 = "expected"
+KEY_INPUT = "input"
+KEY_EXPECTED = "expected"
 
 
 class SqlEnumTest(unittest.TestCase):
