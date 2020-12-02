@@ -1,5 +1,4 @@
 import json
-import unittest
 import os
 import sys
 
@@ -10,15 +9,15 @@ from sqlalchemy.sql import func
 from server.utils.database_test import DatabaseTest
 from server.models import Transaction, Item, Store
 
-KEY_SUCCESS = "success"
-KEY_MESSAGE = "message"
-KEY_ERROR = "error"
-KEY_ID = "id"
-KEY_QUANTITY = "quantity"
-KEY_EXPECTED = "expected"
-KEY_PARAMS = "parameters"
-KEY_USER_ID = "user_id"
-KEY_AMOUNT = "AMOUNT"
+KEY_SUCCESS1 = "success"
+KEY_MESSAGE1 = "message"
+KEY_ERROR1 = "error"
+KEY_ID1 = "id"
+KEY_QUANTITY1 = "quantity"
+KEY_EXPECTED1 = "expected"
+KEY_PARAMS1 = "parameters"
+KEY_USER_ID1 = "user_id"
+KEY_AMOUNT1 = "AMOUNT"
 
 class BuyItemTest(DatabaseTest):
     def setUp(self):
