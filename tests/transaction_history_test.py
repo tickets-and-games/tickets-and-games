@@ -2,13 +2,13 @@ from server import db
 from server.models import User, Transaction
 from server.utils.database_test import DatabaseTest
 
-KEY_INPUT1 = "input"
-KEY_EXPECTED1 = "expected"
-KEY_TICKET_TRANSACTION1 = "ticketTransaction"
-KEY_ID1 = "id"
-KEY_DATETIME1 = "datetime"
-KEY_ACTIVITY1 = "activity"
-KEY_AMOUNT1 = "amount"
+KEY_INPUT = "input"
+KEY_EXPECTED = "expected"
+KEY_TICKET_TRANSACTION = "ticketTransaction"
+KEY_ID = "id"
+KEY_DATETIME = "datetime"
+KEY_ACTIVITY = "activity"
+KEY_AMOUNT = "amount"
 
 
 class ProfileViewTest(DatabaseTest):
