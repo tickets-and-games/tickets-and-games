@@ -8,7 +8,8 @@ from server import db
 from server.models import Login, Transaction, User
 from server.routes.decorators import login_required
 from server.utils.hash import hash_pass, hash_login
-from server.utils import get_current_user
+from server.utils.user import get_current_user
+
 
 user_bp = Blueprint(
     "user_bp",
@@ -47,11 +48,39 @@ def oauth_login():
             user = User(oauth_id=sub, name=name, email=email)
             db.session.add(user)
             db.session.commit()
-            transaction = Transaction(
-                user_id=user.id, ticket_amount=1000, activity="Sign up bonus"
-            )
-            db.session.add(transaction)
-            db.session.commit()
+            session["user_id"] = user.id
+            return {"success": True, "new_user": True}
+
+        session["user_id"] = user.id
+
+        if user.username is None:
+            return {"success": True, "new_user": True}
+
+        return {"success": True, "new_user": False, "user_id": session["user_id"]}
+
+    except json.decoder.JSONDecodeError:
+        return {"error": "Malformed request"}, 400
+
+def check_username(username):
+    return User.query.filter_by(username=username).scalar() is not None
+
+@user_bp.route("/api/login/newuser", methods=["POST"])
+@login_required
+def oauth_newuser():
+    try:
+        data = json.loads(request.data)
+        username = data["user"]
+
+        if check_username(username):
+            return {"success": False, "message": "Username already exist. please try another one."}
+
+        user = get_current_user()
+        user.username = username
+        transaction = Transaction(
+            user_id=user.id, ticket_amount=1000, activity="Sign up bonus"
+        )
+        db.session.add(transaction)
+        db.session.commit()
 
         session["user_id"] = user.id
 
@@ -59,11 +88,6 @@ def oauth_login():
 
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
-
-
-def check_username(username):
-    return User.query.filter_by(username=username).scalar() is not None
-
 
 def check_email(email):
     return User.query.filter_by(email=email).scalar() is not None
@@ -77,7 +101,6 @@ def password_signup():
         username = data["username"]
         email = data["email"]
         password = data["password"]
-
         if check_email(email):
             return {
                 "success": False,
@@ -89,7 +112,6 @@ def password_signup():
                 "success": False,
                 "message": "Username has already been taken please try another username",
             }
-
         user = User(oauth_id="password", name=name, username=username, email=email)
         login = Login(username=username, password=hash_pass(password))
         db.session.add(user)
@@ -151,32 +173,3 @@ def password_login():
 def logout():
     session.pop("user_id", None)
     return {"success": True}
-
-
-@user_bp.route("/api/settings", methods=["GET", "POST"])
-@login_required
-def settings():
-    try:
-        data = json.loads(request.data)
-        user = get_current_user()
-        user.is_public = data["is_public"]
-        db.session.commit()
-
-        return {"success": True}
-    except NoResultFound:
-        return {"error": "Result not found"}, 404
-
-
-@user_bp.route("/api/user")
-@login_required
-def user():
-    user = get_current_user()
-    return {
-        "id": user.id,
-        "oauth_id": user.oauth_id,
-        "name": user.name,
-        "username": user.username,
-        "email": user.email,
-        "registration_datetime": user.registration_datetime,
-        "is_private": user.is_public == False,
-    }
