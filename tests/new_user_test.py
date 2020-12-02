@@ -50,15 +50,6 @@ class OauthNewUser(DatabaseTest):
                 KEY_USER_ID: 1
             }
         }]
-        self.success_test_params_bad = {
-            KEY_INPUT: {
-                KEY_USER: "bad user"
-            },
-            KEY_EXPECTED: {
-                "success": False,
-                "message": "Client is not suppose to be here"
-            }
-        }
         self.success_test_params_error = {"error": "Malformed request"}
 
     def test_new_user_success(self):
@@ -82,18 +73,11 @@ class OauthNewUser(DatabaseTest):
 
     def test_new_user_error(self):
         with self.app.app_context():
+            with self.client.session_transaction() as sess:
+                sess['user_id'] = 1
             res = self.client.post(
                 '/api/login/newuser',
                 data = "Bad input"
             )
             result = json.loads(res.data.decode("utf-8"))
             self.assertDictEqual(self.success_test_params_error, result)
-
-    def test_new_user_bad(self):
-        with self.app.app_context():
-            res = self.client.post(
-                '/api/login/newuser',
-                data = json.dumps(self.success_test_params_bad[KEY_INPUT])
-            )
-            result = json.loads(res.data.decode("utf-8"))
-            self.assertDictEqual(self.success_test_params_bad[KEY_EXPECTED], result)

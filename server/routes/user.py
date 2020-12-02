@@ -65,13 +65,11 @@ def check_username(username):
     return User.query.filter_by(username=username).scalar() is not None
 
 @user_bp.route("/api/login/newuser", methods=["POST"])
+@login_required
 def oauth_newuser():
     try:
         data = json.loads(request.data)
         username = data["user"]
-
-        if "user_id" not in session:
-            return {"success": False, "message": "Client is not suppose to be here"}
 
         if check_username(username):
             return {"success": False, "message": "Username already exist. please try another one."}
