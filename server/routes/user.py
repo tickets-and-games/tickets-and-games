@@ -114,11 +114,15 @@ def password_signup():
                 "success": False,
                 "message": "Username has already been taken please try another username",
             }
-
         user = User(oauth_id="password", name=name, username=username, email=email)
         login = Login(username=username, password=hash_pass(password))
         db.session.add(user)
         db.session.add(login)
+        db.session.commit()
+        transaction = Transaction(
+            user_id=user.id, ticket_amount=1000, activity="Sign up bonus"
+        )
+        db.session.add(transaction)
         db.session.commit()
         session["user_id"] = user.id
         return {"success": True, "user_id": session["user_id"]}
