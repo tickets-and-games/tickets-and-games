@@ -5,15 +5,15 @@ from server.utils.database_test import DatabaseTest
 from server.models import Store
 
 
-KEY_INPUT = "input"
-KEY_EXPECTED = "expected"
-KEY_ID = "id"
-KEY_NAME = "name"
-KEY_ITEM_GROUP = "item_group"
-KEY_GROUP = "group"
-KEY_LIMIT = "limit"
-KEY_ITEMS = "items"
-KEY_PRICE = "price"
+KEY_INPUT1 = "input"
+KEY_EXPECTED1 = "expected"
+KEY_ID1 = "id"
+KEY_NAME1 = "name"
+KEY_ITEM_GROUP1 = "item_group"
+KEY_GROUP1 = "group"
+KEY_LIMIT1 = "limit"
+KEY_ITEMS1 = "items"
+KEY_PRICE1 = "price"
 
 
 class StoreListTest(DatabaseTest):
