@@ -9,13 +9,13 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-KEY_INPUT = "input"
-KEY_EXPECTED = "expected"
-KEY_SUCCESS = "success"
-KEY_MESSAGE = "message"
-KEY_USERNAME = "username"
-KEY_PASSWORD = "password"
-KEY_USER_ID = "user_id"
+KEY_INPUT1 = "input"
+KEY_EXPECTED1 = "expected"
+KEY_SUCCESS1 = "success"
+KEY_MESSAGE1= "message"
+KEY_USERNAME1 = "username"
+KEY_PASSWORD1 = "password"
+KEY_USER_ID1 = "user_id"
 
 
 def mocked_login():
