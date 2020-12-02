@@ -70,6 +70,9 @@ def oauth_newuser():
         data = json.loads(request.data)
         username = data["user"]
 
+        if "user_id" not in session:
+            return {"success": False, "message": "Client is not suppose to be here"}
+
         if check_username(username):
             return {"success": False, "message": "Username already exist. please try another one."}
 
