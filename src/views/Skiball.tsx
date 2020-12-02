@@ -37,7 +37,8 @@ function Skiball() {
           Skiball
         </Typography>
         <br />
-        <Typography variant="h5"> Click on roll ball and see where it lands! You win as many tickets as the point amount on the hole. </Typography>
+        <Typography variant="h5" style={{ margin: 'auto', textAlign: 'center' }}> Click on roll ball and see where it lands! You win as many tickets as the point amount on the hole. </Typography>
+        <br />
         <Typography variant="h5">Takes 30 tickets to play!</Typography>
         <br />
         <img
