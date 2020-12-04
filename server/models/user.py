@@ -11,7 +11,6 @@ class User(db.Model):
     username = db.Column(db.String(255))
     email = db.Column(db.String(320), unique=True)
     registration_datetime = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    is_public = db.Column(db.Boolean, default=True)
 
 
 class LoginType(Enum):

@@ -39,7 +39,7 @@ function Profileview() {
       <Paper className={classes.root}>
         <br />
         {loading ? <CircularProgress color="secondary" /> : null}
-        <Typography variant="h5">
+        <Typography variant="h5" className={classes.table}>
           <div className="profile-name">
             Name:&nbsp;
             {name}
@@ -58,7 +58,9 @@ function Profileview() {
           </div>
           <br />
           <TicketTransfer />
-          <Button size="large" variant="contained" component={Link} to="/purchase">Purchase</Button>
+          <br />
+          <Button size="large" variant="contained" component={Link} to="/purchase">Purchase Tickets</Button>
+          <br />
           <br />
           <TicketHistory />
         </Typography>
