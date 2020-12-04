@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Box, Container } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
-import { useLocalStorage } from './utils/hooks';
 import { AppState } from './reducers';
 import { MessageActions, DELETE_MESSAGE } from './actions/messageActions';
 
@@ -23,6 +22,9 @@ import Store from './views/Store';
 import TicketPurchase from './views/TicketPurchase';
 import AuthRequired from './components/AuthRequired';
 import NewUser from './views/NewUser';
+
+import { useLocalStorage } from './utils/hooks';
+import Settings from './views/Settings';
 import Dice from './views/dice';
 
 function App() {
@@ -87,6 +89,11 @@ function App() {
                 <TicketPurchase />
               </AuthRequired>
             </Route>
+            <Route path="/settings">
+              <AuthRequired loggedIn={loggedIn}>
+                <Settings userId="1" />
+              </AuthRequired>
+            </Route>
 
             {/* Public routes that don't require login */}
             <Route path="/leaderboard">
@@ -104,6 +111,7 @@ function App() {
             <Route path="/">
               <Home />
             </Route>
+
           </Switch>
         </Box>
       </Container>
