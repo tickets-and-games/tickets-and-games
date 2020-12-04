@@ -37,6 +37,7 @@ def create_app(config):
         app.register_blueprint(routes.skiball_bp)
         app.register_blueprint(routes.store_bp)
         app.register_blueprint(routes.purchase_bp)
+        app.register_blueprint(routes.settings_bp)
 
         from server.utils.store_helper import populate_store
         populate_store(db)
