@@ -38,4 +38,7 @@ def create_app(config):
         app.register_blueprint(routes.store_bp)
         app.register_blueprint(routes.purchase_bp)
 
+        from server.utils.store_helper import populate_store
+        populate_store(db)
+
     return app
