@@ -26,7 +26,7 @@ def dice():
         quantity = int(data["quantity"])
         bet = data["bet"]
         value = get_side()
-        did_win = bet == value
+        did_win = str(bet) == str(value)
 
         ticket_balance = (
             db.session.query(func.coalesce(func.sum(Transaction.ticket_amount), 0))
