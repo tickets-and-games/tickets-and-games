@@ -31,7 +31,6 @@ function Dice() {
         if (response.status === 200) {
           response.json()
             .then((dataResponse) => {
-              console.log(dataResponse);
               const { amount, won, value } = dataResponse;
               const winText = won ? 'won' : 'lost';
               setMessage(`The side drawn is ${value} and you have ${winText} ${amount} tickets because you selected ${bet}`);
