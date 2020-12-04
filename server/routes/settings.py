@@ -1,8 +1,11 @@
-from flask import session, Blueprint
+import json
+
+from flask import request, session, Blueprint
 from server.routes.decorators import login_required
-from server.models import Item
-from server.utils.item_helper import item_group_by_user_id
-from server import db
+from server.utils.item_helper import (
+    item_group_by_user_id,
+    handle_text_color
+)
 
 settings_bp = Blueprint("settings_bp", __name__)
 
@@ -31,3 +34,15 @@ def update_settings():
         "change_username": change_username,
         "change_profile_pic": change_profile_pic
     }
+
+@settings_bp.route("/api/settings/textcolor", methods=["POST"])
+@login_required
+def change_text_color():
+    try:
+        data = json.loads(request.data)
+        item_type = data["item_type"]
+        user_id = session["user_id"]
+        handle_text_color(user_id, item_type)
+        return {"success": True}
+    except json.decoder.JSONDecodeError:
+        return {"error": "Malformed request"}, 400
