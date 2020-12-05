@@ -34,13 +34,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     bottom: '50px',
   },
   paper: {
-    flexGrow: 1,
-    backgroundColor: '#f7cea2',
+    backgroundColor: 'black',
+    color: 'white',
+    width: '100%',
     borderStyle: 'solid',
     borderWidth: '3px',
-    width: '70%',
-    textAlign: 'center',
-    margin: 'auto',
   },
 }));
 
@@ -96,12 +94,11 @@ export default function Home() {
       <br />
       <br />
       <section>
-        <Paper className={classes.paper} style={{ position: 'relative', bottom: '20px' }} elevation={3}>
+        <Paper className={classes.paper} style={{ position: 'relative', bottom: '20px', textAlign: 'left' }} elevation={3}>
           <br />
-          <Typography variant="h3" className="h1" style={{ position: 'relative', bottom: '10px' }}>
+          <Typography variant="h4" className="h1" style={{ position: 'relative', bottom: '10px' }}>
             Home
           </Typography>
-          <br />
           <Typography variant="body1">
             Tickets and Games is an exciting online carnival! You can win tickets by
             playing online games such as Blackjack, Coin Flip and Dice Game. Once winning
@@ -110,6 +107,7 @@ export default function Home() {
             to your friends. Finally, to keep things competitive we have leaderboard which ranks
             you based on your winnings!
           </Typography>
+          <img src="casino.jpg" alt="casino" style={{ height: '15%', width: '15%' }} />
           <br />
         </Paper>
       </section>
@@ -133,7 +131,7 @@ export default function Home() {
         </div>
 
       </Paper>
-      <Paper className={classes.paper} style={{ position: 'relative', top: '50px' }}>
+      <Paper className={classes.paper} style={{ position: 'relative', top: '50px', textAlign: 'right' }}>
         <Typography variant="body1">
           To bring you an experience during the times we cannot sadly be together
           to take part in such joy and games, we have brought to you our virtual carnival!
@@ -144,6 +142,7 @@ export default function Home() {
           customize your profile to your liking.
           Click on the above photos to navigate through the site to see all that we have to offer!
         </Typography>
+        <img src="friends.png" alt="casino" style={{ height: '20%', width: '30%' }} />
       </Paper>
     </main>
   );

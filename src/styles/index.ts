@@ -39,4 +39,10 @@ export const useStyles = makeStyles((theme: Theme) => ({
       margin: theme.spacing(1),
     },
   },
+  toolbar: {
+    minHeight: 128,
+    alignItems: 'flex-start',
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(2),
+  },
 }));

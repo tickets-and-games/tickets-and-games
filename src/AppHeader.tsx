@@ -30,12 +30,19 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textAlign: 'left',
     right: '50px',
-    color: '#cf4431',
+    color: 'white',
   },
   button: {
     textAlign: 'left',
     margin: 'auto',
-    color: '#cf4431',
+    color: 'white',
+  },
+  photo: {
+    height: '30px',
+    width: '40px',
+    left: '10%',
+    top: '8px',
+    textAlign: 'left',
   },
 }));
 
@@ -89,6 +96,7 @@ function AppHeader(props: Props) {
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Tickets & Games
+            <img src="cardslogo.png" alt="cardslogo" className={classes.photo} />
           </Typography>
           <Button className={classes.button} component={RouterLink} to="/">Home</Button>
           <Button className={classes.button} component={RouterLink} to="/leaderboard">Leaderboard</Button>
