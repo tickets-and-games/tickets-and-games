@@ -4,9 +4,8 @@ import { makeStyles, Theme } from '@material-ui/core';
 export const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: '#f7cea2',
-    borderStyle: 'solid',
-    borderWidth: '3px',
+    color: 'white',
+    backgroundColor: 'black',
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
