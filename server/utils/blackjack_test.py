@@ -14,6 +14,10 @@ def mocked_random_org_call_norm(url, json):
         }
         return mocked_call
 
+def mocked_local_deck(deck):
+    if isinstance(deck, list):
+        return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
 def mocked_call_blackjack(url, json):
     if (url=="https://api.random.org/json-rpc/2/invoke"
     and json["method"] == "generateIntegerSequences"):

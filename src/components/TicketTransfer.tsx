@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { Dispatch, useState } from 'react';
 import { Button, TextField, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+
+import { useDispatch } from 'react-redux';
+import { MessageActions, ADD_MESSAGE } from '../actions/messageActions';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -19,7 +22,7 @@ function TicketTransfer() {
 
   const [amount, setAmount] = useState<number>();
   const [recipientId, setRecipientId] = useState<number>();
-  const [message, setMessage] = useState<string>();
+  const messagesDispatch = useDispatch<Dispatch<MessageActions>>();
 
   const transferTicket = () => {
     fetch('/api/ticket/transfer', {
@@ -31,9 +34,21 @@ function TicketTransfer() {
     }).then((response) => {
       response.json().then((data) => {
         if (response.status === 200) {
-          setMessage(`Sent ${data.amount} to user id ${data.user_id}`);
+          messagesDispatch({
+            type: ADD_MESSAGE,
+            payload: {
+              message: `Sent ${data.amount} to user id ${data.user_id}`,
+              type: 'success',
+            },
+          });
         } else {
-          setMessage(`Error: ${data.error}`);
+          messagesDispatch({
+            type: ADD_MESSAGE,
+            payload: {
+              message: data.error,
+              type: 'error',
+            },
+          });
         }
       });
     });
@@ -66,9 +81,6 @@ function TicketTransfer() {
           Transfer
         </Button>
       </form>
-      <div>
-        {message}
-      </div>
     </div>
   );
 }

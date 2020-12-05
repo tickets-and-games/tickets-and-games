@@ -53,14 +53,23 @@ function AppHeader(props: Props) {
   });
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [anchorE2, setAnchorE2] = useState<null | HTMLElement>(null);
   const isOpen = Boolean(anchorEl);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorE2(event.currentTarget);
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleClose2 = () => {
+    setAnchorE2(null);
   };
 
   const handleLogout = () => {
@@ -74,7 +83,6 @@ function AppHeader(props: Props) {
       }
     });
   };
-
   if (loggedIn) {
     return (
       <AppBar className={classes.root} position="static">
@@ -85,9 +93,22 @@ function AppHeader(props: Props) {
           <Button className={classes.button} component={RouterLink} to="/">Home</Button>
           <Button className={classes.button} component={RouterLink} to="/leaderboard">Leaderboard</Button>
           <Button className={classes.button} component={RouterLink} to="/store">Store</Button>
-          <Button className={classes.button} component={RouterLink} to="/coinflip">Coinflip</Button>
-          <Button className={classes.button} component={RouterLink} to="/skiball">Skiball</Button>
-          <Button className={classes.button} component={RouterLink} to="/blackjack">BlackJack</Button>
+          <div>
+            <Button aria-controls="simple-menu" aria-haspopup="true" className={classes.button} onClick={handleClick}>
+              Games
+            </Button>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorE2}
+              keepMounted
+              open={Boolean(anchorE2)}
+              onClose={handleClose2}
+            >
+              <MenuItem component={RouterLink} to="/coinflip">Coinflip</MenuItem>
+              <MenuItem component={RouterLink} to="/skiball">Skiball</MenuItem>
+              <MenuItem component={RouterLink} to="/blackjack">BlackJack</MenuItem>
+            </Menu>
+          </div>
           <ClickAwayListener onClickAway={handleClose}>
             <IconButton
               onClick={handleMenu}

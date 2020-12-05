@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './Blackjack.css';
 import {
   Box, makeStyles, Typography, Button,
 } from '@material-ui/core';
@@ -14,7 +15,6 @@ const useStyles = makeStyles(() => ({
   },
   player: {
     display: 'block',
-    position: 'absolute',
     height: '30vh',
     width: '100%',
     textAlign: 'center',
@@ -52,16 +52,6 @@ function BlackjackGame(props: Props) {
   function HandleLeave() {
     history.push('/');
   }
-  function MakeCards(hand) {
-    const displayHand : JSX.Element[] = [];
-    for (let i = 0; i < hand.length; i += 2) {
-      displayHand.push(
-        <BlackjackCard suit={hand[i + 1]} value={hand[i]} />,
-      );
-    }
-    return displayHand;
-  }
-
   function HandleResult(bust, blackjack, winner) {
     if (bust) {
       seteffect('bust!');
@@ -196,7 +186,7 @@ function BlackjackGame(props: Props) {
   const classes = useStyles();
   return (
     <Box className={classes.playerUI}>
-      <Box className={classes.dealer}>{MakeCards(dealerHand)}</Box>
+      <Box className={classes.dealer}><BlackjackCard hand={dealerHand} /></Box>
       { endScreen
         ? (
           <div className="blackjack-end">
@@ -228,7 +218,7 @@ function BlackjackGame(props: Props) {
         )}
       <Box className={classes.clientUI}>
         <Typography variant="h6">{effect}</Typography>
-        <Box className={classes.player}>{MakeCards(playerHand)}</Box>
+        <Box className={classes.player}><BlackjackCard hand={playerHand} /></Box>
       </Box>
     </Box>
   );

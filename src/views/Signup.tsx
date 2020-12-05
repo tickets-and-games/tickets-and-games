@@ -1,25 +1,15 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
-  Paper, makeStyles, Typography, Button,
+  Paper, Typography, Button,
 } from '@material-ui/core';
 import 'fontsource-roboto';
+
+import { useStyles } from '../styles';
 
 interface Props {
   setLoggedIn: (isLoggedIn: boolean) => void;
 }
-
-const useStyles = makeStyles(() => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: '#f7cea2',
-    borderStyle: 'solid',
-    borderWidth: '3px',
-    width: '70%',
-    textAlign: 'center',
-    margin: 'auto',
-  },
-}));
 
 function Signup(props: Props) {
   const { setLoggedIn } = props;
@@ -79,7 +69,7 @@ function Signup(props: Props) {
   const classes = useStyles();
   return (
     <div className="sign-form-box">
-      <Paper className={classes.root} style={{ position: 'relative', top: '12vh' }} elevation={3}>
+      <Paper className={classes.root}>
         <form className="signup-form">
           <div className="form-label">Name</div>
           <input

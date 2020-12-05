@@ -1,26 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Button, Paper, makeStyles, Typography, Input, Box,
+  Button, Paper, Typography, Input, Box,
 } from '@material-ui/core';
 import 'fontsource-roboto';
 import BlackjackGame from '../components/BlackjackGame';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: '#f7cea2',
-    borderStyle: 'solid',
-    borderWidth: '3px',
-    width: '70%',
-    textAlign: 'center',
-    margin: 'auto',
-  },
-}));
+import { useStyles } from '../styles';
 
 const rules = (
-  <Box style={{ margin: 'auto', width: '55%' }}>
+  <Box>
     <Typography variant="h5">Rules:</Typography>
-    <Box style={{ textAlign: 'left', paddingLeft: '40px' }}>
+    <Box style={{ textAlign: 'left' }}>
       <Typography variant="body1">
         <p>1. Goal of blackjack is to beat the dealer&apos;s hand without going over 21</p>
         <p>2. Jack, Queen and King are worth 10 points</p>
@@ -83,7 +73,7 @@ function Blackjack() {
   const classes = useStyles();
   return (
     <div className="blackjack-page">
-      <Paper className={classes.root} style={{ position: 'relative', top: '10vh' }}>
+      <Paper className={classes.root}>
         {(() => {
           switch (gameState) {
             case 1: return (
