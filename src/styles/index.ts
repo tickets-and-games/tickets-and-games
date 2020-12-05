@@ -13,7 +13,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
     position: 'relative',
     top: '7vh',
     alignItems: 'center',
-    width: '70%',
+    width: '100%',
     margin: 'auto',
     padding: '8px',
     '& > *': {

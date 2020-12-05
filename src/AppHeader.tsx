@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     bottom: '50px',
-    backgroundColor: '#000000',
+    backgroundColor: '#ffffff',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -30,18 +30,19 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textAlign: 'left',
     right: '50px',
-    color: 'white',
+    color: 'black',
   },
   button: {
     textAlign: 'left',
     margin: 'auto',
-    color: 'white',
+    color: 'black',
   },
   photo: {
     height: '30px',
-    width: '40px',
-    left: '10%',
-    top: '8px',
+    width: '35px',
+    position: 'relative',
+    left: '1%',
+    top: '4px',
     textAlign: 'left',
   },
 }));
@@ -120,7 +121,7 @@ function AppHeader(props: Props) {
           <ClickAwayListener onClickAway={handleClose}>
             <IconButton
               onClick={handleMenu}
-              color="inherit"
+              color="default"
             >
               <AccountCircle />
             </IconButton>
