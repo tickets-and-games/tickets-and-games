@@ -1,12 +1,15 @@
 import json
+import os
 
 from flask import request, session, Blueprint
+from werkzeug.utils import secure_filename
 from server.routes.decorators import login_required
 from server.utils.item_helper import (
     item_group_by_user_id,
     handle_text_color,
     handle_username_change
 )
+
 
 settings_bp = Blueprint("settings_bp", __name__)
 
@@ -53,10 +56,28 @@ def change_text_color():
 def change_username():
     try:
         data = json.loads(request.data)
-        username = data["item_type"]
+        username = data["username"]
         user_id = session["user_id"]
         if handle_username_change(user_id, username):
             return {"success": True}
         return {"success": False, "message": "username already taken"}
+    except json.decoder.JSONDecodeError:
+        return {"error": "Malformed request"}, 400
+
+@settings_bp.route("/api/settings/profilepic", methods=["POST"])
+@login_required
+def chnage_profile_pic():
+    try:
+        data = request.files
+        image_data = data["file"]
+        user_id = session["user_id"]
+        image_data.filename = "profile" + str(user_id) + ".png"
+        filename = secure_filename(image_data.filename)
+        current_path = os.path.dirname(os.path.realpath(__file__))
+        root_path = os.path.sep.join(current_path.split(os.path.sep)[:-2])
+        static_folder = "/public/static/"
+        path = root_path + static_folder + filename
+        image_data.save(path)
+        return {"success": True}
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400

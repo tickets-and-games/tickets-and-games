@@ -30,7 +30,7 @@ def handle_username_change(user_id, username):
     if query is None:
         user_profile = (
             db.session.query(User)
-            .filter(User.user_id==user_id)
+            .filter(User.id==user_id)
             .first()
         )
         temp_username = user_profile.username
