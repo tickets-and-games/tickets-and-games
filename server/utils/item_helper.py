@@ -27,7 +27,7 @@ def handle_username_change(user_id, username):
         .filter(User.username==username)
         .all()
     )
-    if query is None:
+    if not query:
         user_profile = (
             db.session.query(User)
             .filter(User.id==user_id)

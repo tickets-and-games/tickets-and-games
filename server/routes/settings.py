@@ -22,12 +22,24 @@ def update_settings():
     change_profile_pic_bool = False
     text_colors = item_group_by_user_id(user_id, 101)
     if text_colors is not None:
+        current_color = None
+        color_black = {
+            "item_type": 777,
+            "name": "black color",
+        }
         for text_color in text_colors:
-            colors.append({
-                "item_type": text_color.item_type,
-                "name": text_color.name,
-                "active": text_color.active
-            })
+            if text_color.active is True:
+                current_color = text_color;
+            else:
+                colors.append({
+                    "item_type": text_color.item_type,
+                    "name": text_color.name,
+                })
+        if current_color is None:
+            colors.insert(0,color_black)
+        else:
+            colors.insert(0,current_color)
+        colors.insert(0,current_color)
     if item_group_by_user_id(user_id, 102) is not None:
         change_username_bool = True
     if item_group_by_user_id(user_id, 107) is not None:
@@ -59,7 +71,7 @@ def change_username():
         username = data["username"]
         user_id = session["user_id"]
         if handle_username_change(user_id, username):
-            return {"success": True}
+            return {"success": True, "message": "username changed!"}
         return {"success": False, "message": "username already taken"}
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
