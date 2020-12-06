@@ -5,5 +5,4 @@
     "pylint_flask,pylint_flask_sqlalchemy"
   ],
   "python.linting.pylintEnabled": true,
-  "python.pythonPath": "C:\\Users\\samir\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe"
 }
