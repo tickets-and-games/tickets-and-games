@@ -25,7 +25,9 @@ export const useStyles = makeStyles((theme: Theme) => ({
   table: {
     textAlign: 'center',
     margin: 'auto',
-    backgroundColor: 'black',
+  },
+  tableRow: {
+    textDecoration: 'none',
   },
   card: {
     minWidth: 275,
