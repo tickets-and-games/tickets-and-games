@@ -14,15 +14,15 @@ from server.utils.item_helper import (
 
 settings_bp = Blueprint("settings_bp", __name__, url_prefix="/api/settings")
 
-@settings_bp.route("/customs", methods=["GET"])
+@settings_bp.route("/get")
 @login_required
-def get_custom_settings():
-    user_id = session["user_id"]
+def get_settings():
+    user = get_current_user()
     colors = []
     change_username_bool = False
     change_profile_pic_bool = False
-    text_colors = item_group_by_user_id(user_id, 101)
-    if text_colors is not None:
+    text_colors = item_group_by_user_id(user.id, 101)
+    if text_colors:
         current_color = None
         color_black = {
             "item_type": 777,
@@ -41,12 +41,13 @@ def get_custom_settings():
         else:
             colors.insert(0,current_color)
         colors.insert(0,current_color)
-    if item_group_by_user_id(user_id, 102) is not None:
+    if item_group_by_user_id(user.id, 102) is not None:
         change_username_bool = True
-    if item_group_by_user_id(user_id, 107) is not None:
+    if item_group_by_user_id(user.id, 107) is not None:
         change_profile_pic_bool = True
+
     return {
-        "success": True,
+        "is_public": user.is_public,
         "text_color": colors,
         "change_username": change_username_bool,
         "change_profile_pic": change_profile_pic_bool
@@ -94,13 +95,6 @@ def chnage_profile_pic():
         return {"success": True}
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
-
-@settings_bp.route("/get")
-@login_required
-def get_settings():
-    user = get_current_user()
-    return {"is_public": user.is_public}
-
 
 @settings_bp.route("/update", methods=["POST"])
 @login_required

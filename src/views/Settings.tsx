@@ -63,7 +63,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="blackjack-page">
+    <div className="settings-page">
       <Paper className={classes.root}>
         <Typography variant="h4">Settings</Typography>
         <FormControlLabel
