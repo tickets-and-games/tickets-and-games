@@ -103,15 +103,26 @@ function AppHeader(props: Props) {
           <Button className={classes.button} component={RouterLink} to="/leaderboard">Leaderboard</Button>
           <Button className={classes.button} component={RouterLink} to="/store">Store</Button>
           <div>
-            <Button aria-controls="simple-menu" aria-haspopup="true" className={classes.button} onClick={handleClick}>
-              Games
-            </Button>
+            <ClickAwayListener onClickAway={handleClose2}>
+              <Button aria-controls="simple-menu" aria-haspopup="true" className={classes.button} onClick={handleClick}>
+                Games
+              </Button>
+            </ClickAwayListener>
             <Menu
               id="simple-menu"
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
               anchorEl={anchorE2}
-              keepMounted
+              getContentAnchorEl={null}
               open={Boolean(anchorE2)}
               onClose={handleClose2}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
             >
               <MenuItem component={RouterLink} to="/coinflip">Coinflip</MenuItem>
               <MenuItem component={RouterLink} to="/dice">Dice</MenuItem>
