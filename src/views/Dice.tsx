@@ -60,7 +60,7 @@ function Dice() {
         </Typography>
         <br />
         <Typography variant="h5"> Enter the amount of Ticket and the side you want. </Typography>
-        <Typography variant="h5"> If you win you will take the amount entered. </Typography>
+        <Typography variant="h5"> If you win you will take 4 times the amount wagered. </Typography>
         <img src={DiceImage} alt="coinflip" className="coinflipgif" style={{ height: '200px' }} />
         <br />
         <Typography variant="h6">Entry number of tickets and select a side of dice:</Typography>
