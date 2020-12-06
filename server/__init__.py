@@ -1,4 +1,6 @@
 import os
+from datetime import timedelta
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_socketio import SocketIO
@@ -19,6 +21,7 @@ def create_app(config):
         template_folder=config.TEMPLATE_FOLDER,
     )
     app.config.from_object(config)
+    app.permanent_session_lifetime = timedelta(days=365)
 
     db.init_app(app)
     socketio.init_app(app, cors_allowed_origins="*")

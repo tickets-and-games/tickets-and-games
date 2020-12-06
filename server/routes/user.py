@@ -30,6 +30,8 @@ def query_user(email):
 
 @user_bp.route("/api/login/oauth", methods=["POST"])
 def oauth_login():
+    session.permanent = True
+
     try:
         data = json.loads(request.data)
         oauth_token = data["token"]
@@ -61,18 +63,25 @@ def oauth_login():
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
 
+
 def check_username(username):
     return User.query.filter_by(username=username).scalar() is not None
+
 
 @user_bp.route("/api/login/newuser", methods=["POST"])
 @login_required
 def oauth_newuser():
+    session.permanent = True
+
     try:
         data = json.loads(request.data)
         username = data["user"]
 
         if check_username(username):
-            return {"success": False, "message": "Username already exist. please try another one."}
+            return {
+                "success": False,
+                "message": "Username already exist. please try another one.",
+            }
 
         user = get_current_user()
         user.username = username
@@ -89,12 +98,15 @@ def oauth_newuser():
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
 
+
 def check_email(email):
     return User.query.filter_by(email=email).scalar() is not None
 
 
 @user_bp.route("/api/signup/password", methods=["POST"])
 def password_signup():
+    session.permanent = True
+
     try:
         data = json.loads(request.data)
         name = data["name"]
@@ -145,6 +157,8 @@ def get_id(username):
 
 @user_bp.route("/api/login/password", methods=["POST"])
 def password_login():
+    session.permanent = True
+
     try:
         data = json.loads(request.data)
         username = data["username"]
