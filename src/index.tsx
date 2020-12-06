@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -11,6 +12,12 @@ import rootReducer from './reducers';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const darkTheme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+});
+
 const store = createStore(rootReducer);
 const rootElement = document.getElementById('root');
 
@@ -18,11 +25,13 @@ const stripePromise = loadStripe('pk_test_51HseN4AEuYim4mUyZxsKMzK8vBtG8gB91HjoA
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <Elements stripe={stripePromise}>
-        <App />
-      </Elements>
-    </Provider>
+    <ThemeProvider theme={darkTheme}>
+      <Provider store={store}>
+        <Elements stripe={stripePromise}>
+          <App />
+        </Elements>
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>,
   rootElement,
 );
