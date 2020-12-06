@@ -25,7 +25,7 @@ import NewUser from './views/NewUser';
 
 import { useLocalStorage } from './utils/hooks';
 import Settings from './views/Settings';
-import Dice from './views/DiceGame';
+import Dice from './views/Dice';
 
 function App() {
   const [userId, setUserId] = useLocalStorage('userId', '');
