@@ -91,7 +91,7 @@ function App() {
             </Route>
             <Route path="/settings">
               <AuthRequired loggedIn={loggedIn}>
-                <Settings userId="1" />
+                <Settings />
               </AuthRequired>
             </Route>
 

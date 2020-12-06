@@ -93,8 +93,6 @@ function AppHeader(props: Props) {
           <Button className={classes.button} component={RouterLink} to="/">Home</Button>
           <Button className={classes.button} component={RouterLink} to="/leaderboard">Leaderboard</Button>
           <Button className={classes.button} component={RouterLink} to="/store">Store</Button>
-          <Button className={classes.button} component={RouterLink} to="/settings">Settings</Button>
-
           <div>
             <Button aria-controls="simple-menu" aria-haspopup="true" className={classes.button} onClick={handleClick}>
               Games
@@ -136,6 +134,7 @@ function AppHeader(props: Props) {
             open={isOpen}
           >
             <MenuItem component={RouterLink} to="/profile">Profile</MenuItem>
+            <MenuItem component={RouterLink} to="/settings">Settings</MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </Toolbar>
