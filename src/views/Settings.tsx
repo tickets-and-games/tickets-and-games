@@ -8,6 +8,8 @@ import { useStyles } from '../styles';
 
 import { MessageActions, ADD_MESSAGE } from '../actions/messageActions';
 
+import Colors from '../components/Colors';
+
 type Color = {
   item_type: number,
   name: string,
@@ -88,6 +90,7 @@ export default function Settings() {
           label="Public Profile"
         />
         <Button color="primary" variant="contained" onClick={submit}>Update Settings</Button>
+        <Colors colors={settings.text_color} />
       </Paper>
     </div>
   );

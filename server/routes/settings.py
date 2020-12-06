@@ -9,7 +9,8 @@ from server.utils import get_current_user
 from server.utils.item_helper import (
     item_group_by_user_id,
     handle_text_color,
-    handle_username_change
+    handle_username_change,
+    get_color_name
 )
 
 settings_bp = Blueprint("settings_bp", __name__, url_prefix="/api/settings")
@@ -25,27 +26,28 @@ def get_settings():
     if text_colors:
         current_color = None
         color_black = {
-            "item_type": 777,
-            "name": "black color",
+            "item_type": -1,
+            "name": "Black",
         }
         for text_color in text_colors:
             if text_color.active is True:
-                current_color = text_color
+                current_color = {
+                    "item_type": text_color.item_type,
+                    "name": get_color_name(text_color.item_type)
+                }
             else:
                 colors.append({
                     "item_type": text_color.item_type,
-                    "name": text_color.name,
+                    "name": get_color_name(text_color.item_type)
                 })
         if current_color is None:
-            colors.insert(0,color_black)
+            colors.insert(0, color_black)
         else:
-            colors.insert(0,current_color)
-        colors.insert(0,current_color)
+            colors.insert(0, current_color)
     if item_group_by_user_id(user.id, 102):
         change_username_bool = True
     if item_group_by_user_id(user.id, 107):
         change_profile_pic_bool = True
-
     return {
         "is_public": user.is_public,
         "text_color": colors,

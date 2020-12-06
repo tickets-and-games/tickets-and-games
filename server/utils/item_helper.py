@@ -1,4 +1,4 @@
-from server.models import Item, User, Login
+from server.models import Item, User, Login, Store
 from server import db
 
 def item_group_by_user_id(user_id, item_group):
@@ -20,6 +20,16 @@ def handle_text_color(user_id, item_type):
         else:
             color.active = False
     db.session.commit()
+
+def get_color_name(item_type):
+    query = (
+        db.session.query(Store)
+        .filter(Store.item_group==101, Store.id==item_type)
+        .first()
+    )
+    if query:
+        return query.name.split(" ", 1)[0]
+    return "Invalid"
 
 def handle_username_change(user_id, username):
     query = (
