@@ -6,6 +6,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import 'fontsource-roboto';
+import './Home.css';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -21,7 +22,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     transform: 'translateZ(0)',
   },
   title: {
-    backgroundColo: 'black',
     color: 'white',
   },
   titleBar: {
@@ -34,13 +34,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     bottom: '50px',
   },
   paper: {
-    flexGrow: 1,
-    backgroundColor: '#f7cea2',
-    borderStyle: 'solid',
-    borderWidth: '3px',
-    width: '70%',
-    textAlign: 'center',
-    margin: 'auto',
+    backgroundColor: 'black',
+    color: 'white',
+    width: '100%',
   },
 }));
 
@@ -74,6 +70,13 @@ const tileData = [
   },
 
   {
+    img: 'dice.jpg',
+    title: 'Dice',
+    author: 'author',
+    url: '/dice',
+  },
+
+  {
     img: 'cards.png',
     title: 'Blackjack',
     author: 'author',
@@ -96,25 +99,38 @@ export default function Home() {
       <br />
       <br />
       <section>
-        <Paper className={classes.paper} style={{ position: 'relative', bottom: '20px' }} elevation={3}>
+        <Paper
+          className={classes.paper}
+          style={{
+            position: 'relative', bottom: '3vh', textAlign: 'left',
+          }}
+          elevation={3}
+        >
           <br />
-          <Typography variant="h3" className="h1" style={{ position: 'relative', bottom: '10px' }}>
+          <Typography variant="h4" className="h1">
             Home
           </Typography>
-          <br />
-          <Typography variant="body1">
-            Tickets and Games is an exciting online carnival! You can win tickets by
-            playing online games such as Blackjack, Coin Flip and Dice Game. Once winning
-            the tickets you can spend them on options such as changing username or the color
-            of your username. If you are feeling generous you can also send some of your tickets
-            to your friends. Finally, to keep things competitive we have leaderboard which ranks
-            you based on your winnings!
-          </Typography>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography
+              variant="h6"
+              style={{
+                display: 'inline-block', position: 'relative', top: '4vh', bottom: '2vh',
+              }}
+            >
+              Tickets and Games is an exciting online carnival! You can win tickets by
+              playing online games such as Blackjack, Coin Flip and Dice Game. Once winning
+              the tickets you can spend them on options such as changing username or the color
+              of your username. If you are feeling generous you can also send some of your tickets
+              to your friends. Finally, to keep things competitive we have leaderboard which ranks
+              you based on your winnings!
+            </Typography>
+            <img src="casino.jpg" alt="casino" style={{ height: '15%', width: '15%', display: 'inline-block' }} />
+          </div>
           <br />
         </Paper>
       </section>
       <br />
-      <Paper className={classes.paper}>
+      <Paper className="gradient-border-home">
         <div className={classes.root}>
           <GridList className={classes.gridList} cols={6}>
             {tileData.map((tile) => (
@@ -133,8 +149,14 @@ export default function Home() {
         </div>
 
       </Paper>
-      <Paper className={classes.paper} style={{ position: 'relative', top: '50px' }}>
-        <Typography variant="body1">
+      <Paper
+        className={classes.paper}
+        style={{
+          position: 'relative', top: '12vh', textAlign: 'right', display: 'flex', justifyContent: 'space-between',
+        }}
+      >
+        <img src="friends.png" alt="casino" style={{ height: '18%', width: '22%' }} />
+        <Typography variant="h6">
           To bring you an experience during the times we cannot sadly be together
           to take part in such joy and games, we have brought to you our virtual carnival!
           With all the games and features to take part with friends we have
@@ -144,6 +166,7 @@ export default function Home() {
           customize your profile to your liking.
           Click on the above photos to navigate through the site to see all that we have to offer!
         </Typography>
+
       </Paper>
     </main>
   );

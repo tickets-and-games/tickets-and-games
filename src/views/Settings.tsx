@@ -63,7 +63,11 @@ export default function Settings() {
   };
 
   return (
+<<<<<<< HEAD
     <div className="blackjack-page">
+=======
+    <div className="settings-page">
+>>>>>>> f3d4d2bdd9d0f3161cd88a2f67305703afe5f8ed
       <Paper className={classes.root}>
         <Typography variant="h4">Settings</Typography>
         <FormControlLabel

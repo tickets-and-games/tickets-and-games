@@ -4,16 +4,15 @@ import { makeStyles, Theme } from '@material-ui/core';
 export const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: '#f7cea2',
-    borderStyle: 'solid',
-    borderWidth: '3px',
+    color: 'white',
+    backgroundColor: 'black',
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
     position: 'relative',
     top: '7vh',
     alignItems: 'center',
-    width: '70%',
+    width: '100%',
     margin: 'auto',
     padding: '8px',
     '& > *': {
@@ -26,6 +25,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
   table: {
     textAlign: 'center',
     margin: 'auto',
+    backgroundColor: 'black',
   },
   card: {
     minWidth: 275,
@@ -38,5 +38,11 @@ export const useStyles = makeStyles((theme: Theme) => ({
     '& > *': {
       margin: theme.spacing(1),
     },
+  },
+  toolbar: {
+    minHeight: 128,
+    alignItems: 'flex-start',
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(2),
   },
 }));
