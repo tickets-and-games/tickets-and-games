@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     bottom: '50px',
-    backgroundColor: '#000000',
+    backgroundColor: '#ffffff',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -30,12 +30,20 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textAlign: 'left',
     right: '50px',
-    color: '#cf4431',
+    color: 'black',
   },
   button: {
     textAlign: 'left',
     margin: 'auto',
-    color: '#cf4431',
+    color: 'black',
+  },
+  photo: {
+    height: '30px',
+    width: '35px',
+    position: 'relative',
+    left: '1%',
+    top: '4px',
+    textAlign: 'left',
   },
 }));
 
@@ -89,6 +97,7 @@ function AppHeader(props: Props) {
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Tickets & Games
+            <img src="cardslogo.png" alt="cardslogo" className={classes.photo} />
           </Typography>
           <Button className={classes.button} component={RouterLink} to="/">Home</Button>
           <Button className={classes.button} component={RouterLink} to="/leaderboard">Leaderboard</Button>
@@ -112,7 +121,7 @@ function AppHeader(props: Props) {
           <ClickAwayListener onClickAway={handleClose}>
             <IconButton
               onClick={handleMenu}
-              color="inherit"
+              color="default"
             >
               <AccountCircle />
             </IconButton>
