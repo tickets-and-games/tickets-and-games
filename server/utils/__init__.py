@@ -3,6 +3,7 @@ from server.utils.user import (
     get_current_user,
     get_user_balance,
     get_user_by_id,
+    get_user_by_id_and_privacy
 )
 from server.utils.blackjack_test import (
     mocked_random_org_call_norm,

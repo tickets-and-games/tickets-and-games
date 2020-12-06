@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import {
-  Paper, Typography, Button,
-} from '@material-ui/core';
-import 'fontsource-roboto';
-
-import { useStyles } from '../styles';
 
 interface Props {
   setLoggedIn: (isLoggedIn: boolean) => void;
@@ -20,6 +14,7 @@ function Signup(props: Props) {
     email: '',
     password1: '',
     password2: '',
+    isPublic: true,
   });
   const [eMessage, setEMessage] = useState('');
   function SigningUp() {
@@ -42,6 +37,7 @@ function Signup(props: Props) {
           username: tusername,
           email: temail,
           password: tpassword1,
+          is_public: params.isPublic,
         }),
       })
         .then((res) => res.json())
@@ -60,82 +56,74 @@ function Signup(props: Props) {
     }
   }
   function handleParams(event) {
-    const { value: NewValue } = event.target;
+    const { value: NewValue, checked } = event.target;
     setParams({
       ...params,
-      [event.target.name]: NewValue,
+      [event.target.name]: event.target.name === 'isPublic' ? checked : NewValue,
     });
   }
-  const classes = useStyles();
+
   return (
     <div className="sign-form-box">
-      <Paper className={classes.root}>
-        <form className="signup-form">
-          <div className="form-label">Name</div>
+      <form className="signup-form">
+        <div className="form-label">Name</div>
+        <input
+          type="text"
+          name="name"
+          className="signup-name"
+          defaultValue={params.name}
+          onChange={handleParams}
+          autoComplete="off"
+        />
+        <div className="form-label">Username</div>
+        <input
+          type="text"
+          name="username"
+          className="signup-username"
+          defaultValue={params.username}
+          onChange={handleParams}
+          autoComplete="off"
+        />
+        <div className="form-label">Email</div>
+        <input
+          type="text"
+          name="email"
+          className="signup-email"
+          defaultValue={params.email}
+          onChange={handleParams}
+          autoComplete="off"
+        />
+        <div className="form-label">Password</div>
+        <input
+          type="password"
+          name="password1"
+          className="signup-password"
+          defaultValue={params.password1}
+          onChange={handleParams}
+          autoComplete="off"
+        />
+        <div className="form-label">Enter Password Again</div>
+        <input
+          type="password"
+          name="password2"
+          className="signup-password"
+          defaultValue={params.password2}
+          onChange={handleParams}
+          autoComplete="off"
+        />
+        <div>
+          Public Profile
           <input
-            type="text"
-            name="name"
-            className="signup-name"
-            defaultValue={params.name}
+            id="is-public-checkbox"
+            type="checkbox"
+            name="isPublic"
+            defaultChecked
             onChange={handleParams}
-            autoComplete="off"
           />
-          <div className="form-label">
-            <Typography variant="h6">
-              Username
-            </Typography>
-          </div>
-          <input
-            type="text"
-            name="username"
-            className="signup-username"
-            defaultValue={params.username}
-            onChange={handleParams}
-            autoComplete="off"
-          />
-          <div className="form-label">
-            <Typography variant="h6">
-              Email
-            </Typography>
-          </div>
-          <input
-            type="text"
-            name="email"
-            className="signup-email"
-            defaultValue={params.email}
-            onChange={handleParams}
-            autoComplete="off"
-          />
-          <div className="form-label">
-            <Typography variant="h6">
-              Password
-            </Typography>
-          </div>
-          <input
-            type="password"
-            name="password1"
-            className="signup-password"
-            defaultValue={params.password1}
-            onChange={handleParams}
-            autoComplete="off"
-          />
-          <div className="form-label">
-            <Typography variant="h6">
-              Enter Password Again
-            </Typography>
-          </div>
-          <input
-            type="password"
-            name="password2"
-            className="signup-password"
-            defaultValue={params.password2}
-            onChange={handleParams}
-            autoComplete="off"
-          />
-        </form>
-        <Button variant="contained" value="Submit" onClick={SigningUp}>Submit</Button>
-        <div className="signup-error-box">{eMessage}</div>
-      </Paper>
+        </div>
+      </form>
+      <button type="button" value="Submit" onClick={SigningUp}>Submit</button>
+      <div className="signup-error-box">{eMessage}</div>
     </div>
   );
 }
