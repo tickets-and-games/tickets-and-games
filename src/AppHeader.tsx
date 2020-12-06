@@ -122,7 +122,7 @@ function AppHeader(props: Props) {
           <ClickAwayListener onClickAway={handleClose}>
             <IconButton
               onClick={handleMenu}
-              color="default"
+              color="primary"
             >
               <AccountCircle />
             </IconButton>

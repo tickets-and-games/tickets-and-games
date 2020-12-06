@@ -19,9 +19,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
       margin: theme.spacing(1),
     },
   },
-  stepper: {
-    backgroundColor: '#f7cea2',
-  },
+  stepper: {},
   table: {
     textAlign: 'center',
     margin: 'auto',
