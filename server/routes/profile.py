@@ -16,12 +16,16 @@ def get_profile_view(user_id):
         user = get_user_by_id(user_id)
 
     if user:
-        total_tickets = get_user_balance(user.id)
-        return {
-            "name": user.name,
-            "username": user.username,
-            "registration_datetime": user.registration_datetime,
-            "total_tickets": total_tickets,
-        }
+        if user.is_public or user_id is None:
+            total_tickets = get_user_balance(user.id)
+            return {
+                "name": user.name,
+                "username": user.username,
+                "registration_datetime": user.registration_datetime,
+                "total_tickets": total_tickets,
+                "is_public": user.is_public,
+            }
+
+        return {"error": "User profile is private"}, 401
 
     return {"error": "User not found"}, 404
