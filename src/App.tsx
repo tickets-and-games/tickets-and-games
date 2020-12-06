@@ -21,6 +21,7 @@ import Skiball from './views/Skiball';
 import Store from './views/Store';
 import TicketPurchase from './views/TicketPurchase';
 import AuthRequired from './components/AuthRequired';
+import NewUser from './views/NewUser';
 
 import { useLocalStorage } from './utils/hooks';
 import Settings from './views/Settings';
@@ -100,6 +101,9 @@ function App() {
             </Route>
             <Route path="/signup">
               <Signup setLoggedIn={setUserId} />
+            </Route>
+            <Route path="/newuser">
+              <NewUser setUserId={setUserId} />
             </Route>
             <Route path="/">
               <Home />
