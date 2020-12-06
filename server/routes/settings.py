@@ -41,9 +41,9 @@ def get_settings():
         else:
             colors.insert(0,current_color)
         colors.insert(0,current_color)
-    if item_group_by_user_id(user.id, 102) is not None:
+    if item_group_by_user_id(user.id, 102):
         change_username_bool = True
-    if item_group_by_user_id(user.id, 107) is not None:
+    if item_group_by_user_id(user.id, 107):
         change_profile_pic_bool = True
 
     return {
