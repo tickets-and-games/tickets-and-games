@@ -23,6 +23,7 @@ class ProfileViewTest(DatabaseTest):
             name="Current user",
             email="user@example.com",
             registration_datetime=self.registration_time,
+            is_public=False,
         )
         self.other_user_id = 2
         other_user = User(
@@ -30,11 +31,21 @@ class ProfileViewTest(DatabaseTest):
             name="Other user",
             email="otheruser@example.com",
             registration_datetime=self.registration_time,
+            is_public=True,
+        )
+        self.private_user_id = 3
+        private_user = User(
+            id=self.private_user_id,
+            name="Private user",
+            email="privateuser@example.com",
+            registration_datetime=self.registration_time,
+            is_public=False,
         )
 
         with self.app.app_context():
             db.session.add(user)
             db.session.add(other_user)
+            db.session.add(private_user)
             db.session.commit()
 
     def test_success_profile_view(self):
@@ -60,3 +71,11 @@ class ProfileViewTest(DatabaseTest):
 
             response = self.client.get(f"/api/profile/{3333333}")
             self.assertEqual(response.status_code, 404)
+
+    def test_private_user_not_accessible(self):
+        with self.app.app_context():
+            with self.client.session_transaction() as sess:
+                sess["user_id"] = self.user_id
+
+            response = self.client.get(f"/api/profile/{self.private_user_id}")
+            self.assertEqual(response.status_code, 401)

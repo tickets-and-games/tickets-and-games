@@ -29,6 +29,16 @@ function Store() {
     });
   }, []);
 
+  const purchaseItem = (id: number) => {
+    fetch('/api/store/buy', {
+      method: 'POST',
+      body: JSON.stringify({
+        id,
+        quantity: 1, // TODO: Add a way to change the quantity
+      }),
+    });
+  };
+
   return (
     <div className="Coinflip">
       <Paper className={classes.root}>
@@ -51,7 +61,7 @@ function Store() {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" color="primary">Buy</Button>
+                <Button size="small" color="primary" onClick={() => purchaseItem(item.id)}>Buy</Button>
               </CardActions>
             </Card>
           ))}
