@@ -6,6 +6,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import 'fontsource-roboto';
+import './Home.css';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -122,7 +123,7 @@ export default function Home() {
         </Paper>
       </section>
       <br />
-      <Paper className={classes.paper}>
+      <Paper className="gradient-border-home">
         <div className={classes.root}>
           <GridList className={classes.gridList} cols={6}>
             {tileData.map((tile) => (

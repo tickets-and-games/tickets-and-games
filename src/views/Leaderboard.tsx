@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import './Leaderboard.css';
 import {
-  Paper, Typography, CircularProgress,
+  Paper, Typography, CircularProgress, Table, TableBody, TableCell,
+  TableHead, TableRow, TableContainer,
 } from '@material-ui/core';
 import 'fontsource-roboto';
 import { Link } from 'react-router-dom';
@@ -34,33 +36,38 @@ function Leaderboard() {
 
   return (
     <div className="Leaderboard">
-      <Paper className={classes.root}>
+      <Paper className="gradient-border-leaderboard" style={{ background: 'black', color: 'white', textAlign: 'center' }}>
+        <br />
         <Typography variant="h3">
           Leaderboard
         </Typography>
         <br />
         <br />
-        <img src="https://media3.giphy.com/media/3Gm15eZOsNk0tptIuG/giphy.gif" alt="coinflip" className="coinflipgif" style={{ height: '200px', width: '200px', borderRadius: '25px' }} />
+        <img src="https://media3.giphy.com/media/3Gm15eZOsNk0tptIuG/giphy.gif" alt="coinflip" style={{ height: '200px', width: '200px', borderRadius: '25px' }} />
         <br />
         <br />
-        <table className={classes.table}>
-          <Typography variant="h6">
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Balance</th>
-            </tr>
-            {loading ? <CircularProgress color="secondary" /> : null}
-            {transactions.map((transaction) => (
-              <tr>
-                <td><Link to={`/profile/${transaction.id}`}>{transaction.id}</Link></td>
-                <td><Link to={`/profile/${transaction.id}`}>{transaction.name}</Link></td>
-                <td>{transaction.balance}</td>
-              </tr>
-            ))}
-          </Typography>
-        </table>
-
+        <br />
+        <TableContainer component={Paper} style={{ width: '70%', margin: 'auto' }}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead style={{ backgroundColor: '#fff601' }}>
+              <TableRow>
+                <TableCell style={{ color: 'black', fontWeight: 'bold' }}>ID</TableCell>
+                <TableCell style={{ color: 'black', fontWeight: 'bold' }}>Name</TableCell>
+                <TableCell style={{ color: 'black', fontWeight: 'bold' }}>Balance</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {loading ? <CircularProgress color="secondary" /> : null}
+              {transactions.map((transaction) => (
+                <TableRow>
+                  <TableCell style={{ color: 'white' }}><Link to={`/profile/${transaction.id}`}>{transaction.id}</Link></TableCell>
+                  <TableCell style={{ color: 'white' }}><Link to={`/profile/${transaction.id}`}>{transaction.name}</Link></TableCell>
+                  <TableCell style={{ color: 'white' }}>{transaction.balance}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
         <br />
       </Paper>
     </div>
