@@ -8,9 +8,9 @@ import BlackjackGame from '../components/BlackjackGame';
 
 const rules = (
   <Box>
-    <Typography variant="h5">Rules:</Typography>
+    <Typography variant="h4">Rules:</Typography>
     <Box style={{ textAlign: 'center' }}>
-      <Typography variant="body1">
+      <Typography variant="h5">
         <p>1. Goal of blackjack is to beat the dealer&apos;s hand without going over 21</p>
         <p>2. Jack, Queen and King are worth 10 points</p>
         <p>3. Aces are worth 1 or 11 points. Which ever makes the hand better</p>
