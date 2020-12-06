@@ -114,6 +114,7 @@ function AppHeader(props: Props) {
               onClose={handleClose2}
             >
               <MenuItem component={RouterLink} to="/coinflip">Coinflip</MenuItem>
+              <MenuItem component={RouterLink} to="/dice">Dice</MenuItem>
               <MenuItem component={RouterLink} to="/skiball">Skiball</MenuItem>
               <MenuItem component={RouterLink} to="/blackjack">BlackJack</MenuItem>
             </Menu>

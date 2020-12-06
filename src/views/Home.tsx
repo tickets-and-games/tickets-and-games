@@ -70,6 +70,13 @@ const tileData = [
   },
 
   {
+    img: 'dice.jpg',
+    title: 'Dice',
+    author: 'author',
+    url: '/dice',
+  },
+
+  {
     img: 'cards.png',
     title: 'Blackjack',
     author: 'author',

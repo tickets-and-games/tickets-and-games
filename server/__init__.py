@@ -33,6 +33,7 @@ def create_app(config):
         app.register_blueprint(routes.main_bp)
         app.register_blueprint(routes.user_bp)
         app.register_blueprint(routes.coinflip_bp)
+        app.register_blueprint(routes.dice_bp)
         app.register_blueprint(routes.leaderboard_bp)
         app.register_blueprint(routes.profile_bp)
         app.register_blueprint(routes.ticket_bp)
