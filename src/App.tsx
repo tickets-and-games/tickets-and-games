@@ -25,6 +25,7 @@ import NewUser from './views/NewUser';
 
 import { useLocalStorage } from './utils/hooks';
 import Settings from './views/Settings';
+import Dice from './views/Dice';
 
 function App() {
   const [userId, setUserId] = useLocalStorage('userId', '');
@@ -53,9 +54,6 @@ function App() {
           ))}
           <Switch>
             {/* Private routes that do require login */}
-            <Route path="/leaderboard">
-              <Leaderboard />
-            </Route>
             <Route path="/profile/:userId?" defaultParams={{ userId: '' }}>
               <AuthRequired loggedIn={loggedIn}>
                 <Profileview />
@@ -64,6 +62,11 @@ function App() {
             <Route path="/coinflip">
               <AuthRequired loggedIn={loggedIn}>
                 <Coinflip />
+              </AuthRequired>
+            </Route>
+            <Route path="/dice">
+              <AuthRequired loggedIn={loggedIn}>
+                <Dice />
               </AuthRequired>
             </Route>
             <Route path="/skiball">
@@ -108,6 +111,7 @@ function App() {
             <Route path="/">
               <Home />
             </Route>
+
           </Switch>
         </Box>
       </Container>

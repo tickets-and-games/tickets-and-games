@@ -8,8 +8,6 @@ import { useStyles } from '../styles';
 
 import { MessageActions, ADD_MESSAGE } from '../actions/messageActions';
 
-import Colors from '../components/Colors';
-
 type Color = {
   item_type: number,
   name: string,
@@ -19,15 +17,12 @@ type SettingsType = {
   is_public: boolean,
   text_color: Array<Color>,
   change_username: boolean,
-  change_profile_pic: boolean
+  change_profile_pic: boolean,
 };
 
 export default function Settings() {
   const [settings, setSettings] = useState<SettingsType>({
     is_public: false,
-    text_color: [],
-    change_username: false,
-    change_profile_pic: false,
   });
   const classes = useStyles();
   const messagesDispatch = useDispatch<Dispatch<MessageActions>>();
@@ -74,6 +69,7 @@ export default function Settings() {
       [event.target.name]: event.target.checked,
     });
   };
+
   return (
     <div className="settings-page">
       <Paper className={classes.root}>
@@ -90,7 +86,6 @@ export default function Settings() {
           label="Public Profile"
         />
         <Button color="primary" variant="contained" onClick={submit}>Update Settings</Button>
-        <Colors colors={settings.text_color} />
       </Paper>
     </div>
   );

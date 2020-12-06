@@ -4,5 +4,5 @@
     "--load-plugins",
     "pylint_flask,pylint_flask_sqlalchemy"
   ],
-  "python.linting.pylintEnabled": true
+  "python.linting.pylintEnabled": true,
 }

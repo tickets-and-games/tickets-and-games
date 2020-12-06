@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import './Coinflip.css';
+import './Skiball.css';
 import {
   Button, Paper, Typography,
 } from '@material-ui/core';
 
-import { useStyles } from '../styles';
-
 function Skiball() {
   const [message, setMessage] = useState('');
-  const classes = useStyles();
 
   function play() {
     fetch('/api/skiball')
@@ -32,7 +29,7 @@ function Skiball() {
 
   return (
     <div className="Skiball">
-      <Paper className={classes.root}>
+      <Paper className="gradient-border-skiball" style={{ background: 'black', color: 'white' }}>
         <Typography variant="h3">
           Skiball
         </Typography>
