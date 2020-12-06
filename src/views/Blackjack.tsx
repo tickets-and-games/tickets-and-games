@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import './Blackjack.css';
 import {
   Button, Paper, Typography, Input, Box,
 } from '@material-ui/core';
 import 'fontsource-roboto';
 import BlackjackGame from '../components/BlackjackGame';
 
-import { useStyles } from '../styles';
-
 const rules = (
   <Box>
     <Typography variant="h5">Rules:</Typography>
-    <Box style={{ textAlign: 'left' }}>
+    <Box style={{ textAlign: 'center' }}>
       <Typography variant="body1">
         <p>1. Goal of blackjack is to beat the dealer&apos;s hand without going over 21</p>
         <p>2. Jack, Queen and King are worth 10 points</p>
@@ -70,10 +69,15 @@ function Blackjack() {
         }
       });
   }, []);
-  const classes = useStyles();
   return (
     <div className="blackjack-page">
-      <Paper className={classes.root}>
+      <Paper
+        className="gradient-border-blackjack"
+        style={{
+          background: 'black', color: 'white', margin: 'auto', textAlign: 'center',
+        }}
+      >
+        <br />
         {(() => {
           switch (gameState) {
             case 1: return (
@@ -96,6 +100,7 @@ function Blackjack() {
             );
           }
         })()}
+        <br />
       </Paper>
     </div>
   );
