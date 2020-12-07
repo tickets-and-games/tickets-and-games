@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Coinflip.css';
+import './Styles.css';
 import {
   Box, Button, ButtonGroup, Paper, Typography,
 } from '@material-ui/core';
@@ -48,7 +48,7 @@ function Coinflip() {
 
   return (
     <div className="Coinflip">
-      <Paper className="gradient-border" style={{ background: 'black', color: 'white' }}>
+      <Paper className="gradient-border-coinflip" style={{ background: 'black', color: 'white' }}>
         <br />
         <Typography variant="h3">
           Coinflip

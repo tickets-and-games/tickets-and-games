@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Skiball.css';
+import './Styles.css';
 import {
   Button, Paper, Typography,
 } from '@material-ui/core';

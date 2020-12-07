@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import './Styles.css';
 import {
   Button, Paper, Typography, CircularProgress,
 } from '@material-ui/core';
 import TicketHistory from '../components/TicketHistory';
 import TicketTransfer from '../components/TicketTransfer';
+import TimeDisplay from '../components/TimeDisplay';
 
 import { useStyles } from '../styles';
 
@@ -36,7 +38,7 @@ function Profileview() {
   const classes = useStyles();
   return (
     <div className="Profile">
-      <Paper className={classes.root}>
+      <Paper className="gradient-border-profile" style={{ background: 'black', color: 'white' }}>
         <br />
         {loading ? <CircularProgress color="secondary" /> : null}
         <Typography variant="h5" className={classes.table}>
@@ -50,7 +52,7 @@ function Profileview() {
           </div>
           <div className="profile-data">
             User Since:&nbsp;
-            { rtime}
+            {rtime ? <TimeDisplay time={rtime} /> : null}
           </div>
           <div className="profile-total-tickets">
             Total Tickets:&nbsp;
