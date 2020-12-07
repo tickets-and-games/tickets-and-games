@@ -9,6 +9,7 @@ import { useStyles } from '../styles';
 import { MessageActions, ADD_MESSAGE } from '../actions/messageActions';
 
 import Colors from '../components/Colors';
+import Username from '../components/Username';
 
 type Color = {
   item_type: number,
@@ -92,6 +93,8 @@ export default function Settings() {
         />
         <Button color="primary" variant="contained" onClick={submit}>Update Settings</Button>
         <Colors colors={settings.text_color} />
+        <br />
+        <Username valid={settings.change_username} />
       </Paper>
     </div>
   );
