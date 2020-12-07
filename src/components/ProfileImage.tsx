@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import './ProfileImage.css';
+import {
+  Button, Typography, TextField,
+} from '@material-ui/core';
 
 interface Props {
   valid: boolean,
@@ -39,8 +42,16 @@ function ProfileImage(props: Props) {
 
   if (valid) {
     return (
-      <div>
-        <input type="text" onChange={HandleFileChange} />
+      <div style={{ textAlign: 'center' }}>
+        <Typography variant="h6">Change Profile Picture</Typography>
+        <TextField
+          color="primary"
+          variant="outlined"
+          size="small"
+          defaultValue={imageURL}
+          onChange={HandleFileChange}
+        />
+        <Button color="primary" variant="contained" onClick={SubmitFile}>Confirm</Button>
         { imageURL !== ''
           ? (
             <div className="preview">
@@ -51,7 +62,6 @@ function ProfileImage(props: Props) {
           : (
             null
           )}
-        <button type="button" value="Confirm" onClick={SubmitFile}>Confirm</button>
         <div>{message}</div>
       </div>
     );

@@ -1,6 +1,6 @@
+from rfc3987 import parse
 from server.models import Item, User, Login, Store
 from server import db
-from rfc3987 import parse
 
 def item_group_by_user_id(user_id, item_group):
     return (

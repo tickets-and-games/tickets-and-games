@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import {
+  Button, Typography, TextField,
+} from '@material-ui/core';
 
 interface Props {
   valid: boolean,
@@ -31,13 +34,16 @@ function Username(props: Props) {
 
   if (valid) {
     return (
-      <div>
-        <input
-          type="text"
+      <div style={{ textAlign: 'center' }}>
+        <Typography variant="h6">Change Username</Typography>
+        <TextField
+          color="primary"
+          variant="outlined"
+          size="small"
           defaultValue={username}
           onChange={HandleUsername}
         />
-        <button type="button" value="Confirm" onClick={SubmitUsername}>Confirm</button>
+        <Button color="primary" variant="contained" onClick={SubmitUsername}>Confirm</Button>
         <div>{message}</div>
       </div>
     );
