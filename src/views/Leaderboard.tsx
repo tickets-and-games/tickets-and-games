@@ -59,10 +59,10 @@ function Leaderboard() {
             <TableBody>
               {loading ? <CircularProgress color="secondary" /> : null}
               {transactions.map((transaction) => (
-                <TableRow>
-                  <TableCell style={{ color: 'white' }}><Link to={`/profile/${transaction.id}`}>{transaction.id}</Link></TableCell>
-                  <TableCell style={{ color: 'white' }}><Link to={`/profile/${transaction.id}`}>{transaction.name}</Link></TableCell>
-                  <TableCell style={{ color: 'white' }}>{transaction.balance}</TableCell>
+                <TableRow className={classes.tableRow} component={Link} to={`/profile/${transaction.id}`} hover>
+                  <TableCell>{transaction.id}</TableCell>
+                  <TableCell>{transaction.name}</TableCell>
+                  <TableCell>{transaction.balance}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
