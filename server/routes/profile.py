@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, session
 
 from server.routes.decorators import login_required
 from server.utils import get_current_user, get_user_by_id, get_user_balance
