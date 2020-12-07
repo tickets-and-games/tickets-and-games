@@ -6,6 +6,7 @@ import {
 } from '@material-ui/core';
 import TicketHistory from '../components/TicketHistory';
 import TicketTransfer from '../components/TicketTransfer';
+import TimeDisplay from '../components/TimeDisplay';
 
 import { useStyles } from '../styles';
 
@@ -51,7 +52,7 @@ function Profileview() {
           </div>
           <div className="profile-data">
             User Since:&nbsp;
-            { rtime}
+            {rtime ? <TimeDisplay time={rtime} /> : null}
           </div>
           <div className="profile-total-tickets">
             Total Tickets:&nbsp;

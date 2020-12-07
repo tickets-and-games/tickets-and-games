@@ -12,3 +12,4 @@ requests
 stripe
 alchemy_mock
 Flask-Session
+rfc3987
