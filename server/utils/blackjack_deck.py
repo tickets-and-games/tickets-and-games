@@ -57,8 +57,8 @@ def blackjack_total(hand):
             total += 10
         else:
             total += (num % 13) + 1
-    for _ in range(len(aces)):
-        if total + 11 <= 21:
+    for i in range(len(aces)):
+        if total + 11 <= 21 and i == len(aces)-1:
             total += 11
         else:
             total += 1
