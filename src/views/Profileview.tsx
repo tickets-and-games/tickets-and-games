@@ -33,6 +33,10 @@ function Profileview() {
         setRtime(data.registration_datetime);
         setTickets(data.total_tickets);
         setProfileURL(data.profile_url);
+        const elements = Array.from(document.getElementsByClassName('gradient-border-profile') as HTMLCollectionOf<HTMLElement>);
+        for (let i = 0; i < elements.length; i += 1) {
+          elements[i].style.color = data.text_color;
+        }
         setLoading(false);
       })
       .catch((error) => (<div className="Profile">{error}</div>));
@@ -40,7 +44,7 @@ function Profileview() {
   const classes = useStyles();
   return (
     <div className="Profile">
-      <Paper className="gradient-border-profile" style={{ background: 'black', color: 'white' }}>
+      <Paper className="gradient-border-profile" style={{ background: 'black' }}>
         <br />
         {loading ? <CircularProgress color="secondary" /> : null}
         <Typography variant="h5" className={classes.table}>
@@ -62,7 +66,7 @@ function Profileview() {
           </div>
           <div className="profile-username">
             Username:&nbsp;
-            { user}
+            {user}
           </div>
           <div className="profile-data">
             User Since:&nbsp;
@@ -70,7 +74,7 @@ function Profileview() {
           </div>
           <div className="profile-total-tickets">
             Total Tickets:&nbsp;
-            { tickets}
+            {tickets}
           </div>
           <br />
           <TicketTransfer />
