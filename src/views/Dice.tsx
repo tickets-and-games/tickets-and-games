@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import './Coinflip.css';
+import './Styles.css';
 import {
   Box, Button, Paper, Typography,
 } from '@material-ui/core';
 import DiceImage from '../assets/image/dice1.gif';
-
-import { useStyles } from '../styles';
 
 function Dice() {
   const [bet, setBet] = useState(1);
@@ -50,11 +48,9 @@ function Dice() {
     play();
   }
   // send over data with the head/tail, bet amount
-
-  const classes = useStyles();
   return (
     <div className="Coinflip">
-      <Paper className={classes.root}>
+      <Paper className="gradient-border-dice" style={{ background: 'black', color: 'white' }}>
         <Typography variant="h3">
           Dice
         </Typography>
@@ -66,6 +62,8 @@ function Dice() {
         <Typography variant="h6">Entry number of tickets and select a side of dice:</Typography>
         <br />
         <input name="quantity" value={quantity} type="text" onChange={onChange} style={{ fontSize: '20px' }} />
+        <br />
+        <br />
         <select name="bet" value={bet} onChange={onChange} style={{ fontSize: '25px' }}>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -74,6 +72,7 @@ function Dice() {
           <option value="5">5</option>
           <option value="6">6</option>
         </select>
+        <br />
         <br />
         <Box>
           <Button variant="contained" type="button" onClick={onTails}>Bet Now</Button>

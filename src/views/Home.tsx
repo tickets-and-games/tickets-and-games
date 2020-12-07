@@ -6,7 +6,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import 'fontsource-roboto';
-import './Home.css';
+import './Styles.css';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {

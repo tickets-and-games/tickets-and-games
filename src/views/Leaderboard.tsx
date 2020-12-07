@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Leaderboard.css';
+import './Styles.css';
 import {
   Paper, Typography, CircularProgress, Table, TableBody, TableCell,
   TableHead, TableRow, TableContainer,

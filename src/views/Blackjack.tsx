@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Blackjack.css';
+import './Styles.css';
 import {
   Button, Paper, Typography, Input, Box,
 } from '@material-ui/core';
