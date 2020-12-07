@@ -15,9 +15,11 @@ interface Props {
 function Colors(props: Props) {
   const { colors } = props;
   const [curColor, setCurColor] = useState('');
+  const [message, setMessage] = useState('');
 
   function HandleColorChange(event) {
     setCurColor(event.target.value);
+    setMessage('');
   }
 
   function SubmitColor() {
@@ -28,7 +30,11 @@ function Colors(props: Props) {
       body: JSON.stringify({
         item_type: curColor,
       }),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setMessage(data.message);
+      });
   }
 
   return (
@@ -46,6 +52,7 @@ function Colors(props: Props) {
               ))}
             </select>
             <Button color="primary" variant="contained" onClick={SubmitColor}>Confirm</Button>
+            <div>{message}</div>
           </div>
         )
         : (

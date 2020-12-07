@@ -62,7 +62,7 @@ def change_text_color():
         item_type = data["item_type"]
         user_id = session["user_id"]
         handle_text_color(user_id, item_type)
-        return {"success": True}
+        return {"success": True, "message": "Color changed! checkout leaderboard and your profile!"}
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
 

@@ -14,6 +14,7 @@ function Username(props: Props) {
 
   function HandleUsername(event) {
     setUsername(event.target.value);
+    setMessage('');
   }
 
   function SubmitUsername() {

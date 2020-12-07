@@ -10,6 +10,8 @@ def item_group_by_user_id(user_id, item_group):
     )
 
 def handle_text_color(user_id, item_type):
+    if item_type == '':
+        item_type=-1
     query = (
         db.session.query(Item)
         .filter(Item.user_id==user_id, Item.item_type==item_type)
@@ -51,7 +53,8 @@ def handle_username_change(user_id, username):
             .filter(Login.username==temp_username)
             .first()
         )
-        login_profile.username = username
+        if login_profile is not None:
+            login_profile.username = username
         db.session.commit()
         return True
     return False

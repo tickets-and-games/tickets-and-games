@@ -15,6 +15,7 @@ function ProfileImage(props: Props) {
   const [imageMessage, setImageMessage] = useState('');
   function HandleFileChange(event) {
     setImageURL(event.target.value);
+    setMessage('');
   }
 
   function HandleError() {
