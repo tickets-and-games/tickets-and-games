@@ -2,7 +2,7 @@ import os
 from datetime import timedelta
 
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy, sqlalchemy
 from flask_socketio import SocketIO
 from flask_migrate import Migrate, upgrade
 
@@ -11,7 +11,6 @@ DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///database.db")
 socketio = SocketIO()
 db = SQLAlchemy()
 migrate = Migrate(compare_type=True)
-
 
 def create_app(config):
     app = Flask(
@@ -43,7 +42,9 @@ def create_app(config):
         app.register_blueprint(routes.purchase_bp)
         app.register_blueprint(routes.settings_bp)
 
-        from server.utils.store_helper import populate_store
-        populate_store(db)
-
+        try:
+            from server.utils.store_helper import populate_store
+            populate_store()
+        except sqlalchemy.exc.OperationalError:
+            pass
     return app

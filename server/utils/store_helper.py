@@ -1,7 +1,8 @@
+from server import db
 from server.models.store import Store
 
-def populate_store(data_base):
-    if data_base.session.query(Store).first() is None:
+def populate_store():
+    if db.session.query(Store).first() is None:
         items = [
             Store (
                 name="Red Text",
@@ -35,5 +36,5 @@ def populate_store(data_base):
             )
         ]
         for item in items:
-            data_base.session.add(item)
-        data_base.session.commit()
+            db.session.add(item)
+        db.session.commit()
