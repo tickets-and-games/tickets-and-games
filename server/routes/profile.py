@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, session
 
 from server.routes.decorators import login_required
 from server.utils import get_current_user, get_user_by_id, get_user_balance
@@ -16,7 +16,7 @@ def get_profile_view(user_id):
         user = get_user_by_id(user_id)
 
     if user:
-        if user.is_public or user_id is None:
+        if user.is_public or user_id is None or user.id == session["user_id"]:
             total_tickets = get_user_balance(user.id)
             return {
                 "name": user.name,
