@@ -19,6 +19,7 @@ function Profileview() {
   const [user, setUser] = useState('');
   const [rtime, setRtime] = useState('');
   const [tickets, setTickets] = useState('');
+  const [profileURL, setProfileURL] = useState('');
   const [loading, setLoading] = useState(true);
   const { userId } = useParams<Params>();
   const requestUrl = userId ? '/api/profile/'.concat(userId) : '/api/profile/';
@@ -31,6 +32,7 @@ function Profileview() {
         setUser(data.username);
         setRtime(data.registration_datetime);
         setTickets(data.total_tickets);
+        setProfileURL(data.profile_url);
         setLoading(false);
       })
       .catch((error) => (<div className="Profile">{error}</div>));
@@ -42,6 +44,18 @@ function Profileview() {
         <br />
         {loading ? <CircularProgress color="secondary" /> : null}
         <Typography variant="h5" className={classes.table}>
+          <img
+            id="profile"
+            src={profileURL}
+            alt="profile"
+            style={{
+              width: '200px',
+              height: '200px',
+              borderRadius: '50%',
+              borderCollapse: 'separate',
+              border: '1px solid white',
+            }}
+          />
           <div className="profile-name">
             Name:&nbsp;
             {name}
