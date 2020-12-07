@@ -8,9 +8,11 @@ function Username(props: Props) {
   const { valid } = props;
   const [username, setUsername] = useState('');
   const [message, setMessage] = useState('');
+
   function HandleUsername(event) {
     setUsername(event.target.value);
   }
+
   function SubmitUsername() {
     const tusername = username;
     fetch('/api/settings/username', {
@@ -26,6 +28,7 @@ function Username(props: Props) {
         setMessage(data.message);
       });
   }
+
   if (valid) {
     return (
       <div>

@@ -10,7 +10,8 @@ from server.utils.item_helper import (
     item_group_by_user_id,
     handle_text_color,
     handle_username_change,
-    get_color_name
+    get_color_name,
+    handle_profile_image
 )
 
 settings_bp = Blueprint("settings_bp", __name__, url_prefix="/api/settings")
@@ -84,17 +85,12 @@ def change_username():
 @login_required
 def chnage_profile_pic():
     try:
-        data = request.files
-        image_data = data["file"]
+        data = json.loads(request.data)
+        image_url = data["image_url"]
         user_id = session["user_id"]
-        image_data.filename = "profile" + str(user_id) + ".png"
-        filename = secure_filename(image_data.filename)
-        current_path = os.path.dirname(os.path.realpath(__file__))
-        root_path = os.path.sep.join(current_path.split(os.path.sep)[:-2])
-        static_folder = "/public/static/"
-        path = root_path + static_folder + filename
-        image_data.save(path)
-        return {"success": True}
+        if handle_profile_image(user_id, image_url):
+            return {"success": True, "message": "Image change successful!"}
+        return {"success": False, "message": "Given image was invalid."}
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
 

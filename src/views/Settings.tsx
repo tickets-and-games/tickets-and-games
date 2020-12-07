@@ -10,6 +10,7 @@ import { MessageActions, ADD_MESSAGE } from '../actions/messageActions';
 
 import Colors from '../components/Colors';
 import Username from '../components/Username';
+import ProfileImage from '../components/ProfileImage';
 
 type Color = {
   item_type: number,
@@ -95,6 +96,8 @@ export default function Settings() {
         <Colors colors={settings.text_color} />
         <br />
         <Username valid={settings.change_username} />
+        <br />
+        <ProfileImage valid={settings.change_profile_pic} />
       </Paper>
     </div>
   );
