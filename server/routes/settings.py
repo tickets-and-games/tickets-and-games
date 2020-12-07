@@ -1,8 +1,6 @@
 import json
-import os
 
 from flask import request, session, Blueprint
-from werkzeug.utils import secure_filename
 from server import db
 from server.routes.decorators import login_required
 from server.utils import get_current_user
