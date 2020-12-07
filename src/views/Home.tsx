@@ -132,7 +132,7 @@ export default function Home() {
       <br />
       <Paper className="gradient-border-home">
         <div className={classes.root}>
-          <GridList className={classes.gridList} cols={6}>
+          <GridList className={classes.gridList} cols={7}>
             {tileData.map((tile) => (
               <GridListTile key={tile.img} component={RouterLink} to={tile.url}>
                 <img src={tile.img} alt={tile.title} />
