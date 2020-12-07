@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { Dispatch, useState } from 'react';
 import {
   Button, Typography,
 } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { MessageActions, ADD_MESSAGE } from '../actions/messageActions';
 
 type Color = {
   item_type: number,
@@ -15,11 +17,10 @@ interface Props {
 function Colors(props: Props) {
   const { colors } = props;
   const [curColor, setCurColor] = useState('');
-  const [message, setMessage] = useState('');
+  const messagesDispatch = useDispatch<Dispatch<MessageActions>>();
 
   function HandleColorChange(event) {
     setCurColor(event.target.value);
-    setMessage('');
   }
 
   function SubmitColor() {
@@ -33,7 +34,13 @@ function Colors(props: Props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        setMessage(data.message);
+        messagesDispatch({
+          type: ADD_MESSAGE,
+          payload: {
+            message: `${data.message}`,
+            type: 'success',
+          },
+        });
       });
   }
 
@@ -52,7 +59,6 @@ function Colors(props: Props) {
               ))}
             </select>
             <Button color="primary" variant="contained" onClick={SubmitColor}>Confirm</Button>
-            <div>{message}</div>
           </div>
         )
         : (
