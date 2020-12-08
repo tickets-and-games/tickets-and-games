@@ -20,7 +20,6 @@ function Profileview() {
   const [rtime, setRtime] = useState('');
   const [tickets, setTickets] = useState('');
   const [profileURL, setProfileURL] = useState('');
-  const [color, setColor] = useState('');
   const [loading, setLoading] = useState(true);
   const { userId } = useParams<Params>();
   const requestUrl = userId ? '/api/profile/'.concat(userId) : '/api/profile/';
