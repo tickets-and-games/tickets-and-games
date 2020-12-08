@@ -14,11 +14,11 @@ def handle_text_color(user_id, item_type):
         item_type=-1
     query = (
         db.session.query(Item)
-        .filter(Item.user_id==user_id, Item.item_type==item_type)
+        .filter(Item.user_id==user_id, Item.item_group==101)
         .all()
     )
     for color in query:
-        if color.item_type == item_type:
+        if color.item_type == int(item_type):
             color.active = True
         else:
             color.active = False
@@ -72,3 +72,14 @@ def handle_profile_image(user_id, image_url):
     query.image_url = image_url
     db.session.commit()
     return True
+
+def get_current_color(user_id):
+    query = (
+        db.session.query(Item)
+        .filter(Item.user_id==user_id, Item.item_group==101)
+        .all()
+    )
+    for color in query:
+        if color.active:
+            return get_color_name(color.item_type).lower()
+    return "black"

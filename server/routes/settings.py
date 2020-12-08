@@ -42,6 +42,7 @@ def get_settings():
         if current_color is None:
             colors.insert(0, color_black)
         else:
+            colors.append(color_black)
             colors.insert(0, current_color)
     if item_group_by_user_id(user.id, 102):
         change_username_bool = True
