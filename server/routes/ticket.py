@@ -21,7 +21,7 @@ def get_transaction_history(user_id):
         user = get_user_by_id(user_id)
         public = user.is_public
 
-    if not public:
+    if not public and user_id != get_current_user().id:
         return {"error": "User profile is private"}, 401
 
     ticket_history = (
