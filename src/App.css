@@ -65,4 +65,4 @@ body{
   color: #f0e68c!important;
 }
 
-@import 'views/styles.css';
+@import './views/styles.css';
