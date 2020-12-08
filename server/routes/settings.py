@@ -42,6 +42,7 @@ def get_settings():
         if current_color is None:
             colors.insert(0, color_black)
         else:
+            colors.append(color_black)
             colors.insert(0, current_color)
     if item_group_by_user_id(user.id, 102):
         change_username_bool = True
@@ -95,11 +96,14 @@ def chnage_profile_pic():
 @settings_bp.route("/update", methods=["POST"])
 @login_required
 def update_settings():
-    user = get_current_user()
-    data = json.loads(request.data)
+    try:
+        user = get_current_user()
+        data = json.loads(request.data)
 
-    is_public = data["is_public"]
-    user.is_public = is_public
-    db.session.commit()
+        is_public = data["is_public"]
+        user.is_public = is_public
+        db.session.commit()
 
-    return {"success": True}
+        return {"success": True}
+    except json.decoder.JSONDecodeError:
+        return {"error": "Malformed request"}, 400

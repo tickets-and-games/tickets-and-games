@@ -15,7 +15,7 @@
 8) Click OAuth client ID
 9) Click Configure consent screen
 10) Choose external
-11) For the application name secify something similar to the project name, click save
+11) For the application name specify something similar to the project name, click save
 12) Back to credentials, create credentials, OAuth Client ID, click web application 
 
 ## Setting up Stripe
