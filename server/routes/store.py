@@ -61,6 +61,7 @@ def store_list():
             "group": item.item_group,
             "limit": item.limit,
             "price": item.price,
+            "image": item.image_url
         }
         store_items.append(item_obj)
 

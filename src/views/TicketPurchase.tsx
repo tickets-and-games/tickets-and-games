@@ -1,5 +1,5 @@
 import React, { Dispatch, useEffect, useState } from 'react';
-
+import './Styles.css';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { Link } from 'react-router-dom';
 import {
@@ -143,7 +143,7 @@ function TicketPurchase() {
   };
 
   return (
-    <Paper className={classes.root}>
+    <Paper className="gradient-border" style={{ background: '#310000', color: 'white', textAlign: 'center' }}>
       <Stepper className={classes.stepper} activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>

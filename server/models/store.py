@@ -7,3 +7,4 @@ class Store(db.Model):
     item_group = db.Column(db.Integer)
     price = db.Column(db.Integer)
     limit = db.Column(db.Integer)
+    image_url = db.Column(db.String(255))

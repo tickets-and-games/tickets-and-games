@@ -14,6 +14,7 @@ type Item = {
   name: string,
   group: number,
   price: number,
+  image: string,
 };
 
 type ItemList = {
@@ -69,7 +70,7 @@ function Store() {
             <Card className={classes.card}>
               <CardMedia
                 className={classes.media}
-                image="https://placekitten.com/640/360" // TODO: Put an actual item image here
+                image={item.image}
                 title="Placeholder Item Image"
               />
               <CardContent>
