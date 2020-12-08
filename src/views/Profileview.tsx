@@ -19,6 +19,7 @@ function Profileview() {
   const [user, setUser] = useState('');
   const [rtime, setRtime] = useState('');
   const [tickets, setTickets] = useState('');
+  const [color, setColor] = useState('');
   const [loading, setLoading] = useState(true);
   const { userId } = useParams<Params>();
   const requestUrl = userId ? '/api/profile/'.concat(userId) : '/api/profile/';
@@ -30,6 +31,7 @@ function Profileview() {
         setName(data.name);
         setUser(data.username);
         setRtime(data.registration_datetime);
+        setColor(data.text_color);
         setTickets(data.total_tickets);
         setLoading(false);
       })
@@ -46,7 +48,7 @@ function Profileview() {
             Name:&nbsp;
             {name}
           </div>
-          <div className="profile-username">
+          <div className="profile-username" style={{ color }}>
             Username:&nbsp;
             { user}
           </div>
