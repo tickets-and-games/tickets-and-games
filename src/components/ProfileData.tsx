@@ -42,7 +42,7 @@ function ProfileData(props: Props) {
         Name:&nbsp;
         {profile.name}
       </div>
-      <div className="profile-username">
+      <div className="profile-username" style={{ color: profile.text_color }}>
         Username:&nbsp;
         {profile.username}
       </div>

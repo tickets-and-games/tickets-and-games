@@ -72,9 +72,9 @@ function Blackjack() {
   return (
     <div className="blackjack-page">
       <Paper
-        className="gradient-border-blackjack"
+        className="gradient-border"
         style={{
-          background: 'black', color: 'white', margin: 'auto', textAlign: 'center',
+          background: '#310000', color: 'white', margin: 'auto', textAlign: 'center',
         }}
       >
         <br />

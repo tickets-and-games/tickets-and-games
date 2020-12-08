@@ -43,7 +43,7 @@ function Profileview() {
   if (loading) {
     return (
       <div className="Profile">
-        <Paper className="gradient-border-profile" style={{ background: 'black', color: `${profile ? profile.text_color : 'white'}` }}>
+        <Paper className="gradient-border" style={{ background: 'black', color: `${profile ? profile.text_color : 'white'}` }}>
           <CircularProgress color="secondary" />
         </Paper>
       </div>
@@ -53,7 +53,7 @@ function Profileview() {
   if (!profile) {
     return (
       <div className="Profile">
-        <Paper className="gradient-border-profile" style={{ background: 'black', color: 'white' }}>
+        <Paper className="gradient-border" style={{ background: 'black', color: 'white' }}>
           <Typography variant="h4" component="h4">
             Profile is private
           </Typography>
@@ -64,10 +64,7 @@ function Profileview() {
 
   return (
     <div className="Profile">
-      <Paper
-        className="gradient-border-profile"
-        style={{ background: 'black', color: `${profile ? profile.text_color : 'white'}` }}
-      >
+      <Paper className="gradient-border" style={{ background: '#310000', color: 'white' }}>
         <ProfileData profile={profile} />
         <TicketTransfer />
         <TicketHistory />
