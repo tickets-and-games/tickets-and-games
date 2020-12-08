@@ -60,7 +60,7 @@ function Profileview() {
               Name:&nbsp;
               {name}
             </div>
-            <div className="profile-username">
+            <div className="profile-username" style={{ color }}>
               Username:&nbsp;
               {user}
             </div>
