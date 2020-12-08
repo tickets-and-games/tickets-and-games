@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Dispatch } from 'react';
 import {
   Box, Paper, Card, Typography, CardContent, CardActions, Button, CardMedia,
 } from '@material-ui/core';
+
+import { useDispatch } from 'react-redux';
+import { MessageActions, ADD_MESSAGE } from '../actions/messageActions';
 
 import { useStyles } from '../styles';
 
@@ -20,6 +23,7 @@ type ItemList = {
 function Store() {
   const [itemList, setItemList] = useState<ItemList>({ items: [] });
   const classes = useStyles();
+  const messagesDispatch = useDispatch<Dispatch<MessageActions>>();
 
   useEffect(() => {
     fetch('/api/store/list').then((response) => {
@@ -36,7 +40,25 @@ function Store() {
         id,
         quantity: 1, // TODO: Add a way to change the quantity
       }),
-    });
+    }).then((response) => response.json().then((data) => {
+      if (!data.success) {
+        messagesDispatch({
+          type: ADD_MESSAGE,
+          payload: {
+            message: data.message,
+            type: 'error',
+          },
+        });
+      } else {
+        messagesDispatch({
+          type: ADD_MESSAGE,
+          payload: {
+            message: 'Purchase successful!',
+            type: 'success',
+          },
+        });
+      }
+    }));
   };
 
   return (
