@@ -9,7 +9,7 @@ import { AppState } from './reducers';
 import { MessageActions, DELETE_MESSAGE } from './actions/messageActions';
 
 import './App.css';
-import './Styles.css';
+import './views/Styles.css';
 import AppHeader from './AppHeader';
 import Leaderboard from './views/Leaderboard';
 import Profileview from './views/Profileview';
