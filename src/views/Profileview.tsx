@@ -38,7 +38,7 @@ function Profileview() {
           setLoading(false);
         }
       }));
-  }, []);
+  }, [userId]);
 
   if (loading) {
     return (
@@ -57,6 +57,7 @@ function Profileview() {
           <Typography variant="h4" component="h4">
             Profile is private
           </Typography>
+          <TicketTransfer />
         </Paper>
       </div>
     );
