@@ -14,6 +14,7 @@ KEY_GROUP = "group"
 KEY_LIMIT = "limit"
 KEY_ITEMS = "items"
 KEY_PRICE = "price"
+KEY_IMAGE = "image"
 
 
 class StoreListTest(DatabaseTest):
@@ -35,6 +36,7 @@ class StoreListTest(DatabaseTest):
                     KEY_GROUP: 1,
                     KEY_LIMIT: 1,
                     KEY_PRICE: 123,
+                    KEY_IMAGE: None,
                 },
             },
             {
@@ -51,6 +53,7 @@ class StoreListTest(DatabaseTest):
                     KEY_GROUP: 1,
                     KEY_LIMIT: 1,
                     KEY_PRICE: 123,
+                    KEY_IMAGE: None,
                 },
             },
             {
@@ -67,6 +70,7 @@ class StoreListTest(DatabaseTest):
                     KEY_GROUP: 1,
                     KEY_LIMIT: 1,
                     KEY_PRICE: 123,
+                    KEY_IMAGE: None,
                 },
             },
         ]
