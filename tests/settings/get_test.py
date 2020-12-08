@@ -13,7 +13,6 @@ from server.utils.test_preset import (
     mocked_profile_item,
     mocked_username_item
 )
-from server.models import Item, Store, User
 
 KEY_USER_ID = "user_id"
 KEY_EXPECTED = "expected"

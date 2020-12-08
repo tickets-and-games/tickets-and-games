@@ -22,6 +22,16 @@ def mocked_blue_item(user_id, active = False):
     )
     return item
 
+def mocked_red_item(user_id, active = False):
+    item = Item (
+        item_type=1,
+        item_group=101,
+        user_id=user_id,
+        count=1,
+        active=active
+    )
+    return item
+
 def mocked_blue_store():
     store = Store (
         id = 3,
