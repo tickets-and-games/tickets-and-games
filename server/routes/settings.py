@@ -106,11 +106,14 @@ def chnage_profile_pic():
 @settings_bp.route("/update", methods=["POST"])
 @login_required
 def update_settings():
-    user = get_current_user()
-    data = json.loads(request.data)
+    try:
+        user = get_current_user()
+        data = json.loads(request.data)
 
-    is_public = data["is_public"]
-    user.is_public = is_public
-    db.session.commit()
+        is_public = data["is_public"]
+        user.is_public = is_public
+        db.session.commit()
 
-    return {"success": True}
+        return {"success": True}
+    except json.decoder.JSONDecodeError:
+        return {"error": "Malformed request"}, 400
