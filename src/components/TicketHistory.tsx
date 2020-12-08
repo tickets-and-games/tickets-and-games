@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Typography, CircularProgress } from '@material-ui/core';
+import {
+  Paper, Typography, CircularProgress, Table, TableBody, TableCell,
+  TableHead, TableRow, TableContainer,
+} from '@material-ui/core';
 
 import TimeDisplay from './TimeDisplay';
+
+import { useStyles } from '../styles';
 
 type Transaction = {
   id: number
@@ -24,6 +29,8 @@ function TicketHistory() {
   const { userId } = useParams<Params>();
   const [loading, setLoading] = useState(true);
   const requestUrl = userId ? '/api/ticket/history/'.concat(userId) : '/api/ticket/history';
+
+  const classes = useStyles();
 
   useEffect(() => {
     fetch(requestUrl)
@@ -51,26 +58,29 @@ function TicketHistory() {
         <Typography variant="h4" component="h4">
           Ticket History
         </Typography>
-        <br />
-        {loading ? <CircularProgress color="secondary" /> : null}
-        <table style={{ textAlign: 'center', margin: 'auto' }} className="transaction-history-table">
-          <tbody className="table-body">
-            <tr>
-              <th> </th>
-              <th>Date</th>
-              <th>Activity</th>
-              <th>Amount</th>
-            </tr>
-            {tHistory.map((row, index) => (
-              <tr key={row.id}>
-                <td>{index + 1}</td>
-                <td><TimeDisplay time={row.datetime} /></td>
-                <td>{row.activity}</td>
-                <td>{row.amount}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {loading ? <CircularProgress color="secondary" /> : (
+          <TableContainer component={Paper} style={{ width: '70%', margin: 'auto' }}>
+            <Table className={classes.table} aria-label="simple table">
+              <TableHead style={{ backgroundColor: '#fff601' }}>
+                <TableRow>
+                  <TableCell style={{ color: 'black', fontWeight: 'bold' }}>Date</TableCell>
+                  <TableCell style={{ color: 'black', fontWeight: 'bold' }}>Activity</TableCell>
+                  <TableCell style={{ color: 'black', fontWeight: 'bold' }}>Amount</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {loading ? <CircularProgress color="secondary" /> : null}
+                {tHistory.map((row) => (
+                  <TableRow className={classes.tableRow} hover>
+                    <TableCell><TimeDisplay time={row.datetime} /></TableCell>
+                    <TableCell>{row.activity}</TableCell>
+                    <TableCell>{row.amount}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
       </>
     );
   }

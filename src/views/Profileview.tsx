@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './Styles.css';
 import {
-  Button, Paper, Typography, CircularProgress,
+  Paper, Typography, CircularProgress,
 } from '@material-ui/core';
 import TicketHistory from '../components/TicketHistory';
 import TicketTransfer from '../components/TicketTransfer';
@@ -22,28 +22,32 @@ function Profileview() {
   const [profileURL, setProfileURL] = useState('');
   const [color, setColor] = useState('');
   const [loading, setLoading] = useState(true);
+  const [isPublic, setPublic] = useState(false);
   const { userId } = useParams<Params>();
   const requestUrl = userId ? '/api/profile/'.concat(userId) : '/api/profile/';
 
   useEffect(() => {
     fetch(requestUrl)
-      .then((res) => res.json())
-      .then((data) => {
-        setName(data.name);
-        setUser(data.username);
-        setRtime(data.registration_datetime);
-        setTickets(data.total_tickets);
-        setColor(data.text_color);
-        setProfileURL(data.profile_url);
-        setLoading(false);
-      })
-      .catch((error) => (<div className="Profile">{error}</div>));
+      .then((res) => res.json().then((data) => {
+        if (res.status === 200) {
+          setPublic(data.is_public);
+          setName(data.name);
+          setUser(data.username);
+          setRtime(data.registration_datetime);
+          setTickets(data.total_tickets);
+          setColor(data.text_color);
+          setProfileURL(data.profile_url);
+          setLoading(false);
+        } else {
+          setPublic(false);
+        }
+      }));
   }, []);
   const classes = useStyles();
   return (
     <div className="Profile">
       <Paper className="gradient-border-profile" style={{ background: 'black', color: `${color}` }}>
-        <br />
+        {isPublic ? null : null}
         {loading ? <CircularProgress color="secondary" /> : (
           <Typography variant="h5" className={classes.table}>
             <img
@@ -74,15 +78,10 @@ function Profileview() {
               Total Tickets:&nbsp;
               {tickets}
             </div>
-            <br />
-            <TicketTransfer />
-            <br />
-            <Button size="large" variant="contained" component={Link} to="/purchase">Purchase Tickets</Button>
-            <br />
-            <br />
-            <TicketHistory />
           </Typography>
         )}
+        <TicketTransfer />
+        <TicketHistory />
       </Paper>
     </div>
   );
