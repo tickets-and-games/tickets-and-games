@@ -42,33 +42,45 @@ function Profileview() {
     <div className="Profile">
       <Paper className="gradient-border" style={{ background: '#310000', color: 'white' }}>
         <br />
-        {loading ? <CircularProgress color="secondary" /> : null}
-        <Typography variant="h5" className={classes.table}>
-          <div className="profile-name">
-            Name:&nbsp;
-            {name}
-          </div>
-          <div className="profile-username" style={{ color }}>
-            Username:&nbsp;
-            { user}
-          </div>
-          <div className="profile-data">
-            User Since:&nbsp;
-            {rtime ? <TimeDisplay time={rtime} /> : null}
-          </div>
-          <div className="profile-total-tickets">
-            Total Tickets:&nbsp;
-            { tickets}
-          </div>
-          <br />
-          <TicketTransfer />
-          <br />
-          <Button size="large" variant="contained" component={Link} to="/purchase">Purchase Tickets</Button>
-          <br />
-          <br />
-          <TicketHistory />
-        </Typography>
-        <br />
+        {loading ? <CircularProgress color="secondary" /> : (
+          <Typography variant="h5" className={classes.table}>
+            <img
+              id="profile"
+              src={profileURL}
+              alt="profile"
+              style={{
+                width: '200px',
+                height: '200px',
+                borderRadius: '50%',
+                borderCollapse: 'separate',
+                border: '1px solid white',
+              }}
+            />
+            <div className="profile-name">
+              Name:&nbsp;
+              {name}
+            </div>
+            <div className="profile-username">
+              Username:&nbsp;
+              {user}
+            </div>
+            <div className="profile-data">
+              User Since:&nbsp;
+              {rtime ? <TimeDisplay time={rtime} /> : null}
+            </div>
+            <div className="profile-total-tickets">
+              Total Tickets:&nbsp;
+              {tickets}
+            </div>
+            <br />
+            <TicketTransfer />
+            <br />
+            <Button size="large" variant="contained" component={Link} to="/purchase">Purchase Tickets</Button>
+            <br />
+            <br />
+            <TicketHistory />
+          </Typography>
+        )}
       </Paper>
     </div>
   );

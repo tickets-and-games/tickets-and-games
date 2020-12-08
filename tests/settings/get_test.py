@@ -58,7 +58,7 @@ class SettingsGetTest(DatabaseTest):
                 },
                 {
                     KEY_ITEM_TYPE: -1,
-                    KEY_NAME: "Black"
+                    KEY_NAME: "White"
                 }],
                 KEY_CHANGE_USERNAME: True,
                 KEY_CHANGE_PROFILE_PIC: True
@@ -71,7 +71,7 @@ class SettingsGetTest(DatabaseTest):
                 KEY_TEXT_COLOR: [
                 {
                     KEY_ITEM_TYPE: -1,
-                    KEY_NAME: "Black"
+                    KEY_NAME: "White"
                 },
                 {
                     KEY_ITEM_TYPE: 3,
