@@ -9,10 +9,11 @@ from server.utils.item_helper import (
     handle_text_color,
     handle_username_change,
     get_color_name,
-    handle_profile_image
+    handle_profile_image,
 )
 
 settings_bp = Blueprint("settings_bp", __name__, url_prefix="/api/settings")
+
 
 @settings_bp.route("/get")
 @login_required
@@ -24,24 +25,27 @@ def get_settings():
     text_colors = item_group_by_user_id(user.id, 101)
     if text_colors:
         current_color = None
-        color_black = {
+        color_white = {
             "item_type": -1,
-            "name": "Black",
+            "name": "White",
         }
         for text_color in text_colors:
             if text_color.active is True:
                 current_color = {
                     "item_type": text_color.item_type,
-                    "name": get_color_name(text_color.item_type)
+                    "name": get_color_name(text_color.item_type),
                 }
             else:
-                colors.append({
-                    "item_type": text_color.item_type,
-                    "name": get_color_name(text_color.item_type)
-                })
+                colors.append(
+                    {
+                        "item_type": text_color.item_type,
+                        "name": get_color_name(text_color.item_type),
+                    }
+                )
         if current_color is None:
-            colors.insert(0, color_black)
+            colors.insert(0, color_white)
         else:
+            colors.append(color_white)
             colors.insert(0, current_color)
     if item_group_by_user_id(user.id, 102):
         change_username_bool = True
@@ -51,8 +55,9 @@ def get_settings():
         "is_public": user.is_public,
         "text_color": colors,
         "change_username": change_username_bool,
-        "change_profile_pic": change_profile_pic_bool
+        "change_profile_pic": change_profile_pic_bool,
     }
+
 
 @settings_bp.route("/textcolor", methods=["POST"])
 @login_required
@@ -62,9 +67,13 @@ def change_text_color():
         item_type = data["item_type"]
         user_id = session["user_id"]
         handle_text_color(user_id, item_type)
-        return {"success": True, "message": "Color changed! checkout leaderboard and your profile!"}
+        return {
+            "success": True,
+            "message": "Color changed! checkout leaderboard and your profile!",
+        }
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
+
 
 @settings_bp.route("/username", methods=["POST"])
 @login_required
@@ -79,6 +88,7 @@ def change_username():
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
 
+
 @settings_bp.route("/profilepic", methods=["POST"])
 @login_required
 def chnage_profile_pic():
@@ -92,14 +102,18 @@ def chnage_profile_pic():
     except json.decoder.JSONDecodeError:
         return {"error": "Malformed request"}, 400
 
+
 @settings_bp.route("/update", methods=["POST"])
 @login_required
 def update_settings():
-    user = get_current_user()
-    data = json.loads(request.data)
+    try:
+        user = get_current_user()
+        data = json.loads(request.data)
 
-    is_public = data["is_public"]
-    user.is_public = is_public
-    db.session.commit()
+        is_public = data["is_public"]
+        user.is_public = is_public
+        db.session.commit()
 
-    return {"success": True}
+        return {"success": True}
+    except json.decoder.JSONDecodeError:
+        return {"error": "Malformed request"}, 400

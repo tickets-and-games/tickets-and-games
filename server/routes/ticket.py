@@ -4,7 +4,7 @@ from flask import session, request, Blueprint
 from server import db
 from server.routes.decorators import login_required
 from server.models import Transaction, User
-from server.utils import get_current_user, get_user_balance
+from server.utils import get_current_user, get_user_balance, get_user_by_id
 
 
 ticket_bp = Blueprint("ticket_bp", __name__)
@@ -14,9 +14,15 @@ ticket_bp = Blueprint("ticket_bp", __name__)
 @ticket_bp.route("/api/ticket/history/<user_id>")
 @login_required
 def get_transaction_history(user_id):
-    # session['user_id'] = '1' # delete in future (off for unittest) (on for webpage)
-    if user_id is None and "user_id" in session:
+    if user_id is None:
         user_id = session["user_id"]
+        public = True
+    else:
+        user = get_user_by_id(user_id)
+        public = user.is_public
+
+    if not public:
+        return {"error": "User profile is private"}, 401
 
     ticket_history = (
         db.session.query(Transaction)

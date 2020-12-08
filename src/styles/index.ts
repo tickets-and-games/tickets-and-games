@@ -5,7 +5,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
     color: 'white',
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
@@ -19,7 +19,7 @@ export const useStyles = makeStyles((theme: Theme) => ({
       margin: theme.spacing(1),
     },
   },
-  stepper: {},
+  stepper: { background: '#310000' },
   table: {
     textAlign: 'center',
     margin: 'auto',
