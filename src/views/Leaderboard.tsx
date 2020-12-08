@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './Styles.css';
 import {
   Paper, Typography, CircularProgress, Table, TableBody, TableCell,
   TableHead, TableRow, TableContainer,
@@ -13,7 +12,6 @@ type Transaction = {
   balance: number;
   id: number;
   name: string;
-  color: string;
 };
 
 type LeaderboardData = {
@@ -61,9 +59,9 @@ function Leaderboard() {
               {loading ? <CircularProgress color="secondary" /> : null}
               {transactions.map((transaction) => (
                 <TableRow className={classes.tableRow} component={Link} to={`/profile/${transaction.id}`} hover>
-                  <TableCell style={{ color: `${transaction.color}` }}>{transaction.id}</TableCell>
-                  <TableCell style={{ color: `${transaction.color}` }}>{transaction.name}</TableCell>
-                  <TableCell style={{ color: `${transaction.color}` }}>{transaction.balance}</TableCell>
+                  <TableCell>{transaction.id}</TableCell>
+                  <TableCell>{transaction.name}</TableCell>
+                  <TableCell>{transaction.balance}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

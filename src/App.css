@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Pathway+Gothic+One&display=swap');
+
 .App {
   text-align: center;
+}
+
+body{
+  margin: 0;
 }
 
 .App-logo {
@@ -36,3 +42,27 @@
     transform: rotate(360deg);
   }
 }
+
+.MuiAppBar-root{
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  /*background-color: #f0e68c!important;*/
+  background-color: #0d0d0d!important;
+  position: fixed!important;
+  top: 10px;
+  left: 0;
+  bottom: auto!important;
+}
+
+.makeStyles-title-3{
+  font-family: 'Kaushan Script', cursive !important;
+  font-size: 22px;
+  margin-left: 20px!important;
+  display: flex;
+  align-items: center;
+  color: #f0e68c!important;
+}
+
+@import 'views/styles.css';

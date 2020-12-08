@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './Blackjack.css';
 import {
   Box, makeStyles, Typography, Button,
 } from '@material-ui/core';
