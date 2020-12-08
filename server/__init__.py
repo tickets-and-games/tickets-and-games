@@ -47,4 +47,7 @@ def create_app(config):
             populate_store()
         except sqlalchemy.exc.OperationalError:
             pass
+        except sqlalchemy.exc.ProgrammingError:
+            pass
+
     return app
