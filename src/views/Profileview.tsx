@@ -19,7 +19,7 @@ function Profileview() {
   const [user, setUser] = useState('');
   const [rtime, setRtime] = useState('');
   const [tickets, setTickets] = useState('');
-  const [profileURL, setProfileURL] = useState('');
+  const [color, setColor] = useState('');
   const [loading, setLoading] = useState(true);
   const { userId } = useParams<Params>();
   const requestUrl = userId ? '/api/profile/'.concat(userId) : '/api/profile/';
@@ -31,8 +31,8 @@ function Profileview() {
         setName(data.name);
         setUser(data.username);
         setRtime(data.registration_datetime);
+        setColor(data.text_color);
         setTickets(data.total_tickets);
-        setProfileURL(data.profile_url);
         setLoading(false);
       })
       .catch((error) => (<div className="Profile">{error}</div>));
@@ -44,25 +44,13 @@ function Profileview() {
         <br />
         {loading ? <CircularProgress color="secondary" /> : null}
         <Typography variant="h5" className={classes.table}>
-          <img
-            id="profile"
-            src={profileURL}
-            alt="profile"
-            style={{
-              width: '200px',
-              height: '200px',
-              borderRadius: '50%',
-              borderCollapse: 'separate',
-              border: '1px solid white',
-            }}
-          />
           <div className="profile-name">
             Name:&nbsp;
             {name}
           </div>
-          <div className="profile-username">
+          <div className="profile-username" style={{ color }}>
             Username:&nbsp;
-            {user}
+            { user}
           </div>
           <div className="profile-data">
             User Since:&nbsp;
@@ -70,7 +58,7 @@ function Profileview() {
           </div>
           <div className="profile-total-tickets">
             Total Tickets:&nbsp;
-            {tickets}
+            { tickets}
           </div>
           <br />
           <TicketTransfer />
