@@ -32,7 +32,6 @@ function Profileview() {
         setUser(data.username);
         setRtime(data.registration_datetime);
         setTickets(data.total_tickets);
-        setColor(data.text_color);
         setProfileURL(data.profile_url);
         setLoading(false);
       })
