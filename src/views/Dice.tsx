@@ -50,7 +50,7 @@ function Dice() {
   // send over data with the head/tail, bet amount
   return (
     <div className="Coinflip">
-      <Paper className="gradient-border-dice" style={{ background: 'black', color: 'white' }}>
+      <Paper className="gradient-border" style={{ background: '#310000', color: 'white' }}>
         <Typography variant="h3">
           Dice
         </Typography>

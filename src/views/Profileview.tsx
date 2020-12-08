@@ -38,7 +38,7 @@ function Profileview() {
   const classes = useStyles();
   return (
     <div className="Profile">
-      <Paper className="gradient-border-profile" style={{ background: 'black', color: 'white' }}>
+      <Paper className="gradient-border" style={{ background: '#310000', color: 'white' }}>
         <br />
         {loading ? <CircularProgress color="secondary" /> : null}
         <Typography variant="h5" className={classes.table}>

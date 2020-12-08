@@ -78,7 +78,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="settings-page">
+    <div className="gradient-border" style={{ background: '#310000', color: 'white' }}>
       <Paper className={classes.root}>
         <Typography variant="h4">Settings</Typography>
         <FormControlLabel

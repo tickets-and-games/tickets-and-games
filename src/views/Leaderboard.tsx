@@ -36,7 +36,7 @@ function Leaderboard() {
 
   return (
     <div className="Leaderboard">
-      <Paper className="gradient-border-leaderboard" style={{ background: 'black', color: 'white', textAlign: 'center' }}>
+      <Paper className="gradient-border" style={{ background: '#310000', color: 'white', textAlign: 'center' }}>
         <br />
         <Typography variant="h3">
           Leaderboard

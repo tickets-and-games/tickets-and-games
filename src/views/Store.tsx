@@ -41,7 +41,7 @@ function Store() {
 
   return (
     <div className="Coinflip">
-      <Paper className={classes.root}>
+      <Paper className="gradient-border" style={{ background: '#310000', color: 'white' }}>
         <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
           {itemList.items.map((item) => (
             <Card className={classes.card}>
