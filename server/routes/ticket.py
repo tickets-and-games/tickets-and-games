@@ -15,7 +15,7 @@ ticket_bp = Blueprint("ticket_bp", __name__)
 @login_required
 def get_transaction_history(user_id):
     if user_id is None:
-        user = get_current_user()
+        user_id = session["user_id"]
         public = True
     else:
         user = get_user_by_id(user_id)
@@ -27,7 +27,7 @@ def get_transaction_history(user_id):
     ticket_history = (
         db.session.query(Transaction)
         .order_by(Transaction.id.desc())
-        .filter(Transaction.user_id == user.id)
+        .filter(Transaction.user_id == user_id)
         .all()
     )
     ticket_rows = []
