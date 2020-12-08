@@ -1,86 +1,73 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './Styles.css';
 import {
-  Button, Paper, Typography, CircularProgress,
+  Paper, CircularProgress, Typography,
 } from '@material-ui/core';
 import TicketHistory from '../components/TicketHistory';
 import TicketTransfer from '../components/TicketTransfer';
-import TimeDisplay from '../components/TimeDisplay';
-
-import { useStyles } from '../styles';
+import ProfileData from '../components/ProfileData';
 
 type Params = {
   userId: string;
 };
 
+type Profile = {
+  is_public: boolean;
+  name: string;
+  profile_url: string;
+  registration_datetime: string;
+  text_color: string;
+  total_tickets: number;
+  username: string;
+};
+
 function Profileview() {
-  const [name, setName] = useState('');
-  const [user, setUser] = useState('');
-  const [rtime, setRtime] = useState('');
-  const [tickets, setTickets] = useState('');
-  const [color, setColor] = useState('');
+  const [profile, setProfile] = useState<Profile|null>(null);
   const [loading, setLoading] = useState(true);
   const { userId } = useParams<Params>();
   const requestUrl = userId ? '/api/profile/'.concat(userId) : '/api/profile/';
 
   useEffect(() => {
     fetch(requestUrl)
-      .then((res) => res.json())
-      .then((data) => {
-        setName(data.name);
-        setUser(data.username);
-        setRtime(data.registration_datetime);
-        setColor(data.text_color);
-        setTickets(data.total_tickets);
-        setLoading(false);
-      })
-      .catch((error) => (<div className="Profile">{error}</div>));
+      .then((res) => res.json().then((data) => {
+        if (res.status === 200) {
+          setProfile(data);
+          setLoading(false);
+        } else {
+          setLoading(false);
+        }
+      }));
   }, []);
-  const classes = useStyles();
+
+  if (loading) {
+    return (
+      <div className="Profile">
+        <Paper className="gradient-border" style={{ background: 'black', color: `${profile ? profile.text_color : 'white'}` }}>
+          <CircularProgress color="secondary" />
+        </Paper>
+      </div>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <div className="Profile">
+        <Paper className="gradient-border" style={{ background: 'black', color: 'white' }}>
+          <Typography variant="h4" component="h4">
+            Profile is private
+          </Typography>
+        </Paper>
+      </div>
+    );
+  }
+
   return (
     <div className="Profile">
       <Paper className="gradient-border" style={{ background: '#310000', color: 'white' }}>
-        <br />
-        {loading ? <CircularProgress color="secondary" /> : (
-          <Typography variant="h5" className={classes.table}>
-            <img
-              id="profile"
-              src={profileURL}
-              alt="profile"
-              style={{
-                width: '200px',
-                height: '200px',
-                borderRadius: '50%',
-                borderCollapse: 'separate',
-                border: '1px solid white',
-              }}
-            />
-            <div className="profile-name">
-              Name:&nbsp;
-              {name}
-            </div>
-            <div className="profile-username" style={{ color }}>
-              Username:&nbsp;
-              {user}
-            </div>
-            <div className="profile-data">
-              User Since:&nbsp;
-              {rtime ? <TimeDisplay time={rtime} /> : null}
-            </div>
-            <div className="profile-total-tickets">
-              Total Tickets:&nbsp;
-              {tickets}
-            </div>
-            <br />
-            <TicketTransfer />
-            <br />
-            <Button size="large" variant="contained" component={Link} to="/purchase">Purchase Tickets</Button>
-            <br />
-            <br />
-            <TicketHistory />
-          </Typography>
-        )}
+        <ProfileData profile={profile} />
+        <TicketTransfer />
+        <TicketHistory />
       </Paper>
     </div>
   );
