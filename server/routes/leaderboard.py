@@ -3,6 +3,7 @@
 from flask import Blueprint
 from sqlalchemy.sql import func
 from server import db
+from server.utils.item_helper import get_current_color
 
 from server.models import Transaction, User
 
@@ -24,7 +25,8 @@ def get_leader_board():
     transactions = []
     for row in rows:
         user_id, name, balance = row
-        transaction = {"id": user_id, "name": name, "balance": balance}
+        color = get_current_color(user_id)
+        transaction = {"id": user_id, "name": name, "balance": balance, "color": color}
 
         transactions.append(transaction)
 
