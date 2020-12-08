@@ -2,8 +2,15 @@ import React, { Dispatch, useState } from 'react';
 import { Button, TextField, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
+import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { MessageActions, ADD_MESSAGE } from '../actions/messageActions';
+
+import { useLocalStorage } from '../utils/hooks';
+
+type Params = {
+  userId: string;
+};
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -20,8 +27,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 function TicketTransfer() {
   const classes = useStyles();
 
+  const [userId] = useLocalStorage('userId', '');
+  const params = useParams<Params>();
+  const profileId = params.userId ?? userId;
   const [amount, setAmount] = useState<number>();
-  const [recipientId, setRecipientId] = useState<number>();
+  const [recipientId, setRecipientId] = useState<number>(Number(profileId));
   const messagesDispatch = useDispatch<Dispatch<MessageActions>>();
 
   const transferTicket = () => {
@@ -65,10 +75,10 @@ function TicketTransfer() {
   return (
     <div>
       <Typography variant="h4" component="h4">
-        Transfer points
+        {userId === profileId ? 'Transfer points' : `Transfer points to user id ${profileId}`}
       </Typography>
       <form className={classes.root} autoComplete="off">
-        <TextField id="transfer-recipient" label="Recipient ID" type="number" onChange={recipientOnChange} variant="filled" />
+        {userId === profileId ? <TextField id="transfer-recipient" label="Recipient ID" type="number" onChange={recipientOnChange} variant="filled" /> : null}
         <TextField
           id="transfer-amount"
           label="Amount"
