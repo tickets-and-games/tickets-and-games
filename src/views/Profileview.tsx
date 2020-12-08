@@ -19,7 +19,6 @@ function Profileview() {
   const [user, setUser] = useState('');
   const [rtime, setRtime] = useState('');
   const [tickets, setTickets] = useState('');
-  const [profileURL, setProfileURL] = useState('');
   const [color, setColor] = useState('');
   const [loading, setLoading] = useState(true);
   const { userId } = useParams<Params>();
@@ -32,9 +31,8 @@ function Profileview() {
         setName(data.name);
         setUser(data.username);
         setRtime(data.registration_datetime);
-        setTickets(data.total_tickets);
         setColor(data.text_color);
-        setProfileURL(data.profile_url);
+        setTickets(data.total_tickets);
         setLoading(false);
       })
       .catch((error) => (<div className="Profile">{error}</div>));
@@ -42,7 +40,7 @@ function Profileview() {
   const classes = useStyles();
   return (
     <div className="Profile">
-      <Paper className="gradient-border-profile" style={{ background: 'black', color: `${color}` }}>
+      <Paper className="gradient-border" style={{ background: '#310000', color: 'white' }}>
         <br />
         {loading ? <CircularProgress color="secondary" /> : (
           <Typography variant="h5" className={classes.table}>

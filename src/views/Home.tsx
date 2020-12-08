@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     bottom: '50px',
   },
   paper: {
-    backgroundColor: 'black',
+    background: '#570000',
     color: 'white',
     width: '100%',
   },
@@ -99,6 +99,8 @@ export default function Home() {
       <br />
       <br />
       <section>
+        <br />
+        <br />
         <Paper
           className={classes.paper}
           style={{
@@ -114,7 +116,7 @@ export default function Home() {
             <Typography
               variant="h6"
               style={{
-                display: 'inline-block', position: 'relative', top: '4vh', bottom: '2vh',
+                display: 'inline-block', position: 'relative', top: '3vh', bottom: '2vh',
               }}
             >
               Tickets and Games is an exciting online carnival! You can win tickets by
@@ -152,10 +154,10 @@ export default function Home() {
       <Paper
         className={classes.paper}
         style={{
-          position: 'relative', top: '12vh', textAlign: 'right', display: 'flex', justifyContent: 'space-between',
+          position: 'relative', top: '10vh', textAlign: 'right', display: 'flex', justifyContent: 'space-between',
         }}
       >
-        <img src="friends.png" alt="casino" style={{ height: '18%', width: '22%' }} />
+        <img src="friends.gif" alt="casino" style={{ height: '18%', width: '22%' }} />
         <Typography variant="h6">
           To bring you an experience during the times we cannot sadly be together
           to take part in such joy and games, we have brought to you our virtual carnival!

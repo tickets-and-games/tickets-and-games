@@ -29,7 +29,7 @@ function Skiball() {
 
   return (
     <div className="Skiball">
-      <Paper className="gradient-border-skiball" style={{ background: 'black', color: 'white' }}>
+      <Paper className="gradient-border" style={{ background: '#310000', color: 'white' }}>
         <Typography variant="h3">
           Skiball
         </Typography>

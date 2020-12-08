@@ -48,7 +48,7 @@ function Coinflip() {
 
   return (
     <div className="Coinflip">
-      <Paper className="gradient-border-coinflip" style={{ background: 'black', color: 'white' }}>
+      <Paper className="gradient-border" style={{ background: '#310000', color: 'white' }}>
         <br />
         <Typography variant="h3">
           Coinflip
@@ -66,7 +66,7 @@ function Coinflip() {
         <Typography variant="h6">Choose heads or tails:</Typography>
         <br />
         <Box>
-          <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
+          <ButtonGroup variant="text" color="default" aria-label="text primary button group">
             <Button variant="contained" type="button" style={{ right: '10px' }} onClick={onHeads}>Heads</Button>
             <Button variant="contained" type="button" onClick={onTails}>Tails</Button>
           </ButtonGroup>
