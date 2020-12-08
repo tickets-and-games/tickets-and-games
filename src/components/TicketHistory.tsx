@@ -52,40 +52,39 @@ function TicketHistory() {
       });
   }, []);
 
-  if (tHistory.length !== 0) {
-    return (
-      <>
-        <Typography variant="h4" component="h4">
-          Ticket History
-        </Typography>
-        {loading ? <CircularProgress color="secondary" /> : (
-          <TableContainer component={Paper} style={{ width: '70%', margin: 'auto' }}>
-            <Table className={classes.table} aria-label="simple table">
-              <TableHead style={{ backgroundColor: '#fff601' }}>
-                <TableRow>
-                  <TableCell style={{ color: 'black', fontWeight: 'bold' }}>Date</TableCell>
-                  <TableCell style={{ color: 'black', fontWeight: 'bold' }}>Activity</TableCell>
-                  <TableCell style={{ color: 'black', fontWeight: 'bold' }}>Amount</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {loading ? <CircularProgress color="secondary" /> : null}
-                {tHistory.map((row) => (
-                  <TableRow className={classes.tableRow} hover>
-                    <TableCell><TimeDisplay time={row.datetime} /></TableCell>
-                    <TableCell>{row.activity}</TableCell>
-                    <TableCell>{row.amount}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-      </>
-    );
-  }
   return (
-    <div>No transaction history</div>
+    <>
+      <Typography variant="h4" component="h4">
+        Ticket History
+      </Typography>
+      {loading ? <CircularProgress color="secondary" /> : (
+        <TableContainer component={Paper} style={{ width: '70%', margin: 'auto' }}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead style={{ backgroundColor: '#fff601' }}>
+              <TableRow>
+                <TableCell style={{ color: 'black', fontWeight: 'bold' }}>Date</TableCell>
+                <TableCell style={{ color: 'black', fontWeight: 'bold' }}>Activity</TableCell>
+                <TableCell style={{ color: 'black', fontWeight: 'bold' }}>Amount</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {tHistory ? tHistory.map((row) => (
+                <TableRow className={classes.tableRow} hover>
+                  <TableCell><TimeDisplay time={row.datetime} /></TableCell>
+                  <TableCell>{row.activity}</TableCell>
+                  <TableCell>{row.amount}</TableCell>
+                </TableRow>
+              ))
+                : (
+                  <Typography variant="h4" component="h4">
+                    Ticket History
+                  </Typography>
+                )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+    </>
   );
 }
 
