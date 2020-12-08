@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Dispatch } from 'react';
 import {
-  Paper, Checkbox, Button, Typography, FormControlLabel,
+  Paper, Checkbox, Button, Typography, FormControlLabel, Divider,
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
@@ -9,6 +9,8 @@ import { useStyles } from '../styles';
 import { MessageActions, ADD_MESSAGE } from '../actions/messageActions';
 
 import Colors from '../components/Colors';
+import Username from '../components/Username';
+import ProfileImage from '../components/ProfileImage';
 
 type Color = {
   item_type: number,
@@ -91,7 +93,12 @@ export default function Settings() {
           label="Public Profile"
         />
         <Button color="primary" variant="contained" onClick={submit}>Update Settings</Button>
+        <Divider />
         <Colors colors={settings.text_color} />
+        <Divider />
+        <Username valid={settings.change_username} />
+        <Divider />
+        <ProfileImage valid={settings.change_profile_pic} />
       </Paper>
     </div>
   );

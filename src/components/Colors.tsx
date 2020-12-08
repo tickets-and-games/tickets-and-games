@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import React, { Dispatch, useState } from 'react';
+import {
+  Button, Typography,
+} from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { MessageActions, ADD_MESSAGE } from '../actions/messageActions';
 
 type Color = {
   item_type: number,
@@ -12,6 +17,7 @@ interface Props {
 function Colors(props: Props) {
   const { colors } = props;
   const [curColor, setCurColor] = useState('');
+  const messagesDispatch = useDispatch<Dispatch<MessageActions>>();
 
   function HandleColorChange(event) {
     setCurColor(event.target.value);
@@ -25,20 +31,34 @@ function Colors(props: Props) {
       body: JSON.stringify({
         item_type: curColor,
       }),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        messagesDispatch({
+          type: ADD_MESSAGE,
+          payload: {
+            message: `${data.message}`,
+            type: 'success',
+          },
+        });
+      });
   }
 
   return (
-    <div>
+    <div style={{ textAlign: 'center' }}>
       { colors.length !== 0
         ? (
           <div>
-            <select onChange={HandleColorChange}>
+            <Typography variant="h6">Change Text Color</Typography>
+            <select
+              value={curColor}
+              onChange={HandleColorChange}
+            >
               {colors.map((color) => (
                 <option key={color.item_type} value={color.item_type}>{color.name}</option>
               ))}
             </select>
-            <button type="button" value="Confirm" onClick={SubmitColor}>Confirm</button>
+            <Button color="primary" variant="contained" onClick={SubmitColor}>Confirm</Button>
           </div>
         )
         : (
