@@ -184,7 +184,7 @@ export default function Home() {
         </Typography>
         <br />
         <Typography variant="h6">
-          We are lot of 4th year CS majors from NJIT, with ambitions like these to create even more
+          We are a lot of 4th year CS majors from NJIT, with ambitions like these to create even more
           PC games (not that we play enough). This keeps us busy and engaged as we develop,
           but also as we play our works of art (our definition might differ from
           yours *cough cough*). The opportunity to learn more about our trade
