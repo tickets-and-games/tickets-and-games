@@ -3,12 +3,17 @@ import os
 from functools import wraps
 from flask import session
 
+from server.utils import get_current_user, get_user_balance
+
 
 def login_required(function):
     @wraps(function)
     def wrap(*args, **kwargs):
         if "user_id" in session:
-            return function(*args, **kwargs)
+            response = function(*args, **kwargs)
+            # if type(response) is dict:
+            #     response["tickets"] = get_user_balance(get_current_user())
+            return response
 
         return {"error": "User not logged in"}, 401
 

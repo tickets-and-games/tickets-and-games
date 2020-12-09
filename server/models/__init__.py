@@ -4,3 +4,4 @@ from server.models.user import User
 from server.models.blackjack import Blackjack
 from server.models.store import Store
 from server.models.item import Item
+from server.models.reward import Reward

@@ -12,6 +12,7 @@ socketio = SocketIO()
 db = SQLAlchemy()
 migrate = Migrate(compare_type=True)
 
+
 def create_app(config):
     app = Flask(
         __name__,
@@ -41,9 +42,11 @@ def create_app(config):
         app.register_blueprint(routes.store_bp)
         app.register_blueprint(routes.purchase_bp)
         app.register_blueprint(routes.settings_bp)
+        app.register_blueprint(routes.reward_bp)
 
         try:
             from server.utils.store_helper import populate_store
+
             populate_store()
         except sqlalchemy.exc.OperationalError:
             pass

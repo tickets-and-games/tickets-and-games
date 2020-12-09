@@ -22,6 +22,7 @@ import Store from './views/Store';
 import TicketPurchase from './views/TicketPurchase';
 import AuthRequired from './components/AuthRequired';
 import NewUser from './views/NewUser';
+import DailyReward from './views/DailyReward';
 
 import { useLocalStorage } from './utils/hooks';
 import Settings from './views/Settings';
@@ -92,6 +93,11 @@ function App() {
             <Route path="/settings">
               <AuthRequired loggedIn={loggedIn}>
                 <Settings />
+              </AuthRequired>
+            </Route>
+            <Route path="/daily">
+              <AuthRequired loggedIn={loggedIn}>
+                <DailyReward />
               </AuthRequired>
             </Route>
 
