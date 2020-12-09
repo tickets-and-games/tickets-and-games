@@ -6,7 +6,7 @@
 
 ## Table
 - [Google OAuth Signup](#google-oauth-signup)
-- [Setting up Random.org](#setting-up-random.org)
+- [Setting up Random.org](#setting-up-random-api)
 - [Setting up Stripe](#setting-up-stripe)
 - [Installation](#installation)
 - [Running for Development](#running-for-development)
@@ -30,9 +30,9 @@
 12) Back to credentials, create credentials, OAuth Client ID, click web application 
 13) [back to top](#table)
 
-## Setting up Random.org
+## Setting up Random API
 
-1) Sign up by going to https://www.random.org/
+1) Sign up for Random.org by going to https://www.random.org/
 2) You should be directed to the Your Account page
 3) Scroll down and find API Services and click on the `Use this Service` button
 4) Click on the `Create a New API Key` button
