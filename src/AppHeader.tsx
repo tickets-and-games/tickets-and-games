@@ -97,7 +97,7 @@ function AppHeader(props: Props) {
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Tickets & Games
-            <img src="cardslogo.png" alt="cardslogo" className={classes.photo} />
+            <img src="/cardslogo.png" alt="cardslogo" className={classes.photo} />
           </Typography>
           <Button className={classes.button} component={RouterLink} to="/">Home</Button>
           <Button className={classes.button} component={RouterLink} to="/leaderboard">Leaderboard</Button>

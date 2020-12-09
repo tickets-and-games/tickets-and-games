@@ -21,7 +21,7 @@ def get_profile_view(user_id):
             total_tickets = get_user_balance(user.id)
             profile_url = user.image_url
             if profile_url is None:
-                profile_url = "profile.png"
+                profile_url = "/profile.png"
             text_color = get_current_color(user.id)
             return {
                 "name": user.name,
