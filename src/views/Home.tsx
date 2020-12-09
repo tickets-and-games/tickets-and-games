@@ -211,7 +211,7 @@ export default function Home() {
         <Typography variant="h6">
           For this wonderous project we have incoroporated the following
           technologies: React, Flask, Postgresql, HTML, and CSS. In addition
-          we have used the following APIs: Random.org and Stripe.
+          we have used the following APIs: Random.org, Stripe & Google Oauth.
         </Typography>
 
       </Paper>
