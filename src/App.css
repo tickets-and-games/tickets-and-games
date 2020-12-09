@@ -1,5 +1,11 @@
+@import url('//fonts.googleapis.com/css2?family=Kaushan+Script&family=Pathway+Gothic+One&display=swap');
+
 .App {
   text-align: center;
+}
+
+body{
+  margin: 0;
 }
 
 .App-logo {
@@ -15,8 +21,6 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -35,4 +39,237 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.MuiAppBar-root{
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  /*background-color: #f0e68c!important;*/
+  background-color: #0d0d0d!important;
+  bottom: auto!important;
+}
+
+.makeStyles-title-3{
+  font-family: 'Kaushan Script', cursive !important;
+  font-size: 22px;
+  margin-left: 20px!important;
+  display: flex;
+  align-items: center;
+  color: #f0e68c!important;
+}
+
+
+
+#box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  height: 200px;
+  color: black;
+  font-family: 'Raleway';
+  font-size: 2.5rem;
+}
+.gradient-border-home {
+  --borderWidth: 2px;
+  background: #1D1F20;
+  position: relative;
+  border-radius: var(--borderWidth);
+  flex-grow: 1;
+  color: white;
+  background-color: black;
+  flex-wrap: 'wrap';
+}
+.gradient-border-home:after {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  height: calc(100% + var(--borderWidth) * 2);
+  width: calc(100% + var(--borderWidth) * 2);
+  background: linear-gradient(60deg, #fff601, #ffffff);
+  border-radius: calc(2 * var(--borderWidth));
+  z-index: -1;
+  animation: animatedgradient 3s ease alternate infinite;
+  background-size: 300% 300%;
+}
+
+
+@keyframes animatedgradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+.blackjack{
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-top: 100px;
+}
+.blackjack h3{
+  font-family: 'Kaushan Script', cursive;
+  color: #F0E68C;
+  font-size: 30px;
+}
+.blackjack .rule-box{
+  text-align: left;
+  padding: 20px;
+  background: #0d0d0d40;
+  margin-top: 30px;
+}
+.blackjack .rule-box h4{
+  font-family: 'Kaushan Script', cursive;
+  color: white;
+  margin-bottom: 10px;
+}
+.blackjack .rule-box p{
+  font-family: 'Pathway Gothic One', sans-serif;
+  color: white;
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 22px;
+  letter-spacing: 0.3px;
+}
+.blackjack input{
+  margin-top: 20px;
+}
+
+.blackjack h6{
+  margin-top: 15px;
+  font-family: 'Pathway Gothic One', sans-serif;
+  color: #f76600;
+}
+
+.blackjack .blackjack-play{
+  margin-top: 20px;
+  background: #595530;
+  padding: 8px 50px;
+  border-radius: 30px;
+  margin-bottom: 20px;
+}
+.blackjack .blackjack-play:hover{
+  background: #343019;
+}
+
+.Coinflip {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.coinflipgif {
+  height: 200px;
+}
+
+.Coinflip h3{
+  font-family: 'Kaushan Script', cursive;
+  color: #F0E68C;
+}
+
+.Coinflip h5, .Coinflip h6{
+  font-family: 'Pathway Gothic One', sans-serif;
+}
+
+.Coinflip h6{
+  color: #aa9549;
+  line-height: 1.0;
+  margin-bottom: 10px;
+}
+
+.Coinflip p{
+  font-family: 'Pathway Gothic One', sans-serif;
+  color: #ffc6c1;
+}
+
+.golden{
+  color: #F0E68C;
+  font-size: 30px;
+}
+
+header .MuiButton-label{
+  font-family: 'Pathway Gothic One', sans-serif!important;
+  font-size: 15px!important;
+  color: #f0e68c!important;
+}
+
+.MuiButton-label{
+  font-family: 'Pathway Gothic One', sans-serif!important;
+}
+
+
+.Dice{
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Dice h3{
+  font-family: 'Kaushan Script', cursive;
+  color: #F0E68C;
+}
+.Dice h5, .Dice h6{
+  font-family: 'Pathway Gothic One', sans-serif;
+  line-height: 1.1;
+}
+
+.Dice h6{
+  color: #aa9549;
+  line-height: 1.0;
+  margin-bottom: 10px;
+}
+
+.Dice p{
+  font-family: 'Pathway Gothic One', sans-serif;
+  color: #ffc6c1;
+}
+
+.dicegif{
+  height: 200px;
+}
+
+.Skiball{
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.Skiball h3{
+  font-family: 'Kaushan Script', cursive;
+  color: #F0E68C;
+}
+.Skiball h5, .Skiball h6{
+  font-family: 'Pathway Gothic One', sans-serif;
+  color: white;
+}
+.Skiball h6{
+  color: #aa9549;
+  line-height: 1.0;
+  margin-bottom: 10px;
+}
+.Skiball p{
+  font-family: 'Pathway Gothic One', sans-serif;
+  color: #ffc6c1;
+}
+
+
+.Skiball button.MuiButtonBase-root{
+  background: #595530;
+  padding: 6px 30px;
+  border-radius: 30px;
 }
