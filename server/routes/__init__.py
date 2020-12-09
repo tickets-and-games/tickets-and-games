@@ -11,6 +11,8 @@ from server.routes.skiball import skiball_bp
 from server.routes.store import store_bp
 from server.routes.purchase import purchase_bp
 from server.routes.settings import settings_bp
+from server.routes.reward import reward_bp
+
 
 main_bp = Blueprint(
     "main_bp",

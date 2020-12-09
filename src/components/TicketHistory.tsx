@@ -70,7 +70,7 @@ function TicketHistory() {
             <TableBody>
               {tHistory ? tHistory.map((row) => (
                 <TableRow className={classes.tableRow} hover>
-                  <TableCell><TimeDisplay time={row.datetime} /></TableCell>
+                  <TableCell><TimeDisplay time={row.datetime} past /></TableCell>
                   <TableCell>{row.activity}</TableCell>
                   <TableCell>{row.amount}</TableCell>
                 </TableRow>

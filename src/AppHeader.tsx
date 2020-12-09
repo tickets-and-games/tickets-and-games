@@ -102,6 +102,7 @@ function AppHeader(props: Props) {
           <Button className={classes.button} component={RouterLink} to="/">Home</Button>
           <Button className={classes.button} component={RouterLink} to="/leaderboard">Leaderboard</Button>
           <Button className={classes.button} component={RouterLink} to="/store">Store</Button>
+          <Button className={classes.button} component={RouterLink} to="/daily">Daily Reward</Button>
           <div>
             <ClickAwayListener onClickAway={handleClose2}>
               <Button aria-controls="simple-menu" aria-haspopup="true" className={classes.button} onClick={handleClick}>

@@ -49,7 +49,7 @@ function ProfileData(props: Props) {
       <div className="profile-data">
         User Since:&nbsp;
         {profile.registration_datetime
-          ? <TimeDisplay time={profile.registration_datetime} /> : null}
+          ? <TimeDisplay time={profile.registration_datetime} past /> : null}
       </div>
       <div className="profile-total-tickets">
         Total Tickets:&nbsp;
