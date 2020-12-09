@@ -4,8 +4,6 @@ import {
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
-import { useStyles } from '../styles';
-
 import { MessageActions, ADD_MESSAGE } from '../actions/messageActions';
 
 import Colors from '../components/Colors';
@@ -31,7 +29,6 @@ export default function Settings() {
     change_username: false,
     change_profile_pic: false,
   });
-  const classes = useStyles();
   const messagesDispatch = useDispatch<Dispatch<MessageActions>>();
 
   useEffect(() => {
@@ -78,8 +75,8 @@ export default function Settings() {
   };
 
   return (
-    <div className="gradient-border" style={{ background: '#310000', color: 'white' }}>
-      <Paper className={classes.root}>
+    <div>
+      <Paper className="gradient-border" style={{ background: '#310000', color: 'white' }}>
         <Typography variant="h4">Settings</Typography>
         <FormControlLabel
           control={(

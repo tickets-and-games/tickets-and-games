@@ -125,7 +125,7 @@ function TicketPurchase() {
         );
       case 1:
         return (
-          <Box style={{ width: '50%' }}>
+          <Box style={{ width: '50%', margin: 'auto', textAlign: 'center' }}>
             <form className={classes.form}>
               <CardElement
                 options={{
