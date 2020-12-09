@@ -104,7 +104,7 @@ export default function Home() {
         <Paper
           className={classes.paper}
           style={{
-            position: 'relative', bottom: '3vh', textAlign: 'left',
+            position: 'relative', bottom: '3vh', textAlign: 'left', padding: '20px',
           }}
           elevation={3}
         >
@@ -154,7 +154,7 @@ export default function Home() {
       <Paper
         className={classes.paper}
         style={{
-          position: 'relative', top: '10vh', textAlign: 'right', display: 'flex', justifyContent: 'space-between',
+          position: 'relative', top: '10vh', textAlign: 'right', display: 'flex', justifyContent: 'space-between', padding: '20px',
         }}
       >
         <img src="friends.gif" alt="casino" style={{ height: '18%', width: '22%' }} />
@@ -167,6 +167,51 @@ export default function Home() {
           with your friends. You can then work your way through the leaderboards and
           customize your profile to your liking.
           Click on the above photos to navigate through the site to see all that we have to offer!
+        </Typography>
+
+      </Paper>
+      <br />
+      <br />
+      <br />
+      <Paper
+        className={classes.paper}
+        style={{
+          position: 'relative', top: '10vh', textAlign: 'center', padding: '20px',
+        }}
+      >
+        <Typography variant="h4" className="h1">
+          About Us
+        </Typography>
+        <br />
+        <Typography variant="h6">
+          We are a lot of 4th year CS majors from NJIT, with ambitions like these to create even
+          more PC games (not that we play enough). This keeps us busy and engaged as we develop,
+          but also as we play our works of art (our definition might differ from
+          yours *cough cough*). The opportunity to learn more about our trade
+          through such projects and see/interact with our
+          outcome is a gratifying experience for all of us. We hope to bring these newfound skills
+          and apply them to our work going forward!
+        </Typography>
+
+      </Paper>
+
+      <br />
+      <br />
+      <br />
+      <Paper
+        className={classes.paper}
+        style={{
+          position: 'relative', top: '10vh', textAlign: 'center', padding: '20px',
+        }}
+      >
+        <Typography variant="h4" className="h1">
+          Technologies
+        </Typography>
+        <br />
+        <Typography variant="h6">
+          For this wonderous project we have incoroporated the following
+          technologies: React, Flask, Postgresql, HTML, and CSS. In addition
+          we have used the following APIs: Random.org, Stripe & Google Oauth.
         </Typography>
 
       </Paper>
