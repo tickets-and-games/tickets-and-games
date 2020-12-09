@@ -65,6 +65,11 @@ function App() {
                 <Coinflip />
               </AuthRequired>
             </Route>
+            <Route path="/dice">
+              <AuthRequired loggedIn={loggedIn}>
+                <Dice />
+              </AuthRequired>
+            </Route>
             <Route path="/skiball">
               <AuthRequired loggedIn={loggedIn}>
                 <Skiball />
@@ -83,6 +88,11 @@ function App() {
             <Route path="/purchase">
               <AuthRequired loggedIn={loggedIn}>
                 <TicketPurchase />
+              </AuthRequired>
+            </Route>
+            <Route path="/settings">
+              <AuthRequired loggedIn={loggedIn}>
+                <Settings />
               </AuthRequired>
             </Route>
 
