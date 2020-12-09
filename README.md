@@ -128,7 +128,10 @@ The server will automatically serve the client files from the build directory.
 
 * Samir Peshori 
   * Responsible for creating front/backend & unit tests for Leaderboard & Coinflip Game
+  * Responsible for implementation of Skiball
+  * Responsible for creating Homepage
   * Added Material UI to components to style
+  * Responsible for completing all styling for sprint 2
 * Mohammad Khan 
   * Google OAuth
   * Cirle Ci, Heroku, README
