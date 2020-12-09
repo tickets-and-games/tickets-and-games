@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     bottom: '50px',
   },
   paper: {
-    background: '#570000',
+    background: 'rgb(49, 0, 0)',
     color: 'white',
     width: '100%',
   },
